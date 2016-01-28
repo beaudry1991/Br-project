@@ -12,7 +12,7 @@ namespace BRANA_FG.Models
     public class LaboratoireEchantillonsController : Controller
     {
         private BddContext db = new BddContext();
-
+        public FonctionRequete Fonct = new FonctionRequete();
         // GET: LaboratoireEchantillons
         public ActionResult Index()
         {
@@ -63,8 +63,8 @@ namespace BRANA_FG.Models
         // GET: LaboratoireEchantillons/Create
         public ActionResult Create()
         {
-            ViewBag.superviseur = new SelectList(db.Utilisateurs, "id", "nom");
-            ViewBag.produit = new SelectList(db.Produits, "id", "nom");
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizePro = Fonct.listproduit().Count();
             if (Session.Keys.Count == 0)
             {
                 //    /*No connection*/
@@ -95,6 +95,10 @@ namespace BRANA_FG.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,nom_recepteur,id_produit,qtite_donnee,qtite_retour")] LaboratoireEchantillon laboratoireEchantillon)
         {
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizePro = Fonct.listproduit().Count();
+
+
             if (Session["iddataclock"] == null)
             {
                 Session["iddataclock"] = Session["IdUser"];
