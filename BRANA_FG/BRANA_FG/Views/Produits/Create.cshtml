@@ -35,7 +35,7 @@
                     @for (var a = 0; a < (int)ViewBag.sizeEmballage; a++)
                     {
                            var id = ViewBag.emballage[a].id;
-                           <option value="@id" selected>@ViewBag.emballage[a].nom.ToString()</option>
+                           <option value="@id">@ViewBag.emballage[a].nom.ToString()</option>
                   }
                 </select>
             </div>
@@ -57,7 +57,7 @@
                     @for (var a = 0; a < (int)ViewBag.sizeCategorie; a++)
                     {
                         var id = ViewBag.categorie[a].id;
-                        <option value="@id" selected>@ViewBag.categorie[a].nom.ToString()</option>
+                        <option value="@id" >@ViewBag.categorie[a].nom.ToString()</option>
                     }
                 </select>
             </div>
