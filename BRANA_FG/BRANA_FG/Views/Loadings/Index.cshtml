@@ -1,0 +1,342 @@
+﻿@model IEnumerable<BRANA_FG.Models.Loading>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+
+<div class="tab-content">
+    <div id="table" class="tab-pane fade in active">
+        <div class="x_panel">
+            <div class="x_title">
+
+                <div class="form-group col-md-10 col-sm-4 col-xs-6">
+                    <input autocomplete='off' class='filter form-control' name='Chauffeur' placeholder='Chauffeur' data-col='Chauffeur' />
+                    <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
+                    <input autocomplete='off' class='filter form-control' name='sp' placeholder='Num. SP' data-col='Num. SP' />
+                    <input autocomplete='off' class='filter form-control' name='num_emb' placeholder='Num. emb' data-col='Num. emb' />
+                </div>
+                <!-- <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                <input type="text" id="sku" name="daterange" value="" placeholder="Sku" class="form-control" />
+                 </div>  -->
+                <!-- <button class="btn btn-danger ">Search for listing</button> -->
+
+               
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+
+                <table id="example" class="table table-striped responsive-utilities jambo_table">
+                    <thead>
+                        <tr class="headings">
+                            <th>Date</th>
+                            <th>Chauffeur</th>
+                            <th>Depot</th>
+                            <th>Vehicule</th>
+                            <th>Num. SP</th>
+                            <th>Num. emb</th>
+                            <th>superviseur</th>
+                            <th>Nbre palette</th>
+                            <th>Duree</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="even pointer">
+
+                                <td>@Html.DisplayFor(modelItem => item.date_loading)</td>
+                                <td>@Html.DisplayFor(modelItem => item.id_chauffeur)</td>
+                                <td>@Html.DisplayFor(modelItem => item.id_depot)</td>
+                                <td>@Html.DisplayFor(modelItem => item.id_vehicule)</td>
+                                <td class="alert alert-success ">@Html.DisplayFor(modelItem => item.numero_sp)</td>
+                                <td class="alert alert-info ">@Html.DisplayFor(modelItem => item.numero_emb)</td>
+                                <td>@Html.DisplayFor(modelItem => item.id_superviseur)</td>
+                                <td>@Html.DisplayFor(modelItem => item.nbre_palette)</td>
+                                <td>00:30:12</td>
+
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                                    @Html.ActionLink("More", "More", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+            </div>
+        </div>
+    </div>
+            <br /><br /><br />
+<div class="row">
+    <div class="col-md-6 col-sm-4 col-xs-8">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Chargement / jour</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div id="graph_bar_group" style="width:100%; "></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Chargement / departement</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div id="echart_pie2" style="height:400px;"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+            <script type="text/javascript">
+
+
+    $(function () {
+      //  $('input[name="daterange"]').daterangepicker();
+
+
+
+
+        var day_data = [];
+
+        insert("2015-09-08", 56);
+        insert("2015-09-10", 72);
+        insert("2015-09-11", 30);
+        insert("2015-09-12", 25);
+        insert("2015-09-10", 92);
+        insert("2015-09-11", 144);
+        insert("2015-09-12", 25);
+        insert("2015-09-10", 127);
+        insert("2015-09-11", 30);
+        insert("2015-09-12", 37);
+
+
+
+        Morris.Bar({
+            element: 'graph_bar_group',
+            data: day_data,
+            xkey: 'produit',
+            barColors: ['#3498DB'],
+            ykeys: ['montant'],
+            labels: ['Nombre de caisse', 'SORN'],
+            hideHover: 'auto',
+            xLabelAngle: 60
+        });
+
+        function insert(name, number) {
+            day_data.push({
+                produit: name,
+                montant: number
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var data_depart = [];
+
+        insert_depart('Artibonite', 10);
+
+        insert_depart('Centre', 15);
+
+        insert_depart('Grand\'Anse', 20);
+
+        insert_depart('Nippes', 25);
+
+        insert_depart('Nord', 30);
+
+        insert_depart('Nord-Est', 10);
+
+        insert_depart('Nord-Ouest', 10);
+
+        insert_depart('Ouest', 25);
+
+        insert_depart('Sud', 10);
+
+        insert_depart('Sud-Est', 10);
+
+
+
+
+
+
+        var myChart = echarts.init(document.getElementById('echart_pie2'), theme);
+        myChart.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                x: 'center',
+                y: 'bottom',
+                data: ['Artibonite', 'Centre', 'Grand\'Anse', 'Nippes', 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: 'Area Mode',
+                    type: 'pie',
+                    radius: [25, 90],
+                    center: ['50%', 170],
+                    roseType: 'area',
+                    x: '50%', // for funnel
+                    max: 40, // for funnel
+                    sort: 'ascending', // for funnel
+                    data: data_depart
+                }
+            ]
+        });/**/
+        function insert_depart(nam, number) {
+            data_depart.push({
+                name: nam,
+                value: number
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////////
+
+        //var day_data2 = [
+        //      { "period": "2012-10-01", "licensed": 807, "sorned": 660 },
+        //      { "period": "2012-09-30", "licensed": 1251, "sorned": 729 },
+        //      { "period": "2012-09-29", "licensed": 1769, "sorned": 1018 },
+        //      { "period": "2012-09-20", "licensed": 2246, "sorned": 1461 },
+        //      { "period": "2012-09-19", "licensed": 2657, "sorned": 1967 },
+        //      { "period": "2012-09-18", "licensed": 3148, "sorned": 2627 },
+        //      { "period": "2012-09-17", "licensed": 3471, "sorned": 3740 },
+        //      { "period": "2012-09-16", "licensed": 2871, "sorned": 2216 },
+        //      { "period": "2012-09-15", "licensed": 2401, "sorned": 1656 },
+        //      { "period": "2012-09-10", "licensed": 2115, "sorned": 1022 }
+        //];
+        //Morris.Bar({
+        //    element: 'graph',
+        //    data: day_data2,
+        //    xkey: 'period',
+        //    barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        //    ykeys: ['licensed', 'sorned'],
+        //    labels: ['Licensed', 'SORN'],
+        //    hideHover: 'auto',
+        //    xLabelAngle: 60
+        //});
+
+
+
+
+        //function insert2(nam, num) {
+        //    day_data2.push({
+        //        dep: nam,
+        //        nb: num
+        //    });
+        //}
+
+        //////////////////////////////////////////////////
+    });
+
+            </script>
+    <!-- echart -->
+<script src="~/Content/dist/js/echart/echarts-all.js"></script>
+<script src="~/Content/dist/js/echart/green.js"></script>

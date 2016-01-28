@@ -1,0 +1,178 @@
+﻿@model BRANA_FG.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    if (@ViewBag.error != null)
+    {
+        <div class=" alert alert-danger">
+            @ViewBag.error
+        </div>
+    }
+
+    <div class="form-horizontal">
+        <h4>Utilisateur</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.nom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prenom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.prenom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.prenom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.mail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.mail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.adresse, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.adresse, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.adresse, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fonction, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.fonction, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fonction, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="fonction" id="fonction">
+
+                    <option value="super_FG">Superviseur FG</option>
+                    <option value="data_FG">Data Clerck FG</option>
+                    <option value="admin_FG">ADMIN FG</option>
+                    <option value="audit_FG">Audit</option>
+
+                </select>
+            </div>
+        </div>
+
+
+            @*@{
+                var fonction = new SelectList(new[]
+                                    {
+                            new SelectListItem { Text = "Select one", Value = "Select one", Selected = true },
+                            new SelectListItem { Text = "Superviseur FG", Value = "super_FG"},
+                            new SelectListItem { Text = "Data Clerck FG", Value = "data_FG"},
+                            new SelectListItem { Text = "ADMIN FG", Value = "admin_FG"},
+                            new SelectListItem { Text = "Audit", Value = "audit_FG"},
+
+                        }, "Value", "Text");
+            }
+            @Html.DropDownList("fonction", fonction)*@
+
+
+        @*</div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.shift, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.shift, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.shift, "", new { @class = "text-danger" })*@
+            </div>
+
+
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="shift" id="shift">
+
+                    
+                    <option value="Matin">Matin</option>
+                    <option value="Median">Median</option>
+                    <option value="Soir">Soir</option>
+                    <option value=" ">Libre</option>
+
+                </select>
+            </div>
+            @*@{
+                var shift = new SelectList(new[]
+                                    {
+                            new SelectListItem { Text = "Select one ", Value = "Select one", Selected = true },
+                            new SelectListItem { Text = "Matin   ", Value = "Matin", Selected = false },
+                            new SelectListItem { Text = "Median  ", Value = "Median"},
+                            new SelectListItem { Text = "Soir    ", Value = "Soir"},
+                        }, "Value", "Text");
+            }
+            @Html.DropDownList("shift", shift)*@
+
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.depot, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.DropDownList("depot", (SelectList)ViewBag.depot, "Select One", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.depot, "", new { @class = "text-danger" })
+            </div>*@
+
+            <div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="depot" id="depot">
+
+                    @for (var a = 0; a < (int)ViewBag.sizeDP; a++)
+                    {
+
+                        var id = ViewBag.listdep[a].id;
+                        var nom = ViewBag.listdep[a].nom.ToString();
+                        if (ViewBag.tmpdepot == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                            
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+
+
+                        }
+                        
+                    }
+                    <option value=" ">Libre</option>
+
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

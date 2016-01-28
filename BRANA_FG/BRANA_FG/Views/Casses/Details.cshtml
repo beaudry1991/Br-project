@@ -1,0 +1,90 @@
+﻿@model BRANA_FG.Models.Casse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Casse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_superviseur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_casse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_casse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_produit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_data_clock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_data_clock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_casse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_casse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motif)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motif)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_bout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_bout)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

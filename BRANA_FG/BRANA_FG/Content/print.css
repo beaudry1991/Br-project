@@ -1,0 +1,51 @@
+﻿/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 sept. 2015, 13:47:18
+    Author     : Mitchel
+*/
+
+#form-box1
+{
+    margin-left: 100px;
+    margin-top: 20px;
+}
+#impression
+{
+    display: none;
+}
+ header
+ {
+     display: none; 
+ }
+ #signature
+  {
+      width: 120px;
+      border: solid 1px black;
+      margin-bottom: 1px;
+      margin-right: 710px;
+      display: yes; 
+  }
+  #signature1
+  {
+      width: 120px;
+      //border: solid 1px black;
+      margin-bottom: 1px;
+      margin-right: 710px;
+      display: yes; 
+  }
+  
+  
+  #print
+  {
+      margin-top: -20px
+  }
+  #commentaire
+ {
+    text-decoration: none;
+    border-color:#ffffff;
+ }
+ 

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Connexion</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/content/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="~/content/styles.css" rel="stylesheet">
+
+</head>
+<body>
+    <!--<div>-->
+    <!--login modal-->
+
+    <div class="modal-dialog">
+        <div class="modal-content" id="log">
+            @if (ViewBag.message != null)
+                {
+                    <div class="alert alert-danger" style="text-align:center">@ViewBag.message</div>
+                }
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="false">×</button>
+                <h1 class="text-center">Connectez-vous sur FEMS</h1>
+            </div>
+
+            <img src="~/Content/image/BRANA.jpg" width="160px" height="160px /">
+            <div class="modal-body">
+                @using (Html.BeginForm("Index", "Logins", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Email" required name="mail" class="icon-bar glyphicon-plus-sign">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-lg" placeholder="Password" required name="password">
+                    </div>
+                    <div class="form-group" id='btn'>
+                        <button class="btn btn-primary btn-lg btn-block">Connectez-vous</button>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="pull-right" id="pied1">&copy; @DateTime.Now.Year - BRANA S.A D&eacute;partement Ware House/FinishGood</p>
+    </footer>
+
+
+
+    <!-- script references -->
+    <!--        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <!--</div>-->
+</body>
+</html>

@@ -1,0 +1,309 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title - BRANA S.A D&eacute;partement Ware House/Empty's</title>
+    <!-- Bootstrap Core CSS -->
+
+    <link href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- MetisMenu CSS -->
+
+    <link href="~/Content/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+
+    <link href="~/Content/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- DataTables CSS -->
+    <link href="~/Content/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="~/Content/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a class="navbar-brand" href="#">Stock Empty's Management System</a>*@
+                @Html.ActionLink("Stock Empty's Management System(SEMS)", "Index","DepotReports",htmlAttributes: new {@class = "navbar-brand" } )
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+
+                @*<!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/ModifyPassowrd"><i class="fa fa-edit fa-fw"></i> Modifier mot de passe</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="~/Home/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>*@
+
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/ModifyPassowrd"><i class="fa fa-edit fa-fw"></i> Modifier mot de passe</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="~/Home/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                           @using(Html.BeginForm("findDate", "DepotReports",FormMethod.Post))
+                            {  @Html.AntiForgeryToken()
+                            <div class="input-group custom-search-form">
+                                <input type="date" class="form-control" required name="date" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                           }
+                            <!-- /input-group -->
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-institution fa-fw"></i>Entrepot<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    <a href="~/DepotReports/Index"> Stock Debut</a>
+                                </li>
+                                <li>
+                                    @*<a href="#"> Casse de Bouteilles</a>*@
+                                   
+                                    @Html.ActionLink("Casse de Bouteilles", "Create", "Casses")
+                                </li>
+                                <li>
+                                    <a href="#">Transfer<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                   
+                                        <li>
+                                            @*<a href="#"> Transfer Emballages</a>*@
+                                            @Html.ActionLink("Transfer Bouteilles", "Create", "Transfers")
+                                        </li>
+                                        <li>
+                                            @*<a href="#"> Transfer Emballages</a>*@
+                                            @Html.ActionLink("Transfer Caisses", "Create", "Transfers2")
+                                        </li>
+                                        <li>
+                                            @*<a href="#"> Transfer Emballages</a>*@
+                                            @Html.ActionLink("Reception transfer", "receptionTrans", "Transfers")
+                                        </li>
+                               
+                                </ul>
+                            </li>
+                                <li>
+                                    <a href="#"> Livraison Palettes</a>
+                                </li>
+                                <li>
+                                    <a href="#"> Retour Palettes</a>
+                                </li>
+                                <li>
+                                    @*<a href="#"> Mise en Caisse</a>*@
+                                    @Html.ActionLink("Mise en Caisse","Create","MiseEnCaisses")
+                                </li>
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-recycle fa-fw"></i>Recyclage<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    @*<a href="#"> Recyclage Bouteilles</a>*@
+                                    @Html.ActionLink("Recyclage Bouteilles","Create","RecyclageBouts")
+                                </li>
+                                <li>
+                                    @*<a href="#"> Recyclage Caisses/Palettes</a>*@
+                                    @Html.ActionLink("Recyclage Caisses/Palettes","Create","RecyclageCaisses")
+                                </li>
+
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i>Reception Emballage<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    @*<a href="#"> Bouteilles</a>*@
+                                    @Html.ActionLink("Bouteilles","Create","InjectionBouts")
+                                </li>
+                                <li>
+                                    @*<a href="#"> Caisses/Palettes</a>*@
+                                    @Html.ActionLink("Caisses/Palettes","Create","InjectionCaisses")
+                                </li>
+
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i>Alimentation<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    @*<a href="#"> Entree Production</a>*@
+                                    @Html.ActionLink("Entree Production","create","EntreeProductions")
+                                </li>
+                                <li>
+                                    @*<a href="#"> Retour Production</a>*@
+                                    @Html.ActionLink("Retour Production", "Create", "RetourProductions")
+                                </li>
+
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Rapport Shift<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    
+                                       <a href="~/StockFinreels/Create"> Rapport</a>
+                                    
+                                </li>
+                               
+
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - BRANA S.A D&eacute;partement Ware House/Empty's</p>
+                    </footer>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+
+    <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <!-- Metis Menu Plugin JavaScript -->
+
+    <script src="~/Content/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="~/Content/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+  
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTables-example2').DataTable({
+                responsive: true
+        });
+    });
+        </script>
+</body>
+
+</html>
+

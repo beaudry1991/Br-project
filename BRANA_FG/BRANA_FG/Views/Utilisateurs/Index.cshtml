@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BRANA_FG.Models.Utilisateur>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fonction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shift)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.depot)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fonction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shift)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.depot)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

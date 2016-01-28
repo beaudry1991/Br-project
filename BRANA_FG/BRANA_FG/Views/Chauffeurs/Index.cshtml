@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BRANA_FG.Models.Chauffeur>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aide1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aide2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noPermis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateEmission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateExpire)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.photo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.aide1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.aide2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noPermis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateEmission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateExpire)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

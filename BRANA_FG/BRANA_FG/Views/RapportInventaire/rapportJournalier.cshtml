@@ -1,0 +1,352 @@
+﻿
+@{
+    ViewBag.Title = "rapportJournalier";
+}
+
+<h2>rapportJournalier</h2>
+
+
+
+
+
+<div id="day" class="tab-pane fade in active">
+    <!-- <h3> Per day</h3> -->
+
+    @ViewBag.tota
+    <div class="tab-content">
+        <div id="table" class="tab-pane fade in active">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="col-md-12 col-md-offset-2">
+                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
+
+                            <input type="date" name="daterange" value="" placeholder="01/01/2015" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
+
+                            <input type="date" name="daterange" value="" class="form-control" placeholder="01/31/2015" />
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 col-xs-6">
+                            <button class="btn btn-danger col-md-3 ">Recherche</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-4 col-xs-6">
+                        <input autocomplete='off' class='filter form-control' name='Shift' placeholder='Shift' data-col='Shift' />
+                        <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
+
+                        <input autocomplete='off' class='filter form-control' name='sku' placeholder='sku' data-col='Sku' />
+                        <input autocomplete='off' class='filter form-control' name='superviseur' placeholder='Superviseur' data-col='superviseur' />
+                    </div>
+                    <!-- <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    <input type="text" id="sku" name="daterange" value="" placeholder="Sku" class="form-control" />
+                     </div>  -->
+                    <!-- <button class="btn btn-danger ">Search for listing</button> -->
+
+                   
+                    <div class="clearfix"></div>
+                </div>
+
+
+                <div class="row">
+                    <table id="example" class="table table-striped responsive-utilities jambo_table target">
+                        <thead>
+                            <tr class="headings">
+                                <th>Date</th>
+                                <th>Shift</th>
+                                <th>sku</th>
+                                <th>Open. stk Ph.</th>
+                                <th>Open. stk Th.</th>
+                                <th>Loading</th>
+                                <th>Unloading</th>
+                                <th>Transfer</th>
+                                <th>Broken</th>
+                                <th>Loss</th>
+                                <th>Short fill</th>
+                                <th>Clos. stk Ph.</th>
+                                <th>Clos. stk Th.</th>
+
+                                <th>Variance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @for (var a = 0; a < (int)ViewBag.rapp_jour_count; a++)
+                           {
+
+                               var date = ViewBag.rapp_journalier[a].date.Date.ToString("dd-MM-yyyy");
+                               var sku = ViewBag.rapp_journalier[a].sku.ToString();
+                               var shift = ViewBag.rapp_journalier[a].shift.ToString();
+
+                               var open_stck_caisse_ph = ViewBag.rapp_journalier[a].open_stck_caisse_ph.ToString();
+                               var open_stck_bout_ph = ViewBag.rapp_journalier[a].open_stck_bout_ph.ToString();
+
+                               var open_stck_caisse_th = ViewBag.rapp_journalier[a].open_stck_caisse_th.ToString();
+                               var open_stck_bout_th = ViewBag.rapp_journalier[a].open_stck_bout_th.ToString();
+
+                               var tot_caiss_tran = ViewBag.rapp_journalier[a].transf_caisse.ToString();
+                               var tot_bout_tran = ViewBag.rapp_journalier[a].transf_bout.ToString();
+
+                               var tot_caiss_load = ViewBag.rapp_journalier[a].load_caisse.ToString();
+                               var tot_bout_load = ViewBag.rapp_journalier[a].load_bout.ToString();
+
+                               var tot_caiss_unload = ViewBag.rapp_journalier[a].unload_caisse.ToString();
+                               var tot_bout_unload = ViewBag.rapp_journalier[a].unload_bout.ToString();
+
+                               var casse = ViewBag.rapp_journalier[a].casse.ToString();
+                               var perte = ViewBag.rapp_journalier[a].perte.ToString();
+                               var shortf = ViewBag.rapp_journalier[a].shortf.ToString();
+                               var bouteille1 = ViewBag.rapp_journalier[a].bouteille1.ToString();
+                               var bouteille2 = ViewBag.rapp_journalier[a].bouteille2.ToString();
+                               var bouteille3 = ViewBag.rapp_journalier[a].bouteille3.ToString();
+
+                               var clo_stck_caisse_ph = ViewBag.rapp_journalier[a].clo_stck_caisse_ph;
+                               var clo_stck_bout_ph = ViewBag.rapp_journalier[a].clo_stck_bout_ph;
+
+                               var clo_stck_caisse_th = ViewBag.rapp_journalier[a].clo_stck_caisse_th;
+                               var clo_stck_bout_th = ViewBag.rapp_journalier[a].clo_stck_bout_th;
+
+                               var variance = 0;
+                            <tr class="even pointer">
+                                @if (shift == "Soir") {
+                                <td class="btn-primary">@date</td>
+                                <td class="btn-primary">@shift</td>
+                                <td class="btn-primary">@sku</td>
+                                }else if (shift == "Median")
+                                {
+
+                                <td class="btn-danger">@date</td>
+                                <td class="btn-danger">@shift</td>
+                                <td class="btn-danger">@sku</td>
+                                }
+                                else
+                                {
+                                    <td class="btn-warning">@date</td>
+                                    <td class="btn-warning">@shift</td>
+                                    <td class="btn-warning">@sku</td>
+                                }
+                                <td class=" ">@open_stck_caisse_ph @open_stck_bout_ph/24</td>
+                                <td class=" ">@open_stck_caisse_th @open_stck_bout_th/24</td>
+                                <td>@tot_caiss_load @tot_bout_load/24</td>
+                                <td>@tot_caiss_unload @tot_bout_unload/24</td>
+                                <td>@tot_caiss_tran @tot_bout_tran/24</td>
+                                <td>@casse @bouteille1</td>
+                                <td>@perte @bouteille2</td>
+                                <td>@shortf @bouteille3</td>
+                                <td>@clo_stck_caisse_ph @clo_stck_bout_ph/24</td>
+                                <td class=" ">@clo_stck_caisse_th @clo_stck_bout_th/24</td>
+
+                                <td>@variance</td>
+                            </tr>
+
+                           }
+                            
+                            @*<tr class="even pointer">
+                                <td class="btn-primary">12-12-2015</td>
+                                <td class="btn-primary">Matin</td>
+                                <td class="btn-success">Kinanm</td>
+                                <td class=" ">25560</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>183743</td>
+
+                                <td>-6</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-primary">12-12-2015</td>
+                                <td class="btn-primary">Matin</td>
+                                <td class="btn-success">Malta</td>
+                                <td class=" ">87100</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>10485</td>
+
+                                <td>-4</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-primary">12-12-2015</td>
+                                <td class="btn-primary">Matin</td>
+                                <td class="btn-success">7up</td>
+                                <td class=" ">2080</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>9263</td>
+
+                                <td>-2</td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td class="btn-defaut">Charles Jean Wilson</td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-danger">12-12-2015 </td>
+                                <td class="btn-danger">Median</td>
+                                <td class="btn-success">Prestige</td>
+                                <td class=" ">42000</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>29183</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-danger">12-12-2015</td>
+                                <td class="btn-danger">Median</td>
+                                <td class="btn-success">Kinanm</td>
+                                <td class=" ">25560</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>183743</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-danger">12-12-2015</td>
+                                <td class="btn-danger">Median</td>
+                                <td class="btn-success">Malta</td>
+                                <td class=" ">87100</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>10485</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-danger">12-12-2015</td>
+                                <td class="btn-danger">Median</td>
+                                <td class="btn-success">7up</td>
+                                <td class=" ">2080</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>9263</td>
+
+                                <td>0</td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="btn-defaut">Paul Antoine</td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                                <td class="btn-defaut"></td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-warning">12-12-2015 </td>
+                                <td class="btn-warning">Soir</td>
+
+                                <td class="btn-success">Prestige</td>
+                                <td class=" ">42000</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>29183</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-warning">12-12-2015</td>
+                                <td class="btn-warning">Soir</td>
+                                <td class="btn-success">Kinanm</td>
+                                <td class=" ">25560</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>183743</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-warning">12-12-2015</td>
+                                <td class="btn-warning">Soir</td>
+                                <td class="btn-success">Malta</td>
+                                <td class=" ">87100</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>10485</td>
+
+                                <td>0</td>
+                            </tr>
+                            <tr class="even pointer">
+                                <td class="btn-warning">12-12-2015</td>
+                                <td class="btn-warning">Soir</td>
+                                <td class="btn-success">7up</td>
+                                <td class=" ">2080</td>
+                                <td>2000</td>
+                                <td>500</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>9263</td>
+
+                                <td>0</td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                    <script type="text/javascript">$("#p").hide();</script>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

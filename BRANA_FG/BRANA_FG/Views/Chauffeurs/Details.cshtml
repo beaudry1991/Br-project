@@ -1,0 +1,114 @@
+﻿@model BRANA_FG.Models.Chauffeur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Chauffeur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aide1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aide1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aide2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aide2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.noPermis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noPermis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateEmission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateEmission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateExpire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateExpire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numveh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numveh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

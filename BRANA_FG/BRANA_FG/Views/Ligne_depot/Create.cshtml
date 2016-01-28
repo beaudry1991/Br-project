@@ -1,0 +1,148 @@
+﻿@model BRANA_FG.Models.Ligne_depot
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Ligne_depot</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_ligne_production, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.EditorFor(model => model.id_ligne_production, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_ligne_production, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="form-group">
+
+                <div class="col-md-3 col-sm-9 col-xs-12">
+                    <select class="select2_single form-control" tabindex="-1" name="id_ligne_production" id="id_ligne_production">
+
+                        @for (var a = 0; a < (int)ViewBag.sizeLP; a++)
+                        {
+
+                            var id = ViewBag.ligneProduction[a].id;
+                            var nom = ViewBag.ligneProduction[a].nom.ToString();
+                            if (ViewBag.tmpLigneP == id)
+                            {
+                                <option value="@id" selected>@nom</option>
+                            }
+                            else
+                            {
+                                <option value="@id">@nom</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_depot, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.EditorFor(model => model.id_depot, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_depot, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="form-group">
+
+                <div class="col-md-3 col-sm-9 col-xs-12">
+                    <select class="select2_single form-control" tabindex="-1" name="id_depot" id="id_depot">
+
+                        @for (var a = 0; a < (int)ViewBag.sizeDP; a++)
+                        {
+
+                            var id = ViewBag.listdep[a].id;
+                            var nom = ViewBag.listdep[a].nom.ToString();
+                            if (ViewBag.tmpdepot == id)
+                            {
+                                <option value="@id" selected>@nom</option>
+                            }
+                            else
+                            {
+                                <option value="@id">@nom</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+      
+
+        
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_data_clock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.id_data_clock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_data_clock, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_produit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.EditorFor(model => model.id_produit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_produit, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="form-group">
+
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    <select class="select2_single form-control" tabindex="-1" name="id_produit" id="id_produit">
+
+                        @for (var a = 0; a < (int)ViewBag.sizePro; a++)
+                        {
+
+                            var id = ViewBag.produitlist[a].id;
+                            var nom = ViewBag.produitlist[a].nom.ToString();
+                            if (ViewBag.tmpPro == id)
+                            {
+                                <option value="@id" selected>@nom</option>
+                            }
+                            else
+                            {
+                                <option value="@id">@nom</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.qtite_caisse, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.qtite_caisse, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.qtite_caisse, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.date_ligne_depot, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.date_ligne_depot, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.date_ligne_depot, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

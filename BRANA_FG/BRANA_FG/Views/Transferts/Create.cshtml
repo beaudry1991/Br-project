@@ -1,0 +1,258 @@
+﻿@model BRANA_FG.Models.Transfert
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Transfert</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+           @* @Html.LabelFor(model => model.id_depot_source, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+         @Html.DropDownList("id_depot_source", (SelectList)ViewBag.depot, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+         @Html.ValidationMessageFor(model => model.id_depot_source, "", new { @class = "text-danger" })
+     </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.num_transfert, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.num_transfert, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.num_transfert, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="id_depot_source" id="id_depot_source">
+
+                    @for (var a = 0; a < (int)ViewBag.sizeDP; a++)
+                    {
+
+                        var id = ViewBag.listdep[a].id;
+                        var nom = ViewBag.listdep[a].nom.ToString();
+                        if (ViewBag.tmpdepot == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+                        }
+                    }
+
+                </select>
+            </div>*@
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_depot_dest, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.DropDownList("id_depot_dest", (SelectList)ViewBag.depot, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_depot_dest, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="id_depot_dest" id="id_depot_dest">
+
+                    @for (var a = 0; a < (int)ViewBag.sizeDP; a++)
+                    {
+
+                        var id = ViewBag.listdep[a].id;
+                        var nom = ViewBag.listdep[a].nom.ToString();
+                        if (ViewBag.tmpdepot == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+
+    
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quantite_palette, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.quantite_palette, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.quantite_palette, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_chauffeur, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.DropDownList("id_chauffeur", (SelectList)ViewBag.chauffeur, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_chauffeur, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="id_chauffeur" id="id_chauffeur">
+
+                    @for (var a = 0; a < (int)ViewBag.sizeC; a++)
+                    {
+
+                        var id = ViewBag.chauffeurlist[a].id;
+                        var nom = ViewBag.chauffeurlist[a].nom.ToString();
+                        if (ViewBag.tmpChauf == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_vehicule, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.DropDownList("id_vehicule", (SelectList)ViewBag.vehicule, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_vehicule, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="id_vehicule" id="id_vehicule">
+
+                    @for (var a = 0; a < (int)ViewBag.sizeV; a++)
+                    {
+
+                        var id = ViewBag.vehiculelist[a].id;
+                        var nom = ViewBag.vehiculelist[a].numeroCamion.ToString();
+                        if (ViewBag.tmpveh == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_superviseur, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @*<div class="col-md-10">
+                @Html.DropDownList("id_superviseur", (SelectList)ViewBag.superviseur, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_superviseur, "", new { @class = "text-danger" })
+            </div>*@
+            @*<div class="col-md-3 col-sm-9 col-xs-12">
+                <select class="select2_single form-control" tabindex="-1" name="id_superviseur" id="id_superviseur">
+
+                    @for (var a = 0; a < (int)ViewBag.size; a++)
+                    {
+
+                        var id = ViewBag.superviseur[a].id;
+                        var nom = ViewBag.superviseur[a].nom.ToString();
+                        if (ViewBag.tmpSup == id)
+                        {
+                            <option value="@id" selected>@nom</option>
+                        }
+                        else
+                        {
+                            <option value="@id">@nom</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>*@
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+
+                        <div class="x_content">
+                            <table id="ex" class="table table-striped responsive-utilities">
+
+                                <tbody>
+                                    <tr class="odd pointer">
+                                        <td class=" "><h4><strong>DESCRIPTION</strong></h4></td>
+                                        <td class=" "></td>
+                                        <td class=" "></td>
+                                        <td class=" "><h4><strong>CASES</strong></h4></td>
+                                        <td class=" "><h4><strong>BOTTLES</strong></h4></td>
+                                    </tr>
+
+                                    @for (var a = 0; a < (int)ViewBag.sizeP; a++)
+                                    {
+
+                                        var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                        <tr class="odd pointer">
+                                            <td class=" ">@nomprod</td>
+                                            <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
+                                            <td class=" ">@ViewBag.produitlist[a].volume ML</td>
+                                            <td class=" "><input type="hidden" name="idP" id="idP[@a]" value="@ViewBag.produitlist[a].id" />
+                                            <input type="text" name="caisse" id="caisse[@a]" value="" /></td>
+                                            <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_data_clock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.id_data_clock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_data_clock, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.date_transfert, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.date_transfert, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date_transfert, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

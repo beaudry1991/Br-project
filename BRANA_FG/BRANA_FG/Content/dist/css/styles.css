@@ -1,0 +1,640 @@
+/*
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+body {
+  padding-top: 50px;
+  background-color: #f5f5f5 ;
+}
+footer {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #fff;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 768px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+        background-color:  red;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -33%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 33%;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    margin-left: 10px;
+    
+  }
+}
+
+
+/* Sidebar navigation */
+.nav-sidebar {
+  background-color: #f5f5f5;
+  margin-right: -15px;
+  margin-bottom: 20px;
+  margin-left: -15px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #428bca;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+    
+  }
+}
+.main .page-header {
+  margin-top: 0;
+  
+}
+#te
+{
+    background-color:  #f5f5f5;
+}
+#sidebar 
+{
+    margin-top:20px;
+    
+}
+/* login*/
+#loginModal
+{
+    margin-top: 100px;
+    
+    
+}
+#log img
+{
+    margin-left:40%;
+}
+
+#btn
+{
+  margin-left: 0%;
+    width: 100%;
+  // position: absolute;
+   
+}
+
+/* pied login*/
+#pied1
+{
+    margin-top: 150px;
+}
+#pied
+{
+    margin-top: 120px;
+}
+/* forme utilisateur*/
+#imagee{
+
+    margin:  auto
+}
+#form-box{
+    margin-top:-30px;
+    width:750px;
+    height:710px;
+    background: #39b3d7;
+    border:#FFF solid 2px;
+    margin-bottom:15px;
+    margin-left: 350px;
+    
+}
+.form-top {
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	background: #fff;
+	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+	text-align:center;
+        margin-top: 20px;
+}
+
+.form-top-left {
+	float: left;
+	width: 75%;
+	padding-top: 25px;
+}
+
+.form-top-left h3 { margin-top: 0; }
+
+.form-top-right {
+	float: left;
+	width: 25%;
+	padding-top: 5px;
+	font-size: 66px;
+	color: #ddd;
+	line-height: 100px;
+	text-align: right;
+}
+
+.form-bottom {
+	padding: 25px 25px 30px 25px;
+	background: #eee;
+	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+	text-align: left;
+}
+
+.form-bottom form textarea {
+	height: 100px;
+}
+
+.form-bottom form .input-error {
+	border-color: #19b9e7;
+}
+
+input[type="text"], 
+textarea, 
+textarea.form-control {
+	height: 50px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #f8f8f8;
+    border: 3px solid #ddd;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #888;
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+    -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+}
+
+textarea, 
+textarea.form-control {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 30px;
+}
+
+input[type="text"]:focus, 
+textarea:focus, 
+textarea.form-control:focus {
+	outline: 0;
+	background: #fff;
+    border: 3px solid #ccc;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+}
+
+input[type="text"]:-moz-placeholder, textarea:-moz-placeholder, textarea.form-control:-moz-placeholder { color: #888; }
+input[type="text"]:-ms-input-placeholder, textarea:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder { color: #888; }
+input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder { color: #888; }
+
+
+
+button.btn {
+   height: 50px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #19b9e7;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #fff;
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    text-shadow: none;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+    -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+    margin-left: 320px;
+}
+
+button.btn:hover { opacity: 0.6; color: #fff; }
+
+button.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
+
+button.btn:focus { outline: 0; opacity: 0.6; background: #19b9e7; color: #fff; }
+
+button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #19b9e7; color: #fff; }
+/* fin de la forme*/
+
+/* CSS Retour de vente*/
+#bouton1
+{
+    margin-top: -30px;
+    margin-right: 350px;
+
+}
+.Wapform
+{
+    margin-left: 150px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+#btnRetour
+{
+    width: 200px;
+    margin-left:550px;
+    margin-top: -10px;
+    
+}
+
+
+/* message d'erreur'*/
+.example1{
+	        margin-top: -20px;
+                height: 100px;
+                width: 100px;
+                font-size: 1em; 
+	}
+        
+        
+ .table-responsive
+{
+    overflow-x: auto;
+}
+/* warning messages*/
+.bs-example
+{
+    width: 700px;
+    margin: auto;
+    text-align: center;
+    // height: 600px;
+    
+}
+.bs-example1
+{
+    height: 200px;
+    
+}
+.bs-example12
+{
+    width: 500px;
+    margin-left:70px;
+    margin-top: 10px;
+    
+}
+.bs-example123
+{
+    width: 900px;
+    margin-left:100px;
+    margin-top: 10px;
+    text-align: center;
+    
+}
+
+td{
+    font-size: 0.95em;
+}
+
+/*search by date*/
+.searchbydate
+{
+    font-size:  1.5em;
+    color: white;
+}
+#css
+{
+    color: #245269;
+}
+
+/* css print depot*/
+
+.title
+{
+    width: 99%;
+   height: 80px;
+   border:  #000 solid 2px;
+   margin-left:1%;
+   margin-bottom: 20px;
+   
+}
+
+#form-box1
+{
+    margin-top:30px;
+    width:750px;
+    height:710px;
+    background:#ffffff;
+    border:#FFF solid 2px;
+    margin-bottom:15px;
+    margin-left: 300px;
+    scrollbar-arrow-color:white;
+}
+footer {
+    display:none;
+}
+
+#im
+{
+    margin-top: 10px;
+    margin-left: -550px;
+}
+.Ptitle{
+    font-family: sans-serif;
+    margin-left:  600px;
+    margin-top: -50px;
+    font-size: 1.5em;
+}
+#client
+{
+    margin-left: 240px;
+    font-size: 1.2em;
+    margin-top: -33px;
+    
+}
+#client1
+{
+    margin-left: 440px;
+    font-size: 1.2em;
+    margin-top: -33px;
+    
+}
+#date
+{
+    font-size: 1.2em;
+}
+ #hr
+ {
+     width: 170px;
+     border: solid 1px black;
+     margin-top: 40px;
+ }
+ #user
+ {
+  margin-top: -20px;
+ }
+ 
+ /*Entree production*/
+ #display{
+     margin-left: 80px;
+     margin-top: 15px;
+ }
+ #pos
+ {
+     margin-bottom:20px; 
+     margin-left: -50px;
+ }
+ #post3
+ {
+     margin-left: 215px;
+ }
+ #post2
+ {
+     margin-left: 230px;
+ }
+ #post1
+ {
+     margin-left: 260px;
+ }
+ #post4
+ {
+     margin-left: 238px;
+ }
+ #post12
+ {
+     margin-left: 208px;
+ }
+ #post8
+ {
+     margin-left: 195px;
+ }
+ #post5
+ {
+     margin-left: 275px;
+ }
+ #post6
+ {
+     margin-left: 285px;
+ }
+ #post7
+ {
+     margin-left: 130px;
+ }
+ .position
+ {
+     border: solid 1px;
+     height: 600px;
+     width: 600px;
+     margin-left: 200px;
+     border-radius: 10px;
+     border-color: red;
+     margin-top: -10px;
+ }
+ #center
+ {
+     text-align: center;
+    
+ }
+ #tr
+ {
+     width: 100px;
+ }
+ #form-first-name
+ {
+     width: 350px;
+ }
+ 
+ .position1{
+     border: solid 1px;
+     height: 800px;
+     width: 600px;
+     margin-left: 200px;
+     border-radius: 10px;
+     border-color: red;
+     margin-top: -10px;
+ }
+ 
+ #comment
+ {
+     margin-left: -75px;
+     resize: none;
+ }
+ #comments
+ {
+     text-align: left;
+     margin-left: -75px;
+ }
+ 
+ /* css reception d'emballage'*/
+ 
+ .position122{
+     border: solid 1px;
+     height: 790px;
+     width: 780px;
+     margin-left: 100px;
+     border-radius: 10px;
+     border-color: red;
+     margin-top: -10px;
+ }
+ .positio{
+     border: solid 1px;
+     height: 550px;
+     width: 580px;
+     margin-left: 170px;
+     border-radius: 10px;
+     border-color: red;
+     margin-top: -10px;
+ }
+ 
+ #post11
+ {
+     margin-left: 210px;
+ }
+ 
+ #post9
+ {
+     margin-left: 265px;
+ }
+ #post10
+ {
+     margin-left: 225px;
+ }
+ 
+ #post12
+ {
+     margin-left: 210px;
+ }
+ #table1
+ {
+     
+     width: 700px;
+     margin-left: -50px;
+ }
+ #tab1
+ {
+     
+     width: 500px;
+     margin-left: -50px;
+ }
+ #rd
+ {
+     margin-left:150px;
+ }
+ #fix
+ {
+     margin-top: 30px;
+ }
+ #fix1
+ {
+     margin-top: 30px;
+ }
+ #fix2
+ {
+     margin-top: 30px;
+ }
+ 
+ /*trans validation bouton*/
+ #trans
+ {
+     width: 150px;
+ }
+ 
+ /*Forme prete palette*/
+ #post111
+ {
+     margin-left: 225px;
+ }
+ 
+ #post19
+ {
+     margin-left: 210px;
+ }
+ #post110
+ {
+     margin-left:200px;
+ }
+  #post112
+  {
+      margin-left: 210px;
+  }
+  
+  /* fixed table header*/
+  
+  
+  
+  
+  /**search depot*/
+  #ws
+ {
+     background-color:  bisque;
+     width: 600px;
+     height: 200px;
+     border: solid 2px black;
+         
+ }
+ 
+ /*TMS*/
+ 
+  #resultKinanm,#resultStubby,#resultBig,#resultKing,#result7up,#resultPepsi,#resultRCH,#resultRCF,#resultCJ
+  {
+      border-color: transparent;
+  }
+  
+  #signature
+  {
+      width: 120px;
+      border: solid 1px black;
+      margin-bottom: 1px;
+      margin-right: 720px;
+  }
+  #com
+  {
+      height: 90px;
+  }
+  #impression
+  {
+      float:left;
+  }
+  #commentaire
+ {
+     margin-left: 10px;
+     resize: none;
+     border-color: white;
+     overflow: no-display;
+     border: 0px;
+ }
+ 
+ /*Livraison depot emballage vide*/
+ P A:hover
+  {
+     display: block;
+    text-decoration: none;
+    background-color: chartreuse;  
+    height: 2em;
+    width: 75px;
+    border-radius: 15px;
+    
+  }
+  #livrer
+  {
+      float: right;
+      font-size: 1.75em;
+      
+  }

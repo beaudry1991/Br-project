@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title - BRANA S.A D&eacute;partement Ware House/Empty's</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- MetisMenu CSS -->
+
+    <link href="~/Content/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+
+    <link href="~/Content/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- DataTables CSS -->
+    <link href="~/Content/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+   
+
+    <!-- DataTables Responsive CSS -->
+    <link href="~/Content/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">@Html.ActionLink("Stock Empty's Management System(SEMS)", "Index", "Debarquements", htmlAttributes: new { @class = "navbar-brand" })</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+
+
+
+
+                <!-- /.dropdown -->
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="~/Home/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    
+                </li>*@
+
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/ModifyPassowrd"><i class="fa fa-edit fa-fw"></i> Modifier mot de passe</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="~/Home/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        
+                        <li class="sidebar-search">
+                            @using(Html.BeginForm("findSeach", "Debarquements",FormMethod.Post))
+                            {  @Html.AntiForgeryToken()
+                                <div class="input-group custom-search-form">
+
+                                    <input type="text" class="form-control" placeholder="Search..." required name="parameter">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+
+                                    </span>
+
+                                </div>
+                                <!-- /input-group -->
+                            }
+                        </li>
+                       
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Debarquement<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li>
+                                    @Html.ActionLink("Retour Vente/Livraison", "Create", "Debarquements")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Retour Produit Plein", "Create", "DebarquementPleins")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(" Autres Debarquements", "Create", "DebarquementAutres")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Depot Emballage", "Create", "DepotEmballages")
+                                </li>
+
+
+
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Rapport du shift<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+
+                                <li>
+
+                                    @Html.ActionLink("Rapport Journalier", "Index", "Debarquements")
+                                </li>
+                                <li> @Html.ActionLink("Data Clerck", "DataClerck", "Debarquements") </li>
+                                <li>
+                                    @Html.ActionLink("Rapport Mensuel", "MonthReport", "Debarquements")
+
+                                </li>
+                                <li>
+                                    <a href="#" id="attach_box"> Rapport Filtre</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="attach" target="blank"> Recherche Depot Emballage</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- /.sidebar-collapse -->
+
+            </div>
+            <!-- /.navbar-static-side -->
+            <div class="form-group" style="display:none" id="sec_box">
+                @*<form class="navbar-form navbar-right" method="POST" action="searchdate.php">*@
+                @using (Html.BeginForm("PeriodicReport", "Debarquements", FormMethod.Post, new { @class = "navbar-form navbar-right" }))
+                {    @Html.AntiForgeryToken()
+                    <input class="form-control" name="start" type="date" required />
+                    <label class="searchbydate">TO</label>
+                    <input class="form-control" name="end" type="date" required />
+                    <input class="form-control" id="css" type="submit" />
+                }
+            </div>
+            <div class="form-group" style="display:none" id="sec_x">
+                @*<form class="navbar-form navbar-right" method="post" action="" target="blank">*@
+                @* form for Searching Deposit of Empty Emballage *@
+                @using (Html.BeginForm("SearchDepot", "DepotEmballages", FormMethod.Post, new { @class = "navbar-form navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="text" name="search" class="form-control" placeholder="Saisir Le numero du debarquement" required>
+                }
+                @*</form>*@
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - BRANA S.A D&eacute;partement Ware House/Empty's</p>
+                    </footer>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+
+    <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <!-- Metis Menu Plugin JavaScript -->
+
+    <script src="~/Content/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="~/Content/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-example2').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+    <!--       script affichant le filtrage date-->
+    <script type="text/javascript">
+        $(function () {
+            $('#attach_box').click(function () {
+                $('#sec_box').show();
+                $('#sec_x').hide();
+                return false;
+            });
+
+        });
+
+        $(function () {
+            $('#attach').click(function () {
+                $('#sec_x').show();
+                $('#sec_box').hide();
+                return false;
+            });
+
+        });
+        $(document).ready(function () {
+            var table = $('#example').DataTable();
+
+            new $.fn.dataTable.FixedHeader(table);
+        });
+    </script>
+</body>
+
+</html>

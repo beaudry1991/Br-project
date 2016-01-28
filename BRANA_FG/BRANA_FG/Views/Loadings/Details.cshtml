@@ -1,0 +1,147 @@
+﻿@model BRANA_FG.Models.Loading
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Loading</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_superviseur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_chauffeur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_chauffeur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_vehicule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_vehicule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_sp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_sp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_emb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_emb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nbre_palette)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nbre_palette)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type_emb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_emb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.retour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.retour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_loading)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_loading)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.heure_debut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.heure_debut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.heure_fin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.heure_fin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_data_clock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_data_clock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_casse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_casse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarque)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

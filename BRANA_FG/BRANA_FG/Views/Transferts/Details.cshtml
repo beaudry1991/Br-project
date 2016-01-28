@@ -1,0 +1,79 @@
+﻿@model BRANA_FG.Models.Transfert
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transfert</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot_source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot_source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot_dest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot_dest)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantite_palette)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantite_palette)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_chauffeur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_chauffeur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_vehicule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_vehicule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_superviseur)
+        </dd>
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_transfert)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_transfert)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

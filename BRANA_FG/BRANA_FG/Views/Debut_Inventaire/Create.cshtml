@@ -1,0 +1,116 @@
+﻿@model BRANA_FG.Models.Debut_Inventaire
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#myModal").modal({ backdrop: "static", show: true, keyboard: false });
+    });
+    function printContent(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>
+<style>
+    body .modal-dialog  {
+    /* new custom width */
+    width: 60%;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    
+}
+
+</style>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button onclick="printContent('print')" class="btn btn-primary  navbar-right">Print Content</button>
+            <div class="modal-header">
+                
+            </div>
+            <div class="modal-body ">
+               @using (Html.BeginForm())
+               {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Debut_Inventaire</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="row" id="print">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+
+                                    <div class="x_content">
+                                        <table id="ex" class="table table-striped responsive-utilities">
+
+                                            <tbody>
+                                                <tr class="odd pointer">
+                                                    <td class=" "><h4><strong>DESCRIPTION</strong></h4></td>
+                                                    <td class=" "></td>
+                                                    <td class=" "></td>
+                                                    <td class=" "><h4><strong>CASES</strong></h4></td>
+                                                    <td class=" "><h4><strong>BOTTLES</strong></h4></td>
+                                                </tr>
+
+                                                @for (var a = 0; a < (int)ViewBag.sizeP; a++)
+                                                {
+
+                                                    var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                                    <tr class="odd pointer">
+                                                        <td class=" ">@nomprod</td>
+                                                        <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
+                                                        <td class=" ">@ViewBag.produitlist[a].volume ML</td>
+                                                        <td class=" "><input type="hidden" name="idP" id="idP[@a]" value="@ViewBag.produitlist[a].id" />
+                                                        <input type="text" name="caisse" id="caisse[@a]" value="" /></td>
+                                                        <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
+                                                    </tr>
+
+
+                                                }
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+               }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div>
+   
+    <a href="~/Debut_Inventaire/Index" class="btn btn-primary"><span class="ui-button-text">Back to List</span></a>
+   
+    @*@Html.ActionLink("Back to List", "Index")*@
+</div>

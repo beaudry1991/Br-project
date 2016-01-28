@@ -1,0 +1,428 @@
+﻿@model IEnumerable<BRANA_FG.Models.Ligne_depot>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="tab-content">
+    <div id="table" class="tab-pane fade in active">
+        <div class="x_panel">
+            <div class="x_title">
+
+                <div class="form-group col-md-10 col-sm-4 col-xs-6">
+                   <input autocomplete='off' class='filter form-control' name='Ligne Production' placeholder='Ligne prod.' data-col='Ligne Production' />
+                     <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
+                    
+                    <input autocomplete='off' class='filter form-control' name='Depot' placeholder='Depot' data-col='Depot' />
+                    <input autocomplete='off' class='filter form-control' name='Produit' placeholder='Produit' data-col='Produit' />
+                </div>
+                <!-- <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                <input type="text" id="sku" name="daterange" value="" placeholder="Sku" class="form-control" />
+                 </div>  -->
+                <!-- <button class="btn btn-danger ">Search for listing</button> -->
+
+              
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+
+                <table id="example" class="table table-striped responsive-utilities jambo_table">
+                    <thead>
+                        <tr class="headings">
+                            <th>Ligne Production</th>
+                            <th>Depot</th>
+                            <th>Qtite Caisse</th>
+                            <th>Date</th>
+                            <th>Superviseur</th>
+                            
+                            <th>Produit</th>
+                            <th></th>
+
+
+
+                                
+                            
+                            
+                        </tr>
+                       
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="even pointer">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id_ligne_production)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id_depot)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.qtite_caisse)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.date_ligne_depot)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id_superviseur)
+                                </td>
+                               
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id_produit)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+                     
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br /><br /><br />
+<div class="row">
+    <div class="col-md-12 col-sm-4 col-xs-8">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Loadings by day</h2>
+             
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <fieldset>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date debut" aria-describedby="inputSuccess2Status2">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                            </div>
+                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date fin" aria-describedby="inputSuccess2Status2">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                            </div>
+                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                <select class="form-control">
+                                    <option value="">Ligne 1</option>
+                                    <option value="">Ligne 2</option>
+                                    <option value="">Ligne 3</option>
+                                    <option value="">Ligne 4</option>
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                <button class="btn btn-primary">Recherche</button>
+                            </div>
+                        </div>
+                </fieldset>
+                @*<div id="graph_bar_group" style="width:100%; "></div>*@
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+
+        chart: {
+            type: 'column',
+            options3d: {
+                enabled: true,
+                alpha: 15,
+                beta: 15,
+                viewDistance: 25,
+                depth: 40
+            },
+            marginTop: 80,
+            marginRight: 40
+        },
+
+        title: {
+            text: 'Total caisse produite groupée par jour'
+        },
+
+        xAxis: {
+            categories: ['23-01-2016', '24-01-2016', '25-01-2016', '26-01-2016', '27-01-2016', '25-01-2016', '26-01-2016', '27-01-2016']
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Nombre de caisse'
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<b>{point.key}</b><br>',
+            pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                depth: 40
+            }
+        },
+
+        series: [{
+            name: 'Prestige',
+            data: [5, 3, 4, 7, 2, 4, 7, 2],
+            stack: 'brew'
+        }, {
+            name: 'Malta',
+            data: [3, 4, 4, 2, 5, 5, 3, 4],
+            stack: 'brew'
+        }, {
+            name: 'Guiness',
+            data: [2, 5, 6, 2, 1, 3, 4, 4],
+            stack: 'brew'
+        }]
+    });
+});
+
+
+</script>
+<script type="text/javascript">
+
+
+    //$(function () {
+    //  //  $('input[name="daterange"]').daterangepicker();
+
+
+
+
+    //    var day_data = [];
+
+    //    insert("2015-09-08", 56);
+    //    insert("2015-09-10", 72);
+    //    insert("2015-09-11", 30);
+    //    insert("2015-09-12", 25);
+    //    insert("2015-09-10", 92);
+    //    insert("2015-09-11", 144);
+    //    insert("2015-09-12", 25);
+    //    insert("2015-09-10", 127);
+    //    insert("2015-09-11", 30);
+    //    insert("2015-09-12", 37);
+
+
+
+    //    Morris.Bar({
+    //        element: 'graph_bar_group',
+    //        data: day_data,
+    //        xkey: 'produit',
+    //        barColors: ['#3498DB'],
+    //        ykeys: ['montant'],
+    //        labels: ['Nombre de caisse', 'SORN'],
+    //        hideHover: 'auto',
+    //        xLabelAngle: 60
+    //    });
+
+    //    function insert(name, number) {
+    //        day_data.push({
+    //            produit: name,
+    //            montant: number
+    //        });
+    //    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    //var data_depart = [];
+
+    //    //insert_depart('Artibonite', 10);
+
+    //    //insert_depart('Centre', 15);
+
+    //    //insert_depart('Grand\'Anse', 20);
+
+    //    //insert_depart('Nippes', 25);
+
+    //    //insert_depart('Nord', 30);
+
+    //    //insert_depart('Nord-Est', 10);
+
+    //    //insert_depart('Nord-Ouest', 10);
+
+    //    //insert_depart('Ouest', 25);
+
+    //    //insert_depart('Sud', 10);
+
+    //    //insert_depart('Sud-Est', 10);
+
+
+
+
+
+
+    //    //var myChart = echarts.init(document.getElementById('echart_pie2'), theme);
+    //    //myChart.setOption({
+    //    //    tooltip: {
+    //    //        trigger: 'item',
+    //    //        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    //    //    },
+    //    //    legend: {
+    //    //        x: 'center',
+    //    //        y: 'bottom',
+    //    //        data: ['Artibonite', 'Centre', 'Grand\'Anse', 'Nippes', 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est']
+    //    //    },
+    //    //    toolbox: {
+    //    //        show: true,
+    //    //        feature: {
+    //    //            magicType: {
+    //    //                show: true,
+    //    //                type: ['pie', 'funnel']
+    //    //            },
+    //    //            restore: {
+    //    //                show: true
+    //    //            },
+    //    //            saveAsImage: {
+    //    //                show: true
+    //    //            }
+    //    //        }
+    //    //    },
+    //    //    calculable: true,
+    //    //    series: [
+    //    //        {
+    //    //            name: 'Area Mode',
+    //    //            type: 'pie',
+    //    //            radius: [25, 90],
+    //    //            center: ['50%', 170],
+    //    //            roseType: 'area',
+    //    //            x: '50%', // for funnel
+    //    //            max: 40, // for funnel
+    //    //            sort: 'ascending', // for funnel
+    //    //            data: data_depart
+    //    //        }
+    //    //    ]
+    //    //});/**/
+    //    //function insert_depart(nam, number) {
+    //    //    data_depart.push({
+    //    //        name: nam,
+    //    //        value: number
+    //    //    });
+    //    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    //////////////////////////////////////////////////////
+
+
+
+    //    //////////////////////////////////////
+
+    //    //var day_data2 = [
+    //    //      { "period": "2012-10-01", "licensed": 807, "sorned": 660 },
+    //    //      { "period": "2012-09-30", "licensed": 1251, "sorned": 729 },
+    //    //      { "period": "2012-09-29", "licensed": 1769, "sorned": 1018 },
+    //    //      { "period": "2012-09-20", "licensed": 2246, "sorned": 1461 },
+    //    //      { "period": "2012-09-19", "licensed": 2657, "sorned": 1967 },
+    //    //      { "period": "2012-09-18", "licensed": 3148, "sorned": 2627 },
+    //    //      { "period": "2012-09-17", "licensed": 3471, "sorned": 3740 },
+    //    //      { "period": "2012-09-16", "licensed": 2871, "sorned": 2216 },
+    //    //      { "period": "2012-09-15", "licensed": 2401, "sorned": 1656 },
+    //    //      { "period": "2012-09-10", "licensed": 2115, "sorned": 1022 }
+    //    //];
+    //    //Morris.Bar({
+    //    //    element: 'graph',
+    //    //    data: day_data2,
+    //    //    xkey: 'period',
+    //    //    barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+    //    //    ykeys: ['licensed', 'sorned'],
+    //    //    labels: ['Licensed', 'SORN'],
+    //    //    hideHover: 'auto',
+    //    //    xLabelAngle: 60
+    //    //});
+
+
+
+
+    //    //function insert2(nam, num) {
+    //    //    day_data2.push({
+    //    //        dep: nam,
+    //    //        nb: num
+    //    //    });
+    //    //}
+
+    //    //////////////////////////////////////////////////
+    //});
+
+</script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#single_cal1').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_1"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+         
+        });
+    </script>
+<!-- echart -->
+<script src="~/Content/dist/js/echart/echarts-all.js"></script>
+<script src="~/Content/dist/js/echart/green.js"></script>

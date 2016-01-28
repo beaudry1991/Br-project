@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Connexion</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/content/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="~/content/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!--login modal-->
+    <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @if (@ViewBag.message != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.message</div>
+                }
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1 class="text-center">Modifiez votre mot de passe</h1>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("ModifyPasswrd", "Logins", FormMethod.Post, new { @class = "form col-md-12 center-block" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Ancien Mot de passe" required name="ancienpassword">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Nouveau Mot de Passe" required name="nouveaupassword">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Retaper le nouveau mot de passe" required name="confirmpassword">
+                        </div>
+                        <div class="form-group" id='btn'>
+                            <button class="btn btn-primary btn-lg btn-block">Modifier</button>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p class="pull-right" id="pied">©2015 BRANA S.A D&eacute;partement Ware House/Emptys</p>
+        </footer>
+    </div>
+
+
+    <!-- script references -->
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>*@
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BRANA_FG.Models.Vehicule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.plaque)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marque)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.annee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.capacite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.plaque)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.marque)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.annee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.capacite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

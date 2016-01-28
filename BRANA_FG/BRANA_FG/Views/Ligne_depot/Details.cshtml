@@ -1,0 +1,67 @@
+﻿@model BRANA_FG.Models.Ligne_depot
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ligne_depot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_ligne_production)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_ligne_production)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_caisse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_caisse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_ligne_depot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_ligne_depot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_superviseur)
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_produit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

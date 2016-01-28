@@ -1,0 +1,67 @@
+﻿@model BRANA_FG.Models.Debut_Inventaire
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Debut_Inventaire</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_superviseur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_debut_inventaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_debut_inventaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_produit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_data_clock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_data_clock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_trouvee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_trouvee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot_fg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot_fg)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

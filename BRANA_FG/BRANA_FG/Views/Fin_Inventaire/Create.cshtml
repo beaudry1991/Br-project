@@ -1,0 +1,163 @@
+﻿@model BRANA_FG.Models.Fin_Inventaire
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#myModal").modal({ backdrop: "static", show: true, keyboard: false });
+    });
+    function printContent(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>
+<style>
+    body .modal-dialog  {
+    /* new custom width */
+    width: 60%;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    
+}
+    </style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Inventaire de fin</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="row" id="print">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+
+                        <div class="x_content">
+                            <table id="ex" class="table table-striped responsive-utilities">
+
+                                <tbody>
+                                    <tr class="odd pointer">
+                                        <td class=" "><h4><strong>DESCRIPTION</strong></h4></td>
+                                        <td class=" "></td>
+                                        <td class=" "></td>
+                                        <td class=" "><h4><strong>CASES</strong></h4></td>
+                                        <td class=" "><h4><strong>BOTTLES</strong></h4></td>
+                                    </tr>
+
+                                    @for (var a = 0; a < (int)ViewBag.sizeP; a++)
+                                    {
+
+                                        var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                        <tr class="odd pointer">
+                                            <td class=" ">@nomprod</td>
+                                            <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
+                                            <td class=" ">@ViewBag.produitlist[a].volume ML</td>
+                                            <td class=" "><input type="hidden" name="idP" id="idP[@a]" value="@ViewBag.produitlist[a].id" />
+                                            <input type="text" name="caisse" id="caisse[@a]" value="" /></td>
+                                            <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary navbar-right" />
+
+            </div>
+        </div>
+    </div>
+}
+
+@*@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Fin_Inventaire</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_superviseur, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownList("id_superviseur", (SelectList)ViewBag.superviseur, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.id_superviseur, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.date_fin_inventaire, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.date_fin_inventaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date_fin_inventaire, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_produit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("id_produit", (SelectList)ViewBag.produit, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_produit, "", new { @class = "text-danger" })
+
+
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_data_clock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.id_data_clock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_data_clock, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.qtite_laissee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.qtite_laissee, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.qtite_laissee, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_depot_fg, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.id_depot_fg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.id_depot_fg, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

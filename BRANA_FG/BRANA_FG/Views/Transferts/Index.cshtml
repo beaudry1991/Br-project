@@ -1,0 +1,97 @@
+﻿@model IEnumerable<BRANA_FG.Models.Transfert>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="row">
+
+    <table id="example" class="table table-striped responsive-utilities jambo_table">
+        <thead>
+            <tr class="headings">
+                <th>
+            @Html.DisplayNameFor(model => model.num_transfert)
+        </th>
+        
+        @*<th>
+            @Html.DisplayNameFor(model => model.id_depot_source)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_depot_dest)
+        </th>*@
+        
+        <th>
+            @Html.DisplayNameFor(model => model.quantite_palette)
+        </th>
+   
+        <th>
+            @Html.DisplayNameFor(model => model.id_chauffeur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_vehicule)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.date_transfert)
+        </th>
+        <th></th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="even pointer">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.num_transfert)
+                    </td>
+
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.id_depot_source)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_depot_dest)
+        </td>*@
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantite_palette)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_chauffeur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_vehicule)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_superviseur)
+                    </td>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date_transfert)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                        @Html.ActionLink("More", "More", new { id = item.id })
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+</div>

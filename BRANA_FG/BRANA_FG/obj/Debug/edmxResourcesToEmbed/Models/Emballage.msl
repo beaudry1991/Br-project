@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SemsBranaModelStoreContainer" CdmEntityContainer="SemsBranaEntities1">
+    <EntitySetMapping Name="Emballages">
+      <EntityTypeMapping TypeName="SemsBranaModel.Emballage">
+        <MappingFragment StoreEntitySet="Emballage">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="volume" ColumnName="volume" />
+          <ScalarProperty Name="qte_par_caisse" ColumnName="qte_par_caisse" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="date_emb" ColumnName="date_emb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

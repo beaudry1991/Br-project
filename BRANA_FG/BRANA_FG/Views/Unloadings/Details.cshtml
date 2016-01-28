@@ -1,0 +1,60 @@
+﻿@model BRANA_FG.Models.Unloading
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Unloading</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_loading)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_loading)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_palette_retr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_palette_retr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time_unloading_debut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time_unloading_debut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time_unloading_fin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time_unloading_fin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarque)
+        </dd>
+
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
