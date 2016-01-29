@@ -164,8 +164,108 @@ namespace BRANA_FG.Controllers
 
         public ActionResult rapportUtilisateur()
         {
+            ViewBag.size = Fonct.ListSuperviseurs().Count();
+            ViewBag.userNomPre = Fonct.ListSuperviseurs();
 
+            ViewBag.tmpSup = 0;
+            var valeur = Request["valeur"];
+
+
+            ViewBag.affiche_loading_Count = afficheLoading(int.Parse(valeur)).Count();
+            ViewBag.affiche_loading = new Func<int, List<Tuple<string, string, string>>>(afficheLoading);
+
+            ViewBag.affiche_transfert_Count = afficheTransfert(int.Parse(valeur)).Count();
+            ViewBag.afficheTransfert = new Func<int, List<Tuple<string, string, int>>>(afficheTransfert);
+
+            ViewBag.afficheApprov_Count = afficheApprov(int.Parse(valeur)).Count();
+            ViewBag.afficheApprov = new Func<int, List<Tuple<string, string, string>>>(afficheApprov);
+
+            //ViewBag.afficheCount = afficheCount.Count();
             return View();
+        }
+
+        public List<Tuple<string, string, string>> afficheLoading(int b)
+        {
+            List<Tuple<string, string, string>> PC = new List<Tuple<string, string, string>>();
+
+            VehiculeList user = new VehiculeList();
+
+            var vehiculo = from load in db.Loadings
+                           where load.id_superviseur == b
+                           select new
+                           {
+                               load.date_loading,
+                               load.numero_sp,
+                               load.numero_emb
+
+                           };
+
+                PC.Add(Tuple.Create("", "", ""));
+
+                foreach (var a in vehiculo)
+                    {
+                
+                       PC.Add(Tuple.Create(a.date_loading.ToString(), a.numero_sp, a.numero_emb));
+                
+                    }
+            return PC;
+        }
+
+        public List<Tuple<string, string, int>> afficheTransfert(int b)
+        {
+            List<Tuple<string, string, int>> PC = new List<Tuple<string, string, int>>();
+
+            VehiculeList user = new VehiculeList();
+
+            var vehiculo = from trasf in db.Transferts
+                           where trasf.id_superviseur == b
+                           select new
+                           {
+                               trasf.date_transfert,
+                               trasf.num_transfert,
+                               trasf.id_chauffeur
+
+                           };
+
+            PC.Add(Tuple.Create("", "", 0));
+
+            foreach (var a in vehiculo)
+            {
+
+                PC.Add(Tuple.Create(a.date_transfert.ToString(), a.num_transfert.ToString(), a.id_chauffeur));
+
+            }
+            return PC;
+        }
+
+        public List<Tuple<string, string, string>> afficheApprov(int b)
+        {
+            List<Tuple<string, string, string>> PC = new List<Tuple<string, string, string>>();
+
+            VehiculeList user = new VehiculeList();
+
+            var vehiculo = from app in db.Ligne_depot
+                           where app.id_superviseur == b
+                           join lig in db.Ligne_Production on app.id_ligne_production equals lig.id
+                           join prod in db.Produits on app.id_produit equals prod.id
+                           select new
+                           {
+                              date =  app.date_ligne_depot,
+                              lign = lig.nom,
+                              produit =  prod.nom
+
+
+                           }; 
+
+            PC.Add(Tuple.Create("", "", ""));
+
+            foreach (var a in vehiculo)
+            {
+
+                PC.Add(Tuple.Create(a.date.ToString(), a.lign.ToString(), a.produit.ToString()));
+
+            }
+            return PC;
         }
     }
 }
