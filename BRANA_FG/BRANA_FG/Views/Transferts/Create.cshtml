@@ -10,7 +10,13 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    if (@ViewBag.alert != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.alert
+        </div>
+    }
+
     <div class="form-horizontal">
         <h4>Transfert</h4>
         <hr />

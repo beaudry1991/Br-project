@@ -146,9 +146,27 @@ namespace BRANA_FG.Controllers
                 string[] idProduit = i.ToArray();
                 string[] caisse = c.ToArray();
                 string[] bouteille = bo.ToArray();
-                
+                var sp_verify = db.Loadings.Where(a => a.numero_sp.Equals(loading.numero_sp)).FirstOrDefault();
+                var emb_verify = db.Loadings.Where(a => a.numero_emb.Equals(loading.numero_emb)).FirstOrDefault();
+                if (sp_verify != null && emb_verify != null)
+                {
+                    //reste a ajoute un message d'erreur
+                    ViewBag.errorsp = "Le #SP et le #Embarquement existent deja!";
+                    
+                    return View(loading);
+                }else if (sp_verify != null)
+                {
+                    ViewBag.errorsp = "Le #SP existe deja!";
 
-                
+                    return View(loading);
+                } else if (emb_verify != null)
+                {
+                    //reste a ajoute un message d'erreur
+                    ViewBag.errorsp = "Le # Embarquement existe deja!";
+
+                    return View(loading);
+                }
+
 
 
                 loading.id_data_clock = int.Parse(Session["iddataclock"].ToString());

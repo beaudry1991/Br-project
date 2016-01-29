@@ -6,6 +6,11 @@
 
 <h2>Create</h2>
 
+<link rel="stylesheet" type="text/css" href="~/Content/dist/jquery.datetimepicker.css" />
+<script src="~/Content/dist/jquery.js"></script>
+<script src="~/Content/dist/build/jquery.datetimepicker.full.js"></script>
+
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -129,7 +134,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.date_ligne_depot, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.date_ligne_depot, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="text" name="date_ligne_depot" id="datetimepicker4" /><span class="glyphicon glyphicon-calendar"></span>
+
+
+                    @*@Html.EditorFor(model => model.date_ligne_depot, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.date_ligne_depot, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -142,6 +150,13 @@
         </div>
     </div>
 }
+
+<script>
+    $('#datetimepicker4').datetimepicker();
+    $('#open').click(function(){
+    $('#datetimepicker4').datetimepicker('show');
+    });
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

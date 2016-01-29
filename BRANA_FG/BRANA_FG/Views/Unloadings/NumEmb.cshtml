@@ -1,9 +1,17 @@
-﻿
+﻿@model BRANA_FG.Models.Unloading
 @{
     ViewBag.Title = "NumEmb";
 }
 
 <h2>Numero Embarquement</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+
+
+
 <script type="text/javascript">
     $(document).ready(function () {
       
@@ -15,9 +23,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-               
+                
+                @if (@ViewBag.mache != null)
+                {
+                <div class="alert alert-danger">
+                    @ViewBag.mache
+                </div>
+                }
+
             </div>
+           
             <div class="modal-body">
                 <form action="Create" method="GET">
                     <div class="form-group">
@@ -30,3 +45,4 @@
         </div>
     </div>
 </div>
+}

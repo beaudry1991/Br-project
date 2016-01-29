@@ -92,13 +92,22 @@ namespace BRANA_FG.Controllers
 
         public ActionResult Reception(string num_transfert)
         {
+            var num_trans_verify = ddd.Transferts.Where(a => a.num_transfert.Equals(num_transfert)).FirstOrDefault();
+            if (num_trans_verify == null)
+            {
+               // Session["msd"] = "Ce numero nexiste pas";
 
-            if (num_transfert.Equals(null))
-            {
-              return  RedirectToAction("NumTransfer");
+               
+                return View();
             }
-            else
-            {
+
+
+            //if (num_transfert.Equals(null))
+            //{
+            //  return  RedirectToAction("NumTransfer");
+            //}
+            //else
+       //     {
                 var st = num_transfert;
                 //string eo = num_transfert;
                 //Session["kiki"] = eo;
@@ -121,7 +130,7 @@ namespace BRANA_FG.Controllers
                     // RedirectToAction("Index");
 
                 }
-            }
+        //    }
 
             
 
@@ -170,8 +179,7 @@ namespace BRANA_FG.Controllers
         {
 
             
-            ViewBag.size = Fonct.ListSuperviseurs().Count();
-            ViewBag.superviseur = Fonct.ListSuperviseurs();
+            
 
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();
@@ -322,17 +330,37 @@ namespace BRANA_FG.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,id_depot_dest,quantite_palette,id_chauffeur,id_vehicule,idP,caisse,bouteille,num_transfert")] Transfert transfert)
+        public ActionResult Create([Bind(Include = "id,num_transfert,id_depot_dest,quantite_palette,id_chauffeur,id_vehicule,idP,caisse,bouteille")] Transfert transfert)
         {
+
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizeP = Fonct.listproduit().Count();
+
+            ViewBag.chauffeurlist = Fonct.ListChauffeur();
+            ViewBag.sizeC = Fonct.ListChauffeur().Count();
+
+            ViewBag.vehiculelist = Fonct.ListVehicule();
+            ViewBag.sizeV = Fonct.ListVehicule().Count();
+
+            ViewBag.sizeDP = Fonct.ListDepot().Count();
+            ViewBag.listdep = Fonct.ListDepot();
+
+
             if (Session["iddataclock"] == null)
             {
                 Session["iddataclock"] = Session["IdUser"];
             }
+            
 
             if (ModelState.IsValid)
             {
 
-
+                var tansf_verify = ddd.Transferts.Where(a => a.num_transfert.Equals(transfert.num_transfert)).FirstOrDefault();
+                if (tansf_verify != null)
+                {
+                    ViewBag.alert = "Le numero de transfert existe deja";
+                    return View(transfert);
+                }
                 var sup = (int) Session["iddataclock"];
                 int va = int.Parse(sup.ToString());
 

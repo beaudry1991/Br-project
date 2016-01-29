@@ -32,6 +32,7 @@ namespace BRANA_FG.Models
         public int id_superviseur { get; set; }
         
         [Display(Name = "Num transfert")]
+        [Required(AllowEmptyStrings = false)]
         public string num_transfert { get; set; }
         [Display(Name = "Date")]
         public DateTime date_transfert { get; set; }

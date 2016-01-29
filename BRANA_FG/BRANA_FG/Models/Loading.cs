@@ -31,7 +31,7 @@ namespace BRANA_FG.Models
         [Required(ErrorMessage = "Saisissez le numero du SP!", AllowEmptyStrings = false)]
         [RegularExpression(@"^(SP)?(sp)?(Sp)?(sP)?[ -.]?[0-9]{8}$", ErrorMessage = "Le numero SP saisi est incorrect!")]
         public string numero_sp { get; set; }
-        [DisplayName("Deb#*")]
+        [DisplayName("Emb#*")]
         [Required(ErrorMessage = "Saisissez le numero du Debarquement!", AllowEmptyStrings = false)]
         [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Le numero Deb saisi est incorrect!")]
         public string numero_emb { get; set; }

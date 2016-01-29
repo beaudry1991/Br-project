@@ -6,10 +6,21 @@
 }
 
 <h2>Create</h2>
-@ViewBag.id_loading
+
+<link rel="stylesheet" type="text/css" href="~/Content/dist/jquery.datetimepicker.css" />
+<script src="~/Content/dist/jquery.js"></script>
+<script src="~/Content/dist/build/jquery.datetimepicker.full.js"></script>
+
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    if (@ViewBag.errorsp != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.errorsp
+        </div>
+    }
 
     <div class="form-horizontal">
         <h4>Loading</h4>
@@ -246,14 +257,20 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.heure_debut, htmlAttributes: new { @class = "control-label " })
-
-                    @Html.EditorFor(model => model.heure_debut, new { htmlAttributes = new { @class = "form-control" } })
+                    <br />
+                    <input  type="text"  name="heure_debut" id="datetimepicker4" /><span class="glyphicon glyphicon-calendar"></span>
+                    
+                    @*@Html.EditorFor(model => model.heure_debut, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.heure_debut, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 input-group">
                     @Html.LabelFor(model => model.heure_fin, htmlAttributes: new { @class = "control-label " })
+                    <br />
+                    
+                    <input type="text"  name="heure_fin" id="datetimepicker5" /><span class="glyphicon glyphicon-calendar"></span>
 
-                    @Html.EditorFor(model => model.heure_fin, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @*@Html.EditorFor(model => model.heure_fin, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.heure_fin, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -309,6 +326,25 @@
     }
 
 </script>
+
+
+<script>
+    $('#datetimepicker4').datetimepicker();
+    $('#open').click(function(){
+    $('#datetimepicker4').datetimepicker('show');
+    });
+</script>
+
+
+
+<script>
+    $('#datetimepicker5').datetimepicker();
+    $('#open').click(function(){
+    $('#datetimepicker5').datetimepicker('show');
+    });
+</script>
+
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

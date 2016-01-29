@@ -6,6 +6,15 @@
 }
 
 <h2>Create</h2>
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/dist/jquery.datetimepicker.css" />
+<script src="~/Content/dist/jquery.js"></script>
+<script src="~/Content/dist/build/jquery.datetimepicker.full.js"></script>
+
+
+
+
 @ViewBag.numEmbarquement
 @using (Html.BeginForm()) 
 {
@@ -34,7 +43,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.time_unloading_debut, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.time_unloading_debut, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="time_unloading_debut" id="datetimepicker4" /><span class="glyphicon glyphicon-calendar"></span>
+
+                @*@Html.EditorFor(model => model.time_unloading_debut, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.time_unloading_debut, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +53,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.time_unloading_fin, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.time_unloading_fin, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="time_unloading_fin" id="datetimepicker5" /><span class="glyphicon glyphicon-calendar"></span>
+
+                @*@Html.EditorFor(model => model.time_unloading_fin, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.time_unloading_fin, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -121,6 +134,24 @@
         </div>
     </div>
 }
+
+
+<script>
+    $('#datetimepicker4').datetimepicker();
+    $('#open').click(function(){
+    $('#datetimepicker4').datetimepicker('show');
+    });
+</script>
+
+
+
+<script>
+    $('#datetimepicker5').datetimepicker();
+    $('#open').click(function(){
+    $('#datetimepicker5').datetimepicker('show');
+    });
+</script>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

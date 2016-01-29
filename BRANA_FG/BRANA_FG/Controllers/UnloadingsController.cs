@@ -14,7 +14,9 @@ namespace BRANA_FG.Controllers
     {
         private BddContext db = new BddContext();
         public FonctionRequete Fonct = new FonctionRequete();
+        private int test = 0;
         // GET: Unloadings
+        
         public ActionResult Index()
         {
             
@@ -41,33 +43,7 @@ namespace BRANA_FG.Controllers
 
             }
         }
-        // GET: Unloadings/Num embarq
-        public ActionResult NumEmb()
-        {
-            // return View();
-            if (Session.Keys.Count == 0)
-            {
-                //    /*No connection*/
-                return Redirect("~/Logins/Index");
-            }
-            else
-            {
-                var fonction = "admin_FG"; var fonction1 = "data_FG";
-
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
-                {
-                    // Session["iddataclock"] = Session["IdUser"];
-                    return View();
-                }
-                else
-                {
-                    /*No ADMIN connection*/
-                    return Redirect("~/Logins/Index");
-                }
-
-            }
-
-        }
+       
         // GET: Unloadings/Details/5
         public ActionResult Details(int? id)
         {
@@ -86,15 +62,24 @@ namespace BRANA_FG.Controllers
         // GET: Unloadings/Create
         public ActionResult Create(string num_emb)
         {
-            if(num_emb.Equals(null))
+            var num_emb_verify = db.Loadings.Where(a => a.numero_sp.Equals(num_emb)).FirstOrDefault();
+            if (num_emb_verify == null)
             {
-              return   RedirectToAction("Index");
-            }else
-            {
+                test = 1 ;
+                
+                return View();
+            }
+
+
+            //if (num_emb.Equals(null))
+            //{
+            //  return   RedirectToAction("Index");
+            //}else
+           // {
                 var st = num_emb;
                 string eo = num_emb;
                 Session["kiki"] = eo;
-                //TempData["num_embaq"] = num_emb;
+                
                 TempData["id_load"] = Fonct.id_loadingWrNumEmb(st.ToString());
 
                 ViewBag.produitlist = Fonct.listproduit();
@@ -103,7 +88,7 @@ namespace BRANA_FG.Controllers
 
                 ViewBag.sizeUnload = Fonct.ListUnload(eo).Count();
                 ViewBag.listUnload = Fonct.ListUnload(eo);
-            }
+         //   }
            
 
             
@@ -131,6 +116,39 @@ namespace BRANA_FG.Controllers
 
             }
           ///  return View();
+        }
+
+
+        // GET: Unloadings/Num embarq
+        public ActionResult NumEmb()
+        {
+            if (test == 1)
+            {
+                ViewBag.mache = "RRRRRRRRRR";
+            }
+            if (Session.Keys.Count == 0)
+            {
+                //    /*No connection*/
+                return Redirect("~/Logins/Index");
+            }
+            else
+            {
+                var fonction = "admin_FG"; var fonction1 = "data_FG";
+
+                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                {
+                    // Session["iddataclock"] = Session["IdUser"];
+                    
+                    return View();
+                }
+                else
+                {
+                    /*No ADMIN connection*/
+                    return Redirect("~/Logins/Index");
+                }
+
+            }
+
         }
 
         // POST: Unloadings/Create
