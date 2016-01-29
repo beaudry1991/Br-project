@@ -161,5 +161,11 @@ namespace BRANA_FG.Controllers
 
             // return View();
         }
+
+        public ActionResult rapportUtilisateur()
+        {
+
+            return View();
+        }
     }
 }

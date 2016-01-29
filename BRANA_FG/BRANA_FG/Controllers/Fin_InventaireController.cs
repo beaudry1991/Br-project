@@ -120,8 +120,47 @@ namespace BRANA_FG.Controllers
                 {
 
                     fin_Inventaire.id_depot_fg = id_depot;
-                    db.Fin_Inventaire.Add(fin_Inventaire);
-                    db.SaveChanges();
+                    var i = Request.Form.GetValues("idP");
+                    var c = Request.Form.GetValues("caisse");
+                    var bo = Request.Form.GetValues("bouteille");
+
+
+
+                    string[] idProduit = i.ToArray();
+                    string[] caisse = c.ToArray();
+                    string[] bouteille = bo.ToArray();
+
+
+                    for (int a = 0; a < caisse.Count(); a++)
+                    {
+
+                        if (!caisse[a].Equals(""))
+                        {
+                            int v = 0, w = 0;
+                            List<Produit_dispo> dispo = Fonct.Stock_dispos(info_superv.depot, int.Parse(idProduit[a].ToString()));
+
+                            if (dispo.Count() > 0)
+                            {
+                                v = dispo[0].bouteille;
+                                w = dispo[0].caisse;
+                            }
+                            fin_Inventaire.qtite_caisse_theo = w;
+                            fin_Inventaire.qtite_bout_theo = v;
+                            fin_Inventaire.id_produit = int.Parse(idProduit[a].ToString());
+
+                            fin_Inventaire.qtite_laissee = int.Parse(caisse[a].ToString());
+                            fin_Inventaire.qtite_bout = int.Parse(bouteille[a].ToString()); ;
+
+                            db.Fin_Inventaire.Add(fin_Inventaire);
+
+                            db.SaveChanges();
+                        }
+                    }
+
+
+                    //db.Fin_Inventaire.Add(fin_Inventaire);
+
+                    //db.SaveChanges();
                     }
                 return RedirectToAction("Index");
             }
