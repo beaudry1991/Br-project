@@ -1,20 +1,54 @@
 ﻿
 @{
-    ViewBag.Title = "rapportUtilisateur";
+    ViewBag.Title = "Rapport utilisateur";
 }
 
 <h2>rapportUtilisateur</h2>
+@{
+    if (Request["valeur"] != null)
+    {
+        var zzz = Request["valeur"];
+        ViewBag.valeur = Request["valeur"];
+
+        @*var s = ViewBag.affiche(int.Parse(zzz))[0].Item1;
+        var s1 = ViewBag.affiche(int.Parse(zzz))[0].Item2;
+        // @s  @s1
+            @ViewBag.afficheCount*@
+     }
+
+    
+}
 <div class="row">
     <div class="col-md-12 col-md-offset-2">
         
-
+        <form  action="#" method="get">
         <div class="form-group col-md-6 col-sm-4 col-xs-6">
+            <select class="select2_single form-control" tabindex="-1" name="valeur" id="valeur">
 
-            <input type="text" name="name" value="" class="form-control" placeholder="John Bob" />
+                @for (var a = 0; a < (int)ViewBag.size; a++)
+                {
+
+                    var id = ViewBag.userNomPre[a].id;
+                    var nom_pren = ViewBag.userNomPre[a].nom.ToString() + " " + ViewBag.userNomPre[a].prenom.ToString();
+                    if (ViewBag.tmpSup == id)
+                    {
+                        <option value="@id" selected>@nom_pren</option>
+                    }
+                    else
+                    {
+                        <option value="@id">@nom_pren</option>
+                    }
+                }
+
+            </select>
+
+            @*<input type="text" name="valeur" value="" class="form-control" placeholder="John Bob" />*@
         </div>
         <div class="form-group col-md-4 col-sm-4 col-xs-6">
-            <button class="btn btn-danger col-md-3 ">Recherche</button>
+            <input type="submit" class="btn btn-danger col-md-3 " value="Recherche">
+            
         </div>
+        </form>
     </div>
     <div class="col-md-12">
         <div class="x_panel">
@@ -38,101 +72,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @*@for (var i = 0; i < ViewBag.sizeP; i++)
-        {
-            var nomprod = ViewBag.produitlist[i].nom.ToString();*@
+                                       @for (var e = 1; e < ViewBag.affiche_loading_Count; e++)
+                                       {
+                                           var zzz = Request["valeur"];
+
+                                           var s = ViewBag.affiche_loading(int.Parse(zzz));
+                                           var date = s[e].Item1;
+                                           var sp = s[e].Item2;
+                                           var emb = s[e].Item3;
+                                        <tr class="even pointer">
+                                            <td class="btn-success">@date</td>
+                                            <td class=" ">@sp</td>
+                                            <td class=" ">@emb</td>
+                                            <td class=" "><a href="">Voir+</td>
+                                        </tr>
+                                       }
+
+
+
+
                                        
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">sp432555</td>
-                                            <td class=" ">4545462</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-
-
-
-
-
-
-                                        @* }*@
                                     </tbody>
                                 </table>
                             </div>
@@ -150,125 +109,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @*@for (var i = 0; i < ViewBag.sizeP; i++)
-                    {
-                        var nomprod = ViewBag.produitlist[i].nom.ToString();*@
+                                      @for (var e = 1; e < ViewBag.affiche_transfert_Count; e++)
+                                      {
+                                          var zzz = Request["valeur"];
+
+                                          var s = ViewBag.afficheTransfert(int.Parse(zzz));
+                                          var date = s[e].Item1;
+                                          var numtrans = s[e].Item2;
+                                          var chauf = s[e].Item3;
+
+                                        <tr class="even pointer">
+                                            <td class="btn-success">@date</td>
+                                            <td class=" ">@numtrans</td>
+                                            <td class=" ">@chauf</td>
+                                            <td class=" "><a href="">Voir+</td>
+                                        </tr>
                                        
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">3234344</td>
-                                            <td class=" ">Jean Palteau</td>
-                                            <td class=" "><a href="">Voir+</td></td>
-                                        </tr>
-                                        @* }*@
+                                        }
 
 
 
@@ -289,95 +146,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @*@for (var i = 0; i < ViewBag.sizeP; i++)
-                    {
-                        var nomprod = ViewBag.produitlist[i].nom.ToString();*@
-                                       
+                                       @for (var e = 1; e < ViewBag.afficheApprov_Count; e++)
+                                       {
+
+                                           var zzz = Request["valeur"];
+
+                                           var s = ViewBag.afficheApprov(int.Parse(zzz));
+                                           var date = s[e].Item1;
+                                           var ligne = s[e].Item2;
+                                           var produit = s[e].Item3;
+
                                         <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
+                                            <td class="btn-success">@date</td>
+                                            <td class=" ">@ligne</td>
+                                            <td class=" ">@produit</td>
+                                            <td class=" "><a href="">Voir+</td>
                                         </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="btn-success">12-01-2016</td>
-                                            <td class=" ">Ligne 3</td>
-                                            <td class=" ">Prestige</td>
-                                            <td class=" "><a href="">Voir +</td></td>
-                                        </tr>
-                                        @* }*@
+
+                                       }
 
 
 
