@@ -5,7 +5,18 @@
 
 <h2>rapportJournalier</h2>
 
+@if (Request["date1"] != null)
+{
 
+   
+    ViewBag.date1 = Request["date1"];
+    ViewBag.date2 = Request["date2"];
+
+@*var s = ViewBag.affiche(int.Parse(zzz))[0].Item1;
+    var s1 = ViewBag.affiche(int.Parse(zzz))[0].Item2;
+    // @s  @s1
+        @ViewBag.afficheCount*@
+}
 
 
 <div id="day" class="tab-pane fade in active">
@@ -17,19 +28,22 @@
             <div class="x_panel">
                 <div class="x_title">
                     <div class="col-md-12 col-md-offset-2">
-                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
-                            <input type="date" name="daterange" value="" placeholder="01/01/2015" class="form-control" />
-                        </div>
+                        <form action="#" method="get">
+                            <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                                <input type="text" name="date1" value="" id="date1" placeholder="01/01/2015" class="form-control" />
+                            </div>
 
-                       
 
-                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
 
-                            <input type="date" name="daterange" value="" class="form-control" placeholder="01/31/2015" />
-                        </div>
-                        <div class="form-group col-md-4 col-sm-4 col-xs-6">
-                            <button class="btn btn-danger col-md-3 ">Recherche</button>
-                        </div>
+                            <div class="form-group col-md-3 col-sm-4 col-xs-6">
+
+                                <input type="text" name="date2" value="" id="date2" class="form-control" placeholder="01/31/2015" />
+                            </div>
+                            <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                                <input type="submit" class="form-control btn btn-danger" value="Recherche"/>
+                                @*<button class="btn btn-danger col-md-3 ">Recherche</button>*@
+                            </div>
+                        </form>
                     </div>
                     <div class="form-group col-md-10 col-sm-4 col-xs-6">
                         <input autocomplete='off' class='filter form-control' name='Shift' placeholder='Shift' data-col='Shift' />
@@ -72,38 +86,40 @@
                         <tbody>
                            @for (var a = 0; a < (int)ViewBag.rapp_jour_count; a++)
                            {
+                               var s = ViewBag.rapp_journalier(ViewBag.date1, ViewBag.date2);
 
-                               var date = ViewBag.rapp_journalier[a].date.Date.ToString("dd-MM-yyyy");
-                               var sku = ViewBag.rapp_journalier[a].sku.ToString();
-                               var shift = ViewBag.rapp_journalier[a].shift.ToString();
 
-                               var open_stck_caisse_ph = ViewBag.rapp_journalier[a].open_stck_caisse_ph.ToString();
-                               var open_stck_bout_ph = ViewBag.rapp_journalier[a].open_stck_bout_ph.ToString();
+                               var date = s[a].date.Date.ToString("dd-MM-yyyy");
+                               var sku = s[a].sku.ToString();
+                               var shift = s[a].shift.ToString();
 
-                               var open_stck_caisse_th = ViewBag.rapp_journalier[a].open_stck_caisse_th.ToString();
-                               var open_stck_bout_th = ViewBag.rapp_journalier[a].open_stck_bout_th.ToString();
+                               var open_stck_caisse_ph = s[a].open_stck_caisse_ph.ToString();
+                               var open_stck_bout_ph = s[a].open_stck_bout_ph.ToString();
 
-                               var tot_caiss_tran = ViewBag.rapp_journalier[a].transf_caisse.ToString();
-                               var tot_bout_tran = ViewBag.rapp_journalier[a].transf_bout.ToString();
+                               var open_stck_caisse_th = s[a].open_stck_caisse_th.ToString();
+                               var open_stck_bout_th = s[a].open_stck_bout_th.ToString();
 
-                               var tot_caiss_load = ViewBag.rapp_journalier[a].load_caisse.ToString();
-                               var tot_bout_load = ViewBag.rapp_journalier[a].load_bout.ToString();
+                               var tot_caiss_tran = s[a].transf_caisse.ToString();
+                               var tot_bout_tran = s[a].transf_bout.ToString();
 
-                               var tot_caiss_unload = ViewBag.rapp_journalier[a].unload_caisse.ToString();
-                               var tot_bout_unload = ViewBag.rapp_journalier[a].unload_bout.ToString();
+                               var tot_caiss_load = s[a].load_caisse.ToString();
+                               var tot_bout_load = s[a].load_bout.ToString();
 
-                               var casse = ViewBag.rapp_journalier[a].casse.ToString();
-                               var perte = ViewBag.rapp_journalier[a].perte.ToString();
-                               var shortf = ViewBag.rapp_journalier[a].shortf.ToString();
-                               var bouteille1 = ViewBag.rapp_journalier[a].bouteille1.ToString();
-                               var bouteille2 = ViewBag.rapp_journalier[a].bouteille2.ToString();
-                               var bouteille3 = ViewBag.rapp_journalier[a].bouteille3.ToString();
+                               var tot_caiss_unload = s[a].unload_caisse.ToString();
+                               var tot_bout_unload = s[a].unload_bout.ToString();
 
-                               var clo_stck_caisse_ph = ViewBag.rapp_journalier[a].clo_stck_caisse_ph;
-                               var clo_stck_bout_ph = ViewBag.rapp_journalier[a].clo_stck_bout_ph;
+                               var casse = s[a].casse.ToString();
+                               var perte = s[a].perte.ToString();
+                               var shortf = s[a].shortf.ToString();
+                               var bouteille1 = s[a].bouteille1.ToString();
+                               var bouteille2 = s[a].bouteille2.ToString();
+                               var bouteille3 = s[a].bouteille3.ToString();
 
-                               var clo_stck_caisse_th = ViewBag.rapp_journalier[a].clo_stck_caisse_th;
-                               var clo_stck_bout_th = ViewBag.rapp_journalier[a].clo_stck_bout_th;
+                               var clo_stck_caisse_ph = s[a].clo_stck_caisse_ph;
+                               var clo_stck_bout_ph = s[a].clo_stck_bout_ph;
+
+                               var clo_stck_caisse_th = s[a].clo_stck_caisse_th;
+                               var clo_stck_bout_th = s[a].clo_stck_bout_th;
 
                                var variance = 0;
                             <tr class="even pointer">
@@ -352,3 +368,18 @@
 </div>
 
  <!-- date time-->
+<script>
+    $('#date1').datetimepicker();
+    $('#date1').click(function () {
+    $('#date1').datetimepicker('show');
+    });
+</script>
+
+
+
+<script>
+    $('#date2').datetimepicker();
+    $('#date2').click(function () {
+    $('#date2').datetimepicker('show');
+    });
+</script>

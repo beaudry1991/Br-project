@@ -32,17 +32,67 @@ namespace BRANA_FG.Controllers
                 }
             }
         }
+
+
+
         public ActionResult rapportJournalier()
         {
+           
+            
+            if (Request["date1"] != null || Request["date1"]=="") {
+                    ViewBag.date1 = Request["date1"];
+                ViewBag.date2 = Request["date2"];
+
+                string a = Request["date1"];
+                string b = Request["date2"];
+
+
+                ViewBag.rapp_journalier = new Func<string, string, List<Rapp_Quotidient>>(Rapport);
+                ViewBag.rapp_jour_count = Rapport(a, b).Count();
+            }else
+            {
+                ViewBag.rapp_jour_count = 0;
+            }
+
+           
+
+
+
+
+            if (Session.Keys.Count == 0)
+            {
+                return RedirectToAction("Index", "Logins");
+            }
+            else
+            {
+                if (Session["fonction"].ToString().Equals("admin_FG"))
+                {
+                    //Session["idadmin"] = Session["IdUser"];
+                    return View();
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Logins");
+                }
+            }
+
+
+
+            // return View();
+        }
+
+
+
+        public List<Rapp_Quotidient> Rapport(string d1 , string d2)
+        {
+            DateTime date1 = Convert.ToDateTime(d1);
+            DateTime date2 = Convert.ToDateTime(d2);
+
             List<Rapp_Quotidient> rp = new List<Rapp_Quotidient>();
 
-            //Rapp_Quotidient rapport = new Rapp_Quotidient();
-
-
-            
-
-
             var list = from deb in db.Debut_Inventaire
+                       where deb.date_debut_inventaire >= date1 && deb.date_debut_inventaire <= date2
                        join prod in db.Produits on deb.id_produit equals prod.id
                        join super in db.Utilisateurs on deb.id_superviseur equals super.id
                        select new
@@ -60,16 +110,16 @@ namespace BRANA_FG.Controllers
 
                        };
 
-           
+
             foreach (var a in list)
             {
 
-                List < ListSomme > listSomme = Fonct.ListTotal(a.id_pro, a.date, a.id_sup);
+                List<ListSomme> listSomme = Fonct.ListTotal(a.id_pro, a.date, a.id_sup);
                 List<ListSommeTransf> listSomme_tra = Fonct.ListTotalTransf(a.id_pro, a.date, a.id_sup);
                 List<ListCasses> listSommeCasse = Fonct.listCaPeSh(a.id_pro, a.date, a.id_sup);
                 List<FinInventaire_qtite> list_inventaire = Fonct.Fin_inv_produit(a.id_sup, a.id_pro, a.date);
 
-                
+
 
                 if (list_inventaire.Count() == 0)
                 {
@@ -106,7 +156,7 @@ namespace BRANA_FG.Controllers
                     transf_caisse = listSomme_tra[0].somme_caisse,
                     transf_bout = listSomme_tra[0].somme_bouteille,
 
-                    
+
 
                     perte = (listSommeCasse.Count() > 1) ? listSommeCasse[1].perte : 0,
                     shortf = (listSommeCasse.Count() > 1) ? listSommeCasse[2].short_fill : 0,
@@ -122,11 +172,11 @@ namespace BRANA_FG.Controllers
                     clo_stck_bout_th = list_inventaire[0].bouteille_th
 
                 });
-                    
 
-                
 
-                
+
+
+
 
                 //    PC.Add(new ProduitList() { id = a.id, nom = a.nom, volume = a.vol, emballage = a.nombalage, qte_par_caisse = a.qt_p_c });
 
@@ -136,31 +186,13 @@ namespace BRANA_FG.Controllers
 
 
 
-            ViewBag.rapp_journalier = rp;
-            ViewBag.rapp_jour_count = rp.Count();
-
-            if (Session.Keys.Count == 0)
-            {
-                return RedirectToAction("Index", "Logins");
-            }
-            else
-            {
-                if (Session["fonction"].ToString().Equals("admin_FG"))
-                {
-                    //Session["idadmin"] = Session["IdUser"];
-                    return View();
-
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Logins");
-                }
-            }
-
-
-
-            // return View();
+            return rp;
         }
+
+
+
+
+
 
         public ActionResult rapportUtilisateur()
         {

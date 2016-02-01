@@ -12,6 +12,7 @@ namespace BRANA_FG.Models
     public class Ligne_depot
     { 
         public int id { get; set; }
+
         [Display(Name = "Ligne Production")]
         [Required(AllowEmptyStrings = false)]
         public int id_ligne_production { get; set; }

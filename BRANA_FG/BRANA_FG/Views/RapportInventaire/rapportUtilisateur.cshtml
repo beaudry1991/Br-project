@@ -24,15 +24,15 @@
         <form  action="#" method="get">
         <div class="form-group col-md-6 col-sm-4 col-xs-6">
             <select class="select2_single form-control" tabindex="-1" name="valeur" id="valeur">
-
+                <option value="0" selected>Aucun</option>
                 @for (var a = 0; a < (int)ViewBag.size; a++)
                 {
-
+                   
                     var id = ViewBag.userNomPre[a].id;
                     var nom_pren = ViewBag.userNomPre[a].nom.ToString() + " " + ViewBag.userNomPre[a].prenom.ToString();
                     if (ViewBag.tmpSup == id)
                     {
-                        <option value="@id" selected>@nom_pren</option>
+                        <option value="@id" >@nom_pren</option>
                     }
                     else
                     {
@@ -81,6 +81,7 @@
                                            var sp = s[e].Item2;
                                            var emb = s[e].Item3;
                                         <tr class="even pointer">
+
                                             <td class="btn-success">@date</td>
                                             <td class=" ">@sp</td>
                                             <td class=" ">@emb</td>

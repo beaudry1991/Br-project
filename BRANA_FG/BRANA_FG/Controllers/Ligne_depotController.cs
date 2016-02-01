@@ -17,8 +17,28 @@ namespace BRANA_FG.Controllers
         // GET: Ligne_depot
         public ActionResult Index()
         {
-            
+            ViewBag.sizeDP = Fonct.ListDepot().Count();
+            ViewBag.listdep = Fonct.ListDepot();
+            ViewBag.tmpdepot = 0;
 
+            if (Request["date1"] != null || Request["date1"] == "")
+            {
+                ViewBag.date1 = Request["date1"];
+                ViewBag.date2 = Request["date2"];
+               
+
+                string a = Request["date1"];
+                string b = Request["date2"];
+                var vv = Request["select"];
+                int d = int.Parse(vv);
+                ViewBag.select = d;
+
+                ViewBag.Approvisionnement_count = Approvisionnement(a, b, d).Count();
+            ViewBag.Approvisionnement =  new Func<string, string, int, List<Tuple<int, string, string, int, DateTime, string, string>>>(Approvisionnement);
+            } else
+            {
+                ViewBag.Approvisionnement_count = 0;
+            }
 
 
             if (Session.Keys.Count == 0)
@@ -43,7 +63,43 @@ namespace BRANA_FG.Controllers
 
             }
         }
+        public List<Tuple<int, string, string, int, DateTime, string, string>> Approvisionnement(string c, string b, int d)
+        {
+            List<Tuple<int, string, string, int, DateTime, string, string>> PC = new List<Tuple<int, string, string, int, DateTime, string, string>>();
 
+            Ligne_depot l_d = new Ligne_depot();
+            DateTime date1 = Convert.ToDateTime(c);
+            DateTime date2 = Convert.ToDateTime(b);
+
+            var ligne_dep = from ld in db.Ligne_depot
+                            where (ld.date_ligne_depot >= date1 && ld.date_ligne_depot<=date2) && ld.id_ligne_production == d
+                            join l_p in db.Ligne_Production on ld.id_ligne_production equals l_p.id 
+                            join dep in db.Depots on ld.id_depot equals dep.id
+                            join sup in db.Utilisateurs on ld.id_superviseur equals sup.id
+                            join prod in db.Produits on ld.id_superviseur equals prod.id
+                            select new
+                           {
+                                id = ld.id,
+                              produit =  prod.nom,
+                              depot = dep.nom,
+                              super_nom = sup.nom,
+                              super_pre =  sup.prenom,
+                              ligne = l_p.nom,
+                              quantite = ld.qtite_caisse,
+                              date = ld.date_ligne_depot
+
+                           };
+
+            PC.Add(Tuple.Create(0, "", "", 0, date1, "", ""));
+
+            foreach (var a in ligne_dep)
+            {
+
+                PC.Add(Tuple.Create(a.id, a.ligne, a.super_nom+" "+a.super_pre, a.quantite, a.date, a.produit, a.depot ));
+
+            }
+            return PC;
+        }
         // GET: Ligne_depot/Details/5
         public ActionResult Details(int? id)
         {
@@ -77,6 +133,8 @@ namespace BRANA_FG.Controllers
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizePro = Fonct.listproduit().Count();
             ViewBag.tmpPro = 0;
+
+
             if (Session.Keys.Count == 0)
             {
                 //    /*No connection*/

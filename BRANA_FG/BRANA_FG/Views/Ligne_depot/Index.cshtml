@@ -5,7 +5,19 @@
 }
 
 <h2>Index</h2>
+@if (Request["date1"] != null)
+{
 
+
+    ViewBag.date1 = Request["date1"];
+    ViewBag.date2 = Request["date2"];
+   
+
+    @*var s = ViewBag.affiche(int.Parse(zzz))[0].Item1;
+        var s1 = ViewBag.affiche(int.Parse(zzz))[0].Item2;
+        // @s  @s1
+            @ViewBag.afficheCount*@
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -15,7 +27,54 @@
     <div id="table" class="tab-pane fade in active">
         <div class="x_panel">
             <div class="x_title">
+                <fieldset>
+                    <div class="control-group">
+                        <div class="controls">
+                            <form method="get">
+                                <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                    <input type="text" name="date1" class="form-control has-feedback-left" id="single_cal2" placeholder="Date debut" aria-describedby="inputSuccess2Status2">
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                                </div>
+                                <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                    <input type="text" name="date2" class="form-control has-feedback-left" id="single_cal2" placeholder="Date fin" aria-describedby="inputSuccess2Status2">
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                                </div>
+                                <div class="col-md-3 col-sm-9 col-xs-12">
+                                    <select class="select2_single form-control" tabindex="-1" name="select" id="select">
 
+                                        @for (var a = 0; a < (int)ViewBag.sizeDP; a++)
+                                        {
+                                            var id = ViewBag.listdep[a].id;
+                                            var nom = ViewBag.listdep[a].nom.ToString();
+                                            if (ViewBag.tmpdepot == id)
+                                            {
+                                                <option value="@id" selected>@nom</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@id">@nom</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                                @*<div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                    <select class="form-control" name="select1">
+                                        <option value="L1">Ligne 1</option>
+                                        <option value="L2">Ligne 2</option>
+                                        <option value="L3">Ligne 3</option>
+                                        <option value="L4">Ligne 4</option>
+                                        <option value="*">All</option>
+                                    </select>
+                                </div>*@
+                                <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+                                    <input type="submit" class="btn btn-primary" value="Recherche" />
+                                </div>
+                            </form>
+                        </div>
+                </fieldset>
                 <div class="form-group col-md-10 col-sm-4 col-xs-6">
                    <input autocomplete='off' class='filter form-control' name='Ligne Production' placeholder='Ligne prod.' data-col='Ligne Production' />
                      <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
@@ -36,55 +95,61 @@
                 <table id="example" class="table table-striped responsive-utilities jambo_table">
                     <thead>
                         <tr class="headings">
+                            <th>ID</th>
                             <th>Ligne Production</th>
-                            <th>Depot</th>
+                            <th>Superviseur</th>
                             <th>Qtite Caisse</th>
                             <th>Date</th>
-                            <th>Superviseur</th>
-                            
                             <th>Produit</th>
+                            <th>Depot</th>
+                            
+                            
+                           
+                            
+                            
                             <th></th>
 
-
-
-                                
-                            
-                            
                         </tr>
                        
                     </thead>
 
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr class="even pointer">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.id_ligne_production)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.id_depot)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.qtite_caisse)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.date_ligne_depot)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.id_superviseur)
-                                </td>
-                               
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.id_produit)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                                </td>
-                            </tr>
-                        }
-                     
+@for (var a = 0; a < (int)ViewBag.Approvisionnement_count; a++)
+{
+    var s = ViewBag.Approvisionnement(ViewBag.date1, ViewBag.date2, ViewBag.select);
+    int i = s[a].Item1;
+    <tr class="even pointer">
+        <td>
+           @s[a].Item1
+        </td>
+        <td>
+            @s[a].Item2
+        </td>
+        <td>
+            @s[a].Item3
+        </td>
+        <td>
+            @s[a].Item4
+        </td>
+        <td>
+           @s[a].Item5
+        </td>
+
+        <td>
+            @s[a].Item6
+        </td>
+        <td>
+            @s[a].Item7
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = i }) |
+            @Html.ActionLink("Details", "Details", new { id = i }) |
+            @Html.ActionLink("Delete", "Delete", new { id = i })
+        </td>
+    </tr>
+}
+
+                       
 
                     </tbody>
                 </table>
@@ -122,33 +187,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <fieldset>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date debut" aria-describedby="inputSuccess2Status2">
-                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                            </div>
-                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date fin" aria-describedby="inputSuccess2Status2">
-                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                            </div>
-                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
-                                <select class="form-control">
-                                    <option value="">Ligne 1</option>
-                                    <option value="">Ligne 2</option>
-                                    <option value="">Ligne 3</option>
-                                    <option value="">Ligne 4</option>
-                                    <option value="">All</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3 xdisplay_inputx form-group has-feedback">
-                                <button class="btn btn-primary">Recherche</button>
-                            </div>
-                        </div>
-                </fieldset>
+                
                 @*<div id="graph_bar_group" style="width:100%; "></div>*@
                 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             </div>
