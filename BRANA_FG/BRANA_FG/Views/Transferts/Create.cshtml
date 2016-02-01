@@ -75,7 +75,7 @@
                         {
                             <option value="@id" selected>@nom</option>
                         }
-                        else
+                        else if(!Session["Depot"].Equals(nom))
                         {
                             <option value="@id">@nom</option>
                         }

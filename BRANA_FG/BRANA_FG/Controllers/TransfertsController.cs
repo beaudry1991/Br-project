@@ -92,15 +92,40 @@ namespace BRANA_FG.Controllers
 
         public ActionResult Reception(string num_transfert)
         {
-            var num_trans_verify = ddd.Transferts.Where(a => a.num_transfert.Equals(num_transfert)).FirstOrDefault();
-            if (num_trans_verify == null)
-            {
-               // Session["msd"] = "Ce numero nexiste pas";
 
-               
-                return View();
+            var num_trans_verify = db.Transferts.Where(a => a.num_transfert.Equals(num_transfert)).FirstOrDefault();
+
+            Utilisateur infosup = db.Utilisateurs.Find(Session["idUser"]);
+
+            var infdepot = db.Depots.Where(b => b.nom.Equals(infosup.depot)).FirstOrDefault();
+
+
+            //var depot_verify = db.Transferts.Where(b => b.id_depot_source.Equals(infdepot.id)).FirstOrDefault();
+
+            int ii = num_trans_verify.id_depot_dest;
+
+            if (num_trans_verify == null || !(infdepot.id.Equals(num_trans_verify.id_depot_dest)) || num_trans_verify.process != 0)
+            {
+
+                return RedirectToAction("NumTransfert");
             }
 
+
+
+            ViewBag.size = Fonct.ListSuperviseurs().Count();
+            ViewBag.superviseur = Fonct.ListSuperviseurs();
+
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizeP = Fonct.listproduit().Count();
+
+            var st = num_transfert;
+            int id_transfert = Fonct.idtransfert_numTrans(st.ToString());
+
+            ViewBag.sizeRetour = Fonct.ListRetour(id_transfert).Count();
+            ViewBag.listretour = Fonct.ListRetour(id_transfert);
+
+
+            
 
             //if (num_transfert.Equals(null))
             //{
@@ -108,15 +133,13 @@ namespace BRANA_FG.Controllers
             //}
             //else
        //     {
-                var st = num_transfert;
+                
                 //string eo = num_transfert;
                 //Session["kiki"] = eo;
                 //TempData["num_embaq"] = num_emb;
-                int id_transfert = Fonct.idtransfert_numTrans(st.ToString());
+               
                 
-                ViewBag.sizeRetour = Fonct.ListRetour(id_transfert).Count();
-                ViewBag.listretour = Fonct.ListRetour(id_transfert);
-
+               
                 ViewBag.idtrans = id_transfert;
                 
                 if (id_transfert == 0)
@@ -136,12 +159,7 @@ namespace BRANA_FG.Controllers
 
 
 
-            ViewBag.size = Fonct.ListSuperviseurs().Count();
-            ViewBag.superviseur = Fonct.ListSuperviseurs();
-
-            ViewBag.produitlist = Fonct.listproduit();
-            ViewBag.sizeP = Fonct.listproduit().Count();
-
+           
             //ViewBag.chauffeurlist = Fonct.ListChauffeur();
             //ViewBag.sizeC = Fonct.ListChauffeur().Count();
 
@@ -230,7 +248,7 @@ namespace BRANA_FG.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Reception([Bind(Include = "numTrans,quantite_palette,id_superviseur,idP,caisse,bouteille")]Transfert transfert)
+        public ActionResult Reception([Bind(Include = "numTrans,quantite_palette,idP,caisse,bouteille")]Transfert transfert)
         {
             var i = Request.Form.GetValues("idP");
             var c = Request.Form.GetValues("caisse");
@@ -250,13 +268,13 @@ namespace BRANA_FG.Controllers
             ViewBag.superviseur = Fonct.ListSuperviseurs();
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();
-            ViewBag.sizeDP = Fonct.ListDepot().Count();
-            ViewBag.listdep = Fonct.ListDepot();
+            //ViewBag.sizeDP = Fonct.ListDepot().Count();
+            //ViewBag.listdep = Fonct.ListDepot();
 
-            var sup = Request["id_superviseur"];
-            int vab = int.Parse(sup.ToString());
+            //var sup = Request["id_superviseur"];
+            //int vab = int.Parse(sup.ToString());
 
-            Utilisateur info_superv1 = db.Utilisateurs.Find(vab);
+            Utilisateur info_superv1 = db.Utilisateurs.Find(Session["idUser"]);
 
             var info_depot1 = db.Depots.Where(b => b.nom.Equals(info_superv1.depot)).FirstOrDefault();
 
@@ -269,7 +287,7 @@ namespace BRANA_FG.Controllers
             for (int a = 0; a < ViewBag.sizeRetour; a++)
             {
                 for (int b = 0; b < ViewBag.sizeRetour; b++)
-                if (ViewBag.listretour[a].id_produit==int.Parse(idProduit[b].ToString()) && ViewBag.listretour[a].qtite_caisse == int.Parse(caisse[b].ToString()) && ViewBag.listretour[a].qtite_bout == int.Parse(bouteille[b].ToString()))
+                if (ViewBag.listretour[a].id_produit == int.Parse(idProduit[b].ToString()) && ViewBag.listretour[a].qtite_caisse == int.Parse(caisse[b].ToString()) && ViewBag.listretour[a].qtite_bout == int.Parse(bouteille[b].ToString()))
                 {
                         compteur++;
                 }
@@ -286,7 +304,7 @@ namespace BRANA_FG.Controllers
                 {
                
                     lo.process = 1;
-                    lo.id_superviseur_recu = vab;
+                    lo.id_superviseur_recu = int.Parse(Session["idUser"].ToString());
             
                }
                 //  db.SaveChanges();
@@ -312,8 +330,13 @@ namespace BRANA_FG.Controllers
                     }
 
                 }
+                
                 db.SaveChanges();
 
+            }
+            else
+            {
+                ViewBag.messagealerte = "VERIFIEZ VOS INFORMATOINS";
             }
 
 
