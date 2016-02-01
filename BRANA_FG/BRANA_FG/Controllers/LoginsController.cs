@@ -47,6 +47,7 @@ namespace BRANA_FG.Controllers
                         Session["prenom"] = user.prenom.ToString();
                         Session["idUser"] = logged.idUser;
                         Session["fonction"] = user.fonction.ToString();
+                        Session["Depot"] = user.depot.ToString();
                         
                         /*Admin Loggin test*/
                         var ad = "admin_FG";

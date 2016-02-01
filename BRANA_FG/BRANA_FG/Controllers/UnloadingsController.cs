@@ -1,4 +1,4 @@
-﻿using System;
+﻿  using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,8 +13,9 @@ namespace BRANA_FG.Controllers
     public class UnloadingsController : Controller
     {
         private BddContext db = new BddContext();
+            private BddContext ddd = new BddContext();
         public FonctionRequete Fonct = new FonctionRequete();
-        private int test = 0;
+        //private int test = 0;
         // GET: Unloadings
         
         public ActionResult Index()
@@ -59,15 +60,52 @@ namespace BRANA_FG.Controllers
             return View(unloading);
         }
 
+
+        // GET: Unloadings/Num embarq
+        public ActionResult NumEmb()
+        {
+            //if (test == 1)
+            //{
+            //    ViewBag.mache = "RRRRRRRRRR";
+            //}
+            if (Session.Keys.Count == 0)
+            {
+                //    /*No connection*/
+                return Redirect("~/Logins/Index");
+            }
+            else
+            {
+                var fonction = "admin_FG"; var fonction1 = "data_FG";
+
+                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                {
+                    // Session["iddataclock"] = Session["IdUser"];
+
+                    return View();
+                }
+                else
+                {
+                    /*No ADMIN connection*/
+                    return Redirect("~/Logins/Index");
+                }
+
+            }
+
+        }
+
+
+
         // GET: Unloadings/Create
         public ActionResult Create(string num_emb)
         {
-            var num_emb_verify = db.Loadings.Where(a => a.numero_sp.Equals(num_emb)).FirstOrDefault();
-            if (num_emb_verify == null)
+            var num_emb_verify = ddd.Loadings.Where(b => b.numero_emb.Equals(num_emb)).FirstOrDefault();
+            var num = ddd.Unloadings.Where(b => b.id_loading.Equals(num_emb_verify.id)).FirstOrDefault();
+
+            if (num_emb_verify == null || num != null)
             {
-                test = 1 ;
+            //   // test = 1 ;
                 
-                return View();
+                return RedirectToAction("NumEmb");
             }
 
 
@@ -119,44 +157,14 @@ namespace BRANA_FG.Controllers
         }
 
 
-        // GET: Unloadings/Num embarq
-        public ActionResult NumEmb()
-        {
-            if (test == 1)
-            {
-                ViewBag.mache = "RRRRRRRRRR";
-            }
-            if (Session.Keys.Count == 0)
-            {
-                //    /*No connection*/
-                return Redirect("~/Logins/Index");
-            }
-            else
-            {
-                var fonction = "admin_FG"; var fonction1 = "data_FG";
-
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
-                {
-                    // Session["iddataclock"] = Session["IdUser"];
-                    
-                    return View();
-                }
-                else
-                {
-                    /*No ADMIN connection*/
-                    return Redirect("~/Logins/Index");
-                }
-
-            }
-
-        }
+       
 
         // POST: Unloadings/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,numEmb,id_loading,qtite_palette_retr,time_unloading_debut,time_unloading_fin,remarque,idP,caisse,bouteille")] Unloading unloading)
+        public ActionResult Create([Bind(Include = "id,numEmb,qtite_palette_retr,time_unloading_debut,time_unloading_fin,remarque,idP,caisse,bouteille")] Unloading unloading)
         {
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();

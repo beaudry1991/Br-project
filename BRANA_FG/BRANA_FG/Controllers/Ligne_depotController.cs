@@ -105,7 +105,7 @@ namespace BRANA_FG.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,id_ligne_production,id_depot,qtite_caisse,date_ligne_depot,id_produit")] Ligne_depot ligne_depot)
+        public ActionResult Create([Bind(Include = "id,id_ligne_production,id_depot,qtite_caisse,id_produit")] Ligne_depot ligne_depot)
         {
             ViewBag.sizeLP = Fonct.ListLigneProduction().Count();
             ViewBag.ligneProduction = Fonct.ListLigneProduction();
@@ -147,6 +147,7 @@ namespace BRANA_FG.Controllers
 
 
                 ligne_depot.id_superviseur = int.Parse(Session["iddataclock"].ToString());
+                ligne_depot.date_ligne_depot = DateTime.Now;
                 db.Ligne_depot.Add(ligne_depot);
                 db.SaveChanges();
                 return RedirectToAction("Index");
