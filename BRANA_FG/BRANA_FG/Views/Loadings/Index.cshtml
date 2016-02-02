@@ -9,14 +9,43 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
+@if (Request["date1"] != null)
+{
 
+
+    ViewBag.date1 = Request["date1"];
+    ViewBag.date2 = Request["date2"];
+
+    @ViewBag.Loading_count
+   
+}
 
 <div class="tab-content">
     <div id="table" class="tab-pane fade in active">
         <div class="x_panel">
             <div class="x_title">
+                <div class="col-md-12 col-md-offset-2">
+                    <form action="#" method="get">
+                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                            <input type="text" name="date1" value="@if (Request["date1"] != null) {@ViewBag.date1 }" id="date1" placeholder="01/01/2015" class="form-control" />
+                        </div>
 
+
+
+                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
+
+                            <input type="text" name="date2" value="@if (Request["date2"] != null) {@ViewBag.date2 }" id="date2" class="form-control" placeholder="01/31/2015" />
+</div>
+
+
+<div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <input type="submit" class="form-control btn btn-danger" value="Recherche" />
+
+                        </div>
+                    </form>
+                </div>
                 <div class="form-group col-md-10 col-sm-4 col-xs-6">
+                   
                     <input autocomplete='off' class='filter form-control' name='Chauffeur' placeholder='Chauffeur' data-col='Chauffeur' />
                     <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
                     <input autocomplete='off' class='filter form-control' name='sp' placeholder='Num. SP' data-col='Num. SP' />
@@ -50,28 +79,34 @@
                     </thead>
 
                     <tbody>
-                        @foreach (var item in Model)
+                        @*@foreach (var item in Model)
+                        {*@
+                        @for (var a = 0; a < (int)ViewBag.Loading_count; a++)
                         {
+                            var s = ViewBag.Loading(ViewBag.date1, ViewBag.date2);
+                            var duree = s[a].heure_fin - s[a].heure_debut;
+
+
                             <tr class="even pointer">
 
-                                <td>@Html.DisplayFor(modelItem => item.date_loading)</td>
-                                <td>@Html.DisplayFor(modelItem => item.id_chauffeur)</td>
-                                <td>@Html.DisplayFor(modelItem => item.id_depot)</td>
-                                <td>@Html.DisplayFor(modelItem => item.id_vehicule)</td>
-                                <td class="alert alert-success ">@Html.DisplayFor(modelItem => item.numero_sp)</td>
-                                <td class="alert alert-info ">@Html.DisplayFor(modelItem => item.numero_emb)</td>
-                                <td>@Html.DisplayFor(modelItem => item.id_superviseur)</td>
-                                <td>@Html.DisplayFor(modelItem => item.nbre_palette)</td>
-                                <td>00:30:12</td>
+                                <td>@s[a].heure_debut</td>
+                                <td>@s[a].chauffeur</td>
+                                <td>@s[a].depot</td>
+                                <td>@s[a].vehicule</td>
+                                <td class="alert alert-success ">@s[a].numero_sp</td>
+                                <td class="alert alert-info ">@s[a].numero_emb</td>
+                                <td>@s[a].superviseur</td>
+                                <td>@s[a].nbre_palette</td>
+                                <td>@duree</td>
 
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                                    @Html.ActionLink("More", "More", new { id = item.id })
+                                    @Html.ActionLink("Edit", "Edit", new { id = s[a].id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = s[a].id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = s[a].id }) |
+                                    @Html.ActionLink("More", "More", new { id = s[a].id })
                                 </td>
                             </tr>
-                        }
+                       }
 
                     </tbody>
                 </table>
@@ -147,139 +182,72 @@
         </div>
     </div>
 
+    <select id="ddlyear">
+        <option>2010</option>
+        <option>2011</option>
+        <option>2012</option>
+        <option>2013</option>
+        <option>2014</option>
+        <option>2015</option>
+    </select>
+    <select id="ddlMonth">
+        <option value="1">Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>.......... ...........
+    </select>
+    <button id="btnGeneratePieChart">Show</button>
+    <br /><canvas id="myChart" width="200" height="200"></canvas>
 
 </div>
+
+
+@for (var a = 0; a < (int)ViewBag.Loading_count; a++)
+{
+    var s = ViewBag.Loading(ViewBag.date1, ViewBag.date2);
+    var duree = s[a].heure_fin - s[a].heure_debut;
+}
+
+
             <script type="text/javascript">
 
 
-    $(function () {
-      //  $('input[name="daterange"]').daterangepicker();
+                $(function () {
+
+                    var day_data = [];
+
+            insert("2015-09-08", 56);
 
 
 
-
-        var day_data = [];
-
-        insert("2015-09-08", 56);
-        insert("2015-09-10", 72);
-        insert("2015-09-11", 30);
-        insert("2015-09-12", 25);
-        insert("2015-09-10", 92);
-        insert("2015-09-11", 144);
-        insert("2015-09-12", 25);
-        insert("2015-09-10", 127);
-        insert("2015-09-11", 30);
-        insert("2015-09-12", 37);
+                    //insert("2015-09-10", 72);
+                    //insert("2015-09-11", 30);
+                    //insert("2015-09-12", 25);
+                    //insert("2015-09-10", 92);
+                    //insert("2015-09-11", 144);
+                    //insert("2015-09-12", 25);
+                    //insert("2015-09-10", 127);
+                    //insert("2015-09-11", 30);
+                    //insert("2015-09-12", 37);
 
 
 
-        Morris.Bar({
-            element: 'graph_bar_group',
-            data: day_data,
-            xkey: 'produit',
-            barColors: ['#3498DB'],
-            ykeys: ['montant'],
-            labels: ['Nombre de caisse', 'SORN'],
-            hideHover: 'auto',
-            xLabelAngle: 60
-        });
+                    Morris.Bar({
+                        element: 'graph_bar_group',
+                        data: day_data,
+                        xkey: 'produit',
+                        barColors: ['#3498DB'],
+                        ykeys: ['montant'],
+                        labels: ['Nombre de caisse', 'SORN'],
+                        hideHover: 'auto',
+                        xLabelAngle: 60
+                    });
 
-        function insert(name, number) {
-            day_data.push({
-                produit: name,
-                montant: number
-            });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        var data_depart = [];
-
-        insert_depart('Artibonite', 10);
-
-        insert_depart('Centre', 15);
-
-        insert_depart('Grand\'Anse', 20);
-
-        insert_depart('Nippes', 25);
-
-        insert_depart('Nord', 30);
-
-        insert_depart('Nord-Est', 10);
-
-        insert_depart('Nord-Ouest', 10);
-
-        insert_depart('Ouest', 25);
-
-        insert_depart('Sud', 10);
-
-        insert_depart('Sud-Est', 10);
-
-
-
-
-
-
-        var myChart = echarts.init(document.getElementById('echart_pie2'), theme);
-        myChart.setOption({
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                x: 'center',
-                y: 'bottom',
-                data: ['Artibonite', 'Centre', 'Grand\'Anse', 'Nippes', 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est']
-            },
-            toolbox: {
-                show: true,
-                feature: {
-                    magicType: {
-                        show: true,
-                        type: ['pie', 'funnel']
-                    },
-                    restore: {
-                        show: true
-                    },
-                    saveAsImage: {
-                        show: true
+                    function insert(name, number) {
+                        day_data.push({
+                            produit: name,
+                            montant: number
+                        });
                     }
-                }
-            },
-            calculable: true,
-            series: [
-                {
-                    name: 'Area Mode',
-                    type: 'pie',
-                    radius: [25, 90],
-                    center: ['50%', 170],
-                    roseType: 'area',
-                    x: '50%', // for funnel
-                    max: 40, // for funnel
-                    sort: 'ascending', // for funnel
-                    data: data_depart
-                }
-            ]
-        });/**/
-        function insert_depart(nam, number) {
-            data_depart.push({
-                name: nam,
-                value: number
-            });
-        }
 
 
 
@@ -294,47 +262,137 @@
 
 
 
-        //////////////////////////////////////////////////////
 
 
+                    var data_depart = [];
 
-        //////////////////////////////////////
+                    insert_depart('Artibonite', 10);
 
-        //var day_data2 = [
-        //      { "period": "2012-10-01", "licensed": 807, "sorned": 660 },
-        //      { "period": "2012-09-30", "licensed": 1251, "sorned": 729 },
-        //      { "period": "2012-09-29", "licensed": 1769, "sorned": 1018 },
-        //      { "period": "2012-09-20", "licensed": 2246, "sorned": 1461 },
-        //      { "period": "2012-09-19", "licensed": 2657, "sorned": 1967 },
-        //      { "period": "2012-09-18", "licensed": 3148, "sorned": 2627 },
-        //      { "period": "2012-09-17", "licensed": 3471, "sorned": 3740 },
-        //      { "period": "2012-09-16", "licensed": 2871, "sorned": 2216 },
-        //      { "period": "2012-09-15", "licensed": 2401, "sorned": 1656 },
-        //      { "period": "2012-09-10", "licensed": 2115, "sorned": 1022 }
-        //];
-        //Morris.Bar({
-        //    element: 'graph',
-        //    data: day_data2,
-        //    xkey: 'period',
-        //    barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-        //    ykeys: ['licensed', 'sorned'],
-        //    labels: ['Licensed', 'SORN'],
-        //    hideHover: 'auto',
-        //    xLabelAngle: 60
-        //});
+                    insert_depart('Centre', 15);
+
+                    insert_depart('Grand\'Anse', 20);
+
+                    insert_depart('Nippes', 25);
+
+                    insert_depart('Nord', 30);
+
+                    insert_depart('Nord-Est', 10);
+
+                    insert_depart('Nord-Ouest', 10);
+
+                    insert_depart('Ouest', 25);
+
+                    insert_depart('Sud', 10);
+
+                    insert_depart('Sud-Est', 10);
 
 
 
 
-        //function insert2(nam, num) {
-        //    day_data2.push({
-        //        dep: nam,
-        //        nb: num
-        //    });
-        //}
 
-        //////////////////////////////////////////////////
-    });
+
+                    var myChart = echarts.init(document.getElementById('echart_pie2'), theme);
+                    myChart.setOption({
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            x: 'center',
+                            y: 'bottom',
+                            data: ['Artibonite', 'Centre', 'Grand\'Anse', 'Nippes', 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est']
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                magicType: {
+                                    show: true,
+                                    type: ['pie', 'funnel']
+                                },
+                                restore: {
+                                    show: true
+                                },
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+                        },
+                        calculable: true,
+                        series: [
+                            {
+                                name: 'Area Mode',
+                                type: 'pie',
+                                radius: [25, 90],
+                                center: ['50%', 170],
+                                roseType: 'area',
+                                x: '50%', // for funnel
+                                max: 40, // for funnel
+                                sort: 'ascending', // for funnel
+                                data: data_depart
+                            }
+                        ]
+                    });/**/
+                    function insert_depart(nam, number) {
+                        data_depart.push({
+                            name: nam,
+                            value: number
+                        });
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    //////////////////////////////////////////////////////
+
+
+
+                    //////////////////////////////////////
+
+                    //var day_data2 = [
+                    //      { "period": "2012-10-01", "licensed": 807, "sorned": 660 },
+                    //      { "period": "2012-09-30", "licensed": 1251, "sorned": 729 },
+                    //      { "period": "2012-09-29", "licensed": 1769, "sorned": 1018 },
+                    //      { "period": "2012-09-20", "licensed": 2246, "sorned": 1461 },
+                    //      { "period": "2012-09-19", "licensed": 2657, "sorned": 1967 },
+                    //      { "period": "2012-09-18", "licensed": 3148, "sorned": 2627 },
+                    //      { "period": "2012-09-17", "licensed": 3471, "sorned": 3740 },
+                    //      { "period": "2012-09-16", "licensed": 2871, "sorned": 2216 },
+                    //      { "period": "2012-09-15", "licensed": 2401, "sorned": 1656 },
+                    //      { "period": "2012-09-10", "licensed": 2115, "sorned": 1022 }
+                    //];
+                    //Morris.Bar({
+                    //    element: 'graph',
+                    //    data: day_data2,
+                    //    xkey: 'period',
+                    //    barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+                    //    ykeys: ['licensed', 'sorned'],
+                    //    labels: ['Licensed', 'SORN'],
+                    //    hideHover: 'auto',
+                    //    xLabelAngle: 60
+                    //});
+
+
+
+
+                    //function insert2(nam, num) {
+                    //    day_data2.push({
+                    //        dep: nam,
+                    //        nb: num
+                    //    });
+                    //}
+
+                    //////////////////////////////////////////////////
+                });
 
             </script>
     <!-- echart -->

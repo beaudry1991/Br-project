@@ -79,7 +79,7 @@ namespace BRANA_FG.Controllers
                             join prod in db.Produits on ld.id_superviseur equals prod.id
                             select new
                            {
-                                id = ld.id,
+                              id = ld.id,
                               produit =  prod.nom,
                               depot = dep.nom,
                               super_nom = sup.nom,
@@ -228,7 +228,9 @@ namespace BRANA_FG.Controllers
             }
             
                 TempData["tempom"] = ligne_depot.qtite_caisse;
+              
 
+        
             
             return View(ligne_depot);
         }

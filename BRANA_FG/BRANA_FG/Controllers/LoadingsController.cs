@@ -18,8 +18,29 @@ namespace BRANA_FG.Controllers
         // GET: Loadings
         public ActionResult Index()
         {
-            //ViewBag.id_loading = 0;
-           // ViewBag.id_loading = Fonct.id_loadingWrNumEmb("345409");
+
+
+
+            if (Request["date1"] != null || Request["date1"] == "")
+            {
+                ViewBag.date1 = Request["date1"];
+                ViewBag.date2 = Request["date2"];
+
+
+                string a = Request["date1"];
+                string b = Request["date2"];
+       
+
+                ViewBag.Loading_count = Loading(a, b).Count();
+                ViewBag.Loading = new Func<string, string, List<ListLoading>>(Loading);
+
+            }
+            else
+            {
+                ViewBag.Loading_count = 0;
+            }
+
+
 
 
             if (Session.Keys.Count == 0)
@@ -49,6 +70,7 @@ namespace BRANA_FG.Controllers
             //}
             //return View(db.Loadings.ToList());
         }
+       
 
         // GET: Loadings/Details/5
         public ActionResult Details(int? id)
@@ -340,5 +362,79 @@ namespace BRANA_FG.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public List<ListLoading> Loading(string c, string b)
+        {
+            List<ListLoading> PC = new List<ListLoading>();
+
+            ListLoading l_d = new ListLoading();
+            DateTime date1 = Convert.ToDateTime(c);
+            DateTime date2 = Convert.ToDateTime(b);
+
+            var load = from ld in db.Loadings
+                            where (ld.heure_debut.Day >= date1.Day && ld.heure_debut.Day <= date2.Day)
+                               join chauff in db.Chauffeurs on ld.id_chauffeur equals chauff.id
+                               join dep in db.Depots on ld.id_depot equals dep.id
+                               join veh in db.Vehicules on ld.id_vehicule equals veh.id
+                               join sup in db.Utilisateurs on ld.id_superviseur equals sup.id
+                            select new
+                            {
+                               ld, chauff, dep, veh, sup
+                                
+
+                            };
+
+
+
+            if (load.Count() != 0)
+            { 
+                foreach (var a in load)
+            {
+
+                PC.Add(new ListLoading()
+                {
+                    id = a.ld.id,
+                    heure_debut  = a.ld.heure_debut,
+                    heure_fin    = a.ld.heure_fin,
+                    numero_sp    = a.ld.numero_sp,
+                    numero_emb   = a.ld.numero_emb,
+                    nbre_palette = a.ld.nbre_palette,
+                    chauffeur    = a.chauff.nom + " " + a.chauff.prenom,
+                    vehicule     = a.veh.numero,
+                    superviseur  = a.sup.nom + "" + a.sup.prenom,
+                    client = "",
+                    destination = "",
+                    data_clock ="",
+                    depot =a.dep.nom,
+                    date_loading =date1,
+                    remarque ="",
+                    retour =0,
+                    type_emb = ""
+                    
+                }  
+                    );
+
+            }
+            }
+            //if (PC.Count() == 0)
+            //{
+            //    PC.Add(new ListLoading()
+            //    {
+            //        id = 0,
+            //        heure_debut = date1,
+            //        heure_fin = date2,
+            //        chauffeur = "",
+            //        vehicule = "",
+            //        numero_sp = "",
+            //        numero_emb = "",
+            //        superviseur = "",
+            //        nbre_palette = 0
+            //    });
+            //}
+            return PC;
+        }
+
     }
+
 }
