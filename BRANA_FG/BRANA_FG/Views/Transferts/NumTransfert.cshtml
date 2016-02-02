@@ -18,6 +18,17 @@
                
             </div>
             <div class="modal-body">
+                @using (Html.BeginForm())
+            {
+                    @Html.AntiForgeryToken()
+
+                    if (@ViewBag.transf_alerte != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.transf_alerte
+                        </div>
+                    }
+                }
                 <form action="Reception" method="GET">
                     <div class="form-group">
                         <input type="text" name="num_transfert" id="num_transfert" class="form-control" placeholder="Numero Transfert">

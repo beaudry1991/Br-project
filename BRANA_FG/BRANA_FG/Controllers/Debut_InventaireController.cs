@@ -151,8 +151,43 @@ namespace BRANA_FG.Controllers
 
                     for (int a = 0; a < caisse.Count(); a++)
                     {
-                       
-                        if (!caisse[a].Equals(""))
+
+                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
+                        {
+
+                            if (caisse[a].Equals("") && !bouteille[a].Equals(""))
+                            {
+                                caisse[a] = "0";
+                            }
+
+                            if (!caisse[a].Equals("") && bouteille[a].Equals(""))
+                            {
+                                bouteille[a] = "0";
+                            }
+
+
+                            int v = 0, w = 0;
+                            List<Produit_dispo> dispo = Fonct.Stock_dispos(info_superv.depot, int.Parse(idProduit[a].ToString()));
+
+                            if (dispo.Count() > 0)
+                            {
+                                v = dispo[0].bouteille;
+                                w = dispo[0].caisse;
+                            }
+                            
+                            if( w != int.Parse(caisse[a].ToString()) &&  v != int.Parse(bouteille[a].ToString()))
+                            {
+                                ViewBag.InventaireError = "VEUILLEZ VERIFIER VOS DONNEES OU CONTACTEZ VOTRE ADMINISTRATEUR!";
+                                return View();
+                            }
+
+                            
+                        }
+                    }
+
+                    for (int a = 0; a < caisse.Count(); a++)
+                    {
+                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
                         {
                             int v = 0, w = 0;
                             List<Produit_dispo> dispo = Fonct.Stock_dispos(info_superv.depot, int.Parse(idProduit[a].ToString()));
@@ -172,12 +207,14 @@ namespace BRANA_FG.Controllers
                             db.Debut_Inventaire.Add(debut_Inventaire);
 
                             db.SaveChanges();
+
                         }
                     }
 
 
-                    }
-                    return Redirect("~/Logins/AcceuilSup");
+                }
+
+                return Redirect("~/Logins/AcceuilSup");
                     }
                
            

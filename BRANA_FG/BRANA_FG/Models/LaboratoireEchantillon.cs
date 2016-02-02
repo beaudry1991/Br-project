@@ -30,12 +30,13 @@ namespace BRANA_FG.Models
         [Display(Name = "Depot")]
         public int id_depot { get; set; }
       
-        [Required(ErrorMessage = "Enter a value", AllowEmptyStrings = false)]
-        [Display(Name = "Quantite Donnee")]
+        
+        [Display(Name = "Quantite Caisse")]
         public int qtite_donnee { get; set; }
 
-        [Display(Name = "Quantite Retour")]
-        public int qtite_retour { get; set; }
+        [Required(ErrorMessage = "Enter a value", AllowEmptyStrings = false)]
+        [Display(Name = "Quantite Bouteille")]
+        public int qtite_bout { get; set; }
 
         
     }

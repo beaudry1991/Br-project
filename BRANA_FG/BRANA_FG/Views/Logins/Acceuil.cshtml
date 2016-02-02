@@ -84,13 +84,26 @@
                                                 @for (var i = 0; i < ViewBag.sizeP; i++)
                                                 {
                                                     var nomprod = ViewBag.produitlist[i].nom.ToString();
+                                                    if (ViewBag.listproddispo[i].bouteille >= 24)
+                                                    {
+                                                        int qtite = ViewBag.listproddispo[i].bouteille % 24;
+                                                        int caisse = ViewBag.listproddispo[i].caisse + (ViewBag.listproddispo[i].bouteille / 24);
+
                                                     <tr class="even pointer">
                                                         <td class="btn-success">@nomprod</td>                            
-                                                        <td class=" ">@ViewBag.listproddispo[i].caisse   @ViewBag.listproddispo[i].bouteille/24</td>
+                                                        <td class="">@caisse   @qtite /24</td>
                                                     </tr>
+                                                    }
+                                                   else
+                                                    {
+                                                        <tr class="even pointer">
+                                                            <td class="btn-success">@nomprod</td>
+                                                            <td class="">@ViewBag.listproddispo[i].caisse   @ViewBag.listproddispo[i].bouteille /24</td>
+                                                        </tr>
+                                                    }
                                                 }
-                                                
-                                             
+
+
 
                                             </tbody>
                                         </table>

@@ -101,19 +101,43 @@
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="~/Logins/Acceuil"><i class="fa fa-home"></i> Acceuil @*<span class="fa fa-chevron-down"></span>*@</a>
-                                    @*<ul class="nav child_menu" style="display: none">
-                                        <li><a href="index.html">Dashboard</a>
-                                        </li>
-                                        <li><a href="index2.html">Dashboard2</a>
-                                        </li>
-                                        <li><a href="index3.html">Dashboard3</a>
-                                        </li>
-                                    </ul>*@
+                                @if (Session["fonction"].ToString().Equals("admin_FG"))
+                                {
+                                <li>
+                                    <a href="~/Logins/Acceuil"><i class="fa fa-home"></i> Acceuil </a>
+                         
                                 </li>
+                                }
+
+                                @if (Session["fonction"].ToString().Equals("super_FG"))
+                                {
+                                    <li>
+                                        <a href="~/Logins/AcceuilSup"><i class="fa fa-home"></i> Acceuil </a>
+
+                                    </li>
+                                }
+                                @if (Session["fonction"].ToString().Equals("data_FG"))
+                                {
+                                    <li>
+                                        <a href="~/Logins/AcceuilDataC"><i class="fa fa-home"></i> Acceuil </a>
+
+                                    </li>
+                                }
+                                @if (Session["fonction"].ToString().Equals("audit_FG"))
+                                {
+                                    <li>
+                                        <a href="~/Logins/AcceuilAud"><i class="fa fa-home"></i> Acceuil </a>
+
+                                    </li>
+                                }
+
+
+
+
+                                @if (Session["fonction"].ToString().Equals("data_FG") || Session["fonction"].ToString().Equals("super_FG")) { 
                                 <li><a><i class="fa fa-edit"></i> Operations <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
-                                        @if (Session["fonction"].ToString().Equals("data_FG") || Session["fonction"].ToString().Equals("admin_FG"))
+                                        @if (Session["fonction"].ToString().Equals("data_FG") )
                                         {
                                         <li>
                                             <a href="~/Loadings/Create">Chargement</a>
@@ -123,7 +147,7 @@
                                         </li> 
                                         }
 
-                                        @if (Session["fonction"].ToString().Equals("super_FG") || Session["fonction"].ToString().Equals("admin_FG"))
+                                        @if (Session["fonction"].ToString().Equals("super_FG") )
                                         {
                                         <li>
                                             <a href="~/Ligne_depot/Create">Approvisionnement</a>
@@ -151,6 +175,7 @@
 
                                     </ul>
                                 </li>
+                                }
                                 @if (Session["fonction"].ToString().Equals("admin_FG") || Session["fonction"].ToString().Equals("audit_FG"))
                                 {
                                     <li>

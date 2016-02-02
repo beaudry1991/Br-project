@@ -15,7 +15,7 @@ namespace BRANA_FG.Controllers
         private BddContext db = new BddContext();
             private BddContext ddd = new BddContext();
         public FonctionRequete Fonct = new FonctionRequete();
-        //private int test = 0;
+        private int test = 0;
         // GET: Unloadings
         
         public ActionResult Index()
@@ -64,10 +64,15 @@ namespace BRANA_FG.Controllers
         // GET: Unloadings/Num embarq
         public ActionResult NumEmb()
         {
-            //if (test == 1)
-            //{
-            //    ViewBag.mache = "RRRRRRRRRR";
-            //}
+            if (TempData["msg1"] !=null)
+              {
+            ViewBag.emb_alerte = "Numero d'Embarquement non existant.";
+           }
+            if (TempData["msg2"] != null)
+            {
+                ViewBag.emb_alerte = "Numero d'Embarquement deja Enregistré.";
+            }
+
             if (Session.Keys.Count == 0)
             {
                 //    /*No connection*/
@@ -99,37 +104,40 @@ namespace BRANA_FG.Controllers
         public ActionResult Create(string num_emb)
         {
             var num_emb_verify = ddd.Loadings.Where(b => b.numero_emb.Equals(num_emb)).FirstOrDefault();
-            var num = ddd.Unloadings.Where(b => b.id_loading.Equals(num_emb_verify.id)).FirstOrDefault();
-
-            if (num_emb_verify == null || num != null)
-            {
-            //   // test = 1 ;
-                
-                return RedirectToAction("NumEmb");
-            }
-
-
-            //if (num_emb.Equals(null))
-            //{
-            //  return   RedirectToAction("Index");
-            //}else
-           // {
-                var st = num_emb;
-                string eo = num_emb;
-                Session["kiki"] = eo;
-                
-                TempData["id_load"] = Fonct.id_loadingWrNumEmb(st.ToString());
-
-                ViewBag.produitlist = Fonct.listproduit();
-                ViewBag.sizeP = Fonct.listproduit().Count();
-                ViewBag.tmpPro = 0;
-
-                ViewBag.sizeUnload = Fonct.ListUnload(eo).Count();
-                ViewBag.listUnload = Fonct.ListUnload(eo);
-         //   }
-           
-
             
+
+            if (num_emb_verify == null )
+            {
+               TempData["msg1"] = 1 ;
+               return RedirectToAction("NumEmb");
+                
+            }
+            else
+            {
+                var num = ddd.Unloadings.Where(b => b.id_loading.Equals(num_emb_verify.id)).FirstOrDefault();
+
+                if (num!= null)
+                {
+                    TempData["msg2"] = 1;
+                    return RedirectToAction("NumEmb");
+                }
+                else
+                {
+                    var st = num_emb;
+                    string eo = num_emb;
+                    Session["kiki"] = eo;
+
+                    TempData["id_load"] = Fonct.id_loadingWrNumEmb(st.ToString());
+
+                    ViewBag.produitlist = Fonct.listproduit();
+                    ViewBag.sizeP = Fonct.listproduit().Count();
+                    ViewBag.tmpPro = 0;
+
+                    ViewBag.sizeUnload = Fonct.ListUnload(eo).Count();
+                    ViewBag.listUnload = Fonct.ListUnload(eo);
+
+                }
+            }
 
 
             if (Session.Keys.Count == 0)

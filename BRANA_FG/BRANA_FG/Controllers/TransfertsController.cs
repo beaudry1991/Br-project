@@ -64,7 +64,20 @@ namespace BRANA_FG.Controllers
         // GET: NUmero transfert
         public ActionResult NumTransfert()
         {
-            //return View();
+            if (TempData["msg1"] != null)
+            {
+                ViewBag.transf_alerte = "Numero Transfert non existant.";
+            }
+
+            if (TempData["msg2"] != null)
+            {
+                ViewBag.transf_alerte = "Ce Tranfert n'est pas destiné a votre dépot.";
+            }
+            if (TempData["msg3"] != null)
+            {
+                ViewBag.transf_alerte = "Ce Transfert a été deja enregistré.";
+            }
+
 
             if (Session.Keys.Count == 0)
             {
@@ -102,11 +115,22 @@ namespace BRANA_FG.Controllers
 
             //var depot_verify = db.Transferts.Where(b => b.id_depot_source.Equals(infdepot.id)).FirstOrDefault();
 
-            int ii = num_trans_verify.id_depot_dest;
+            //int ii = num_trans_verify.id_depot_dest;
 
-            if (num_trans_verify == null || !(infdepot.id.Equals(num_trans_verify.id_depot_dest)) || num_trans_verify.process != 0)
+            if (num_trans_verify == null)
             {
+                TempData["msg1"] = 1;
+                return RedirectToAction("NumTransfert");
+            }
+            else if (!(infdepot.id.Equals(num_trans_verify.id_depot_dest)))
+            {
+                TempData["msg2"] = 1;
+                return RedirectToAction("NumTransfert");
 
+            }
+            else if(num_trans_verify.process != 0)
+            {
+                TempData["msg3"] = 1;
                 return RedirectToAction("NumTransfert");
             }
 
@@ -127,19 +151,7 @@ namespace BRANA_FG.Controllers
 
             
 
-            //if (num_transfert.Equals(null))
-            //{
-            //  return  RedirectToAction("NumTransfer");
-            //}
-            //else
-       //     {
-                
-                //string eo = num_transfert;
-                //Session["kiki"] = eo;
-                //TempData["num_embaq"] = num_emb;
-               
-                
-               
+          
                 ViewBag.idtrans = id_transfert;
                 
                 if (id_transfert == 0)
@@ -150,10 +162,9 @@ namespace BRANA_FG.Controllers
                 else
                 {
                     ViewBag.message_id_transfert = id_transfert;
-                    // RedirectToAction("Index");
-
+                   
                 }
-        //    }
+     
 
             
 

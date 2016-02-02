@@ -93,7 +93,7 @@ namespace BRANA_FG.Models
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nom_recepteur,id_produit,qtite_donnee,qtite_retour")] LaboratoireEchantillon laboratoireEchantillon)
+        public ActionResult Create([Bind(Include = "id,nom_recepteur,id_produit,qtite_donnee,qtite_bout")] LaboratoireEchantillon laboratoireEchantillon)
         {
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizePro = Fonct.listproduit().Count();
@@ -130,7 +130,7 @@ namespace BRANA_FG.Models
                     foreach (Depot_Produit lo in query1)
                     {
                         lo.qtite_produit_dispo -= laboratoireEchantillon.qtite_donnee;
-
+                        lo.qtite_bouteille -= laboratoireEchantillon.qtite_bout;
                     }
                     db.SaveChanges();
 
@@ -165,7 +165,7 @@ namespace BRANA_FG.Models
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nom_recepteur,date_retour,id_produit,qtite_donnee,qtite_retour")] LaboratoireEchantillon laboratoireEchantillon)
+        public ActionResult Edit([Bind(Include = "id,nom_recepteur,date_retour,id_produit,qtite_donnee,qtite_bout")] LaboratoireEchantillon laboratoireEchantillon)
         {
             if (ModelState.IsValid)
             {

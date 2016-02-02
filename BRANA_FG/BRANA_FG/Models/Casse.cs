@@ -17,13 +17,11 @@ namespace BRANA_FG.Models
 
         public System.DateTime date_casse { get; set; }
 
-        [Display(Name = "Produit")]
-        [Required(AllowEmptyStrings = false)]
+        
         public int id_produit { get; set; }
         
        
-        [Display(Name = "Quantite")]
-        [Required(AllowEmptyStrings = false)]
+        
         public int qtite_casse { get; set; }
         
         public int id_depot { get; set; }

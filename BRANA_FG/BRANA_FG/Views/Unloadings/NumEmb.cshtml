@@ -25,6 +25,17 @@
             </div>
            
             <div class="modal-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                if (@ViewBag.emb_alerte != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.emb_alerte 
+                    </div>
+                }
+            }
                 <form action="Create" method="GET">
                     <div class="form-group">
                         <input type="text" name="num_emb" id="num_emb" class="form-control" placeholder="Numero embarquement">

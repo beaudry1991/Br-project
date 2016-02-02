@@ -47,14 +47,21 @@ namespace BRANA_FG.Controllers
                         Session["prenom"] = user.prenom.ToString();
                         Session["idUser"] = logged.idUser;
                         Session["fonction"] = user.fonction.ToString();
-                        Session["Depot"] = user.depot.ToString();
+
+                        //Session["Depot"] = user.depot.ToString();
                         
                         /*Admin Loggin test*/
                         var ad = "admin_FG";
                         var sup = "super_FG";
                         var data = "data_FG";
                         var audit = "audit_FG";
-                       // var empty = "Superviseur Empty";
+                        // var empty = "Superviseur Empty";
+                        if (user.fonction.ToString().Equals(sup))
+                        {
+                            Session["Depot"] = user.depot.ToString();
+                        }
+
+
                         if (user.fonction.ToString().Equals(ad))
                         {  /*Change initial Password*/
                             var initialPassword = "Password";
@@ -81,7 +88,7 @@ namespace BRANA_FG.Controllers
                             {
                                 return RedirectToAction("ModifyPasswrd", "Logins");
                             }
-                            return RedirectToAction("AcceuilData", "Logins");
+                            return RedirectToAction("AcceuilDataC", "Logins");
 
                         }
                         else if (user.fonction.ToString().Equals(audit))
@@ -193,7 +200,7 @@ namespace BRANA_FG.Controllers
            }
         }
         
-        public ActionResult AcceuilData()
+        public ActionResult AcceuilDataC()
         {   /*Connection and Authorization required*/
             //gestion des messages
             // ViewBag.archivre = db.Archivres.SqlQuery("SELECT * FROM Archivres").ToList();

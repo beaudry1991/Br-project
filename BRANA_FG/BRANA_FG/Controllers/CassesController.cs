@@ -116,9 +116,7 @@ namespace BRANA_FG.Models
 
 
 
-                ViewBag.size = Fonct.ListSuperviseurs().Count();
-                ViewBag.userNomPre = Fonct.ListSuperviseurs();
-
+               
 
                 ViewBag.produitlist = Fonct.listproduit();
                 ViewBag.sizeP = Fonct.listproduit().Count();
@@ -148,15 +146,63 @@ namespace BRANA_FG.Models
 
                     for (int a = 0; a < caisse.Count(); a++)
                     {
+                       
+                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
+                        {
+                            
+                            if (caisse[a].Equals("") && !bouteille[a].Equals(""))
+                            {
+                                caisse[a] = "0";
+                            }
+
+                            if (!caisse[a].Equals("") && bouteille[a].Equals(""))
+                            {
+                                bouteille[a] = "0";
+                            }
+
+
+
+                            var reket = from lign_depot in db.Depot_Produit
+                                        select lign_depot;
+
+                            foreach (Depot_Produit lo in reket)
+                            {
+
+                                if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id )
+                                {
+                                    if (lo.qtite_produit_dispo >= int.Parse(caisse[a].ToString()) && lo.qtite_bouteille >= int.Parse(bouteille[a].ToString()))
+                                    {
+                                        lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
+                                        lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
+                                        
+                                    }
+                                    else
+                                    {
+                                        ViewBag.inferieur = "VEUILLEZ VERIFIER VOS DONNEES OU CONTACTEZ VOTRE ADMINISTRATEUR!";
+                                        return View();
+                                    }
+                                    
+                                }
+
+                            }
+
+                        }
+                        
+                    }
+                    //casse.id_depot = id_depot;                    
+                    //////////////////////////////////////////////////
+
+                    for (int a = 0; a < caisse.Count(); a++)
+                    {
                         Casse load_p = new Casse();
-                        if (!caisse[a].Equals(""))
+                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
                         {
                             load_p.id_produit = int.Parse(idProduit[a].ToString());
-                          //  load_p.id_superviseur = casse.id_;
+
                             load_p.id_superviseur = casse.id_superviseur;
                             load_p.type = casse.type;
 
-                            if(load_p.type.Equals("Casse"))
+                            if (load_p.type.Equals("Casse"))
                                 load_p.qtite_casse = int.Parse(caisse[a].ToString());
                             else if (load_p.type.Equals("Perte"))
                                 load_p.qtite_perte = int.Parse(caisse[a].ToString());
@@ -167,38 +213,27 @@ namespace BRANA_FG.Models
                             load_p.id_depot = id_depot;
                             load_p.motif = casse.motif;
                             load_p.date_casse = casse.date_casse;
-
                             db.Casses.Add(load_p);
 
-
-                            var reket = from lign_depot in db.Depot_Produit
-                                        select lign_depot;
-
-                            foreach (Depot_Produit lo in reket)
-                            {
-
-                                if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
-                                {
-                                    lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
-                                    lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
-
-                                }
-
-                            }
-
                         }
+                        db.SaveChanges();
                     }
-                    casse.id_depot = id_depot;                    
-                    db.SaveChanges();
+
+
+
+
                 }
+                
                 return RedirectToAction("Index");
             }
-            //else
-            //    {
-            //        var sup = Request["id_superviseur"];
-            //        int va = int.Parse(sup.ToString());
-            //        ViewBag.tmpSup = va;
-            //    }
+            else
+                {
+                ViewBag.produitlist = Fonct.listproduit();
+                ViewBag.sizeP = Fonct.listproduit().Count();
+                //        var sup = Request["id_superviseur"];
+                //        int va = int.Parse(sup.ToString());
+                //        ViewBag.tmpSup = va;
+            }
 
 
                 return View(casse);

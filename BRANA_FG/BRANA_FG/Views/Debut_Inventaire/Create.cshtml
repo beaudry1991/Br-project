@@ -40,6 +40,13 @@
                {
                 @Html.AntiForgeryToken()
 
+                   if (@ViewBag.InventaireError != null)
+                   {
+                    <div class="alert alert-danger">
+                        @ViewBag.InventaireError
+                    </div>
+                   }
+
                 <div class="form-horizontal">
                     <h4>Debut_Inventaire</h4>
                     <hr />
