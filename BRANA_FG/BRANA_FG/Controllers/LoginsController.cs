@@ -251,18 +251,13 @@ namespace BRANA_FG.Controllers
                         ViewBag.produitlist = Fonct.listproduit();
                         ViewBag.sizeP = Fonct.listproduit().Count();
                         ViewBag.listproddispo = Fonct.ProduitDispos();
-                      
-
-
-
-
-
-
+                        Session["verify_Inv"] = "Valider";
                         return View();
                     }
                     else
                     {
                         return Redirect("~/Debut_Inventaire/Create");
+
                     }
                    
                     

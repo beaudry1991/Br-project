@@ -268,9 +268,13 @@ namespace BRANA_FG.Controllers
                 ViewBag.tmpChauf = vaC;
 
 
-                var veh = Request["id_chauffeur"];
+                var veh = Request["id_vehicule"];
                 int vaV = int.Parse(veh.ToString());
                 ViewBag.tmpVeh = vaV;
+
+                var emb = Request["type_emb"];
+               
+                ViewBag.tmpEmb = emb;
             }
 
             return View(loading);

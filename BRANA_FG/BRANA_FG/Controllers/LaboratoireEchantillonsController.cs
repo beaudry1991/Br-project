@@ -72,9 +72,9 @@ namespace BRANA_FG.Models
             }
             else
             {
-                var fonction = "super_FG"; var fonction1 = "admin_FG";
+                var fonction = "super_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction) && Session["verify_Inv"] != null)
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();

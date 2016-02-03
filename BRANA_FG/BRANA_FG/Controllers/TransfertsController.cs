@@ -86,9 +86,9 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "admin_FG"; var fonction1 = "super_FG";
+                 var fonction1 = "super_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction1) && Session["verify_Inv"] != null)
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -154,32 +154,8 @@ namespace BRANA_FG.Controllers
           
                 ViewBag.idtrans = id_transfert;
                 
-                if (id_transfert == 0)
-                {
-                    ViewBag.message_id_transfert = "MAUVAIS NUMERO";
-                    RedirectToAction("Index");
-                }
-                else
-                {
-                    ViewBag.message_id_transfert = id_transfert;
-                   
-                }
+              
      
-
-            
-
-
-
-           
-            //ViewBag.chauffeurlist = Fonct.ListChauffeur();
-            //ViewBag.sizeC = Fonct.ListChauffeur().Count();
-
-            //ViewBag.vehiculelist = Fonct.ListVehicule();
-            //ViewBag.sizeV = Fonct.ListVehicule().Count();
-
-            //ViewBag.sizeDP = Fonct.ListDepot().Count();
-            //ViewBag.listdep = Fonct.ListDepot();
-
             if (Session.Keys.Count == 0)
             {
                 //    /*No connection*/
@@ -187,9 +163,9 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "admin_FG"; var fonction1 = "super_FG";
+                var fonction = "super_FG"; 
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction) && Session["verify_Inv"] != null)
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -237,9 +213,9 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "admin_FG"; var fonction1 = "super_FG";
+               var fonction1 = "super_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction1) && Session["verify_Inv"] != null)
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -279,12 +255,7 @@ namespace BRANA_FG.Controllers
             ViewBag.superviseur = Fonct.ListSuperviseurs();
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();
-            //ViewBag.sizeDP = Fonct.ListDepot().Count();
-            //ViewBag.listdep = Fonct.ListDepot();
-
-            //var sup = Request["id_superviseur"];
-            //int vab = int.Parse(sup.ToString());
-
+           
             Utilisateur info_superv1 = db.Utilisateurs.Find(Session["idUser"]);
 
             var info_depot1 = db.Depots.Where(b => b.nom.Equals(info_superv1.depot)).FirstOrDefault();
@@ -343,7 +314,7 @@ namespace BRANA_FG.Controllers
                 }
                 
                 db.SaveChanges();
-
+                return RedirectToAction("Index");
             }
             else
             {
@@ -412,25 +383,7 @@ namespace BRANA_FG.Controllers
                 db.Transferts.Add(transfert);
                 db.SaveChanges();
 
-                //var Idp1 = Request["id_produit"];
-                //int valID1 = int.Parse(Idp1.ToString());
-
-               
-
-                //var query = from lign_depot in db.Depot_Produit
-                //            where lign_depot.id_produit == valID1 && (lign_depot.id_depot == transfert.id_depot_dest || lign_depot.id_depot == transfert.id_depot_source)
-                //            select lign_depot;
-
-                //foreach (Depot_Produit lo in query)
-               // {
-                    //if(transfert.id_depot_dest == lo.id_depot)
-                    //    lo.qtite_produit_dispo += transfert.quantite_caisse;
-                    //else if (transfert.id_depot_source == lo.id_depot)
-                    //    lo.qtite_produit_dispo -= transfert.quantite_caisse;
-
-              //  }
-
-
+              
                 db.SaveChanges();
 
 
@@ -445,15 +398,61 @@ namespace BRANA_FG.Controllers
                 string[] idProduit = i.ToArray();
                 string[] caisse = c.ToArray();
                 string[] bouteille = bo.ToArray();
+                ////////////////////////////////////////////////
 
 
                 for (int a = 0; a < caisse.Count(); a++)
                 {
+
+                    if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
+                    {
+
+                        if (caisse[a].Equals("") && !bouteille[a].Equals(""))
+                        {
+                            caisse[a] = "0";
+                        }
+
+                        if (!caisse[a].Equals("") && bouteille[a].Equals(""))
+                        {
+                            bouteille[a] = "0";
+                        }
+
+
+
+                        var reket = from lign_depot in db.Depot_Produit
+                                    select lign_depot;
+
+                        foreach (Depot_Produit lo in reket)
+                        {
+
+                            if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
+                            {
+                                if (lo.qtite_produit_dispo <= int.Parse(caisse[a].ToString()) || lo.qtite_bouteille <= int.Parse(bouteille[a].ToString()))
+                                {
+                                    ViewBag.inferieurT = "La quantite de " + ViewBag.produitlist[a].nom.ToString() + " est superieure aux quantites disponibles!";
+                                    return View();
+
+
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                ///////////////////////////////////////////////
+
+                for (int a = 0; a < caisse.Count(); a++)
+                {
                     Transfert_Produit load_p = new Transfert_Produit();
-                    if (!caisse[a].Equals(""))
+                    if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
                     {
                         load_p.id_produit = int.Parse(idProduit[a].ToString());
-                      //  load_p.id_loading = loading.numero_emb;
+                      
                         load_p.qtite_caisse = int.Parse(caisse[a].ToString());
                         load_p.qtite_bout = int.Parse(bouteille[a].ToString()); ;
                         
@@ -475,15 +474,11 @@ namespace BRANA_FG.Controllers
                                 {
                                     lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
                                     lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
-
+                                
                                 }
 
                         
                         }
-
-
-
-
 
 
 

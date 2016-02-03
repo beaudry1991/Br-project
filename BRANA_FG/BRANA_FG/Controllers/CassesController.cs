@@ -73,9 +73,9 @@ namespace BRANA_FG.Models
             }
             else
             {
-                var fonction = "admin_FG"; var fonction1 = "super_FG";
+                 var fonction1 = "super_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction1) && Session["verify_Inv"] != null)
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -170,17 +170,14 @@ namespace BRANA_FG.Models
 
                                 if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id )
                                 {
-                                    if (lo.qtite_produit_dispo >= int.Parse(caisse[a].ToString()) && lo.qtite_bouteille >= int.Parse(bouteille[a].ToString()))
+                                    if (lo.qtite_produit_dispo <= int.Parse(caisse[a].ToString()) || lo.qtite_bouteille <= int.Parse(bouteille[a].ToString()))
                                     {
-                                        lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
-                                        lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
+                                        ViewBag.inferieur = "La quantite de " + ViewBag.produitlist[a].nom.ToString() + " est superieure aux quantites disponibles!";
+                                        return View();
+
                                         
                                     }
-                                    else
-                                    {
-                                        ViewBag.inferieur = "VEUILLEZ VERIFIER VOS DONNEES OU CONTACTEZ VOTRE ADMINISTRATEUR!";
-                                        return View();
-                                    }
+                                    
                                     
                                 }
 
@@ -213,6 +210,25 @@ namespace BRANA_FG.Models
                             load_p.id_depot = id_depot;
                             load_p.motif = casse.motif;
                             load_p.date_casse = casse.date_casse;
+
+
+                            var reket = from lign_depot in db.Depot_Produit
+                                        select lign_depot;
+
+                            foreach (Depot_Produit lo in reket)
+                            {
+
+                                if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
+                                {
+                                    
+                                        lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
+                                        lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
+                                    
+                                }
+
+                            }
+
+
                             db.Casses.Add(load_p);
 
                         }

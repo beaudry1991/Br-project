@@ -243,6 +243,7 @@
     <Compile Include="Models\Ligne_Production.cs" />
     <Compile Include="Models\ListCasses.cs" />
     <Compile Include="Models\ListDepots.cs" />
+    <Compile Include="Models\ListLoading.cs" />
     <Compile Include="Models\ListRetour.cs" />
     <Compile Include="Models\ListSomme.cs" />
     <Compile Include="Models\ListSommeTransf.cs" />
