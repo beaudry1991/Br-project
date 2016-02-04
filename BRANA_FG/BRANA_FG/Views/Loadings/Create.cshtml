@@ -15,12 +15,23 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
+    if (@ViewBag.inferieur1 != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.inferieur1
+        </div>
+
+    }
+
     if (@ViewBag.errorsp != null)
     {
         <div class="alert alert-danger">
             @ViewBag.errorsp
         </div>
     }
+
+   
 
     <div class="form-horizontal">
         <h4>Loading</h4>
@@ -210,8 +221,9 @@
 
                                     @for (var a = 0; a < (int)ViewBag.sizeP; a++)
                                     {
-
-                                        var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                        if (ViewBag.verification == null)
+                                        {
+                                            var nomprod = ViewBag.produitlist[a].nom.ToString();
                                         <tr class="odd pointer">
                                             <td class=" ">@nomprod</td>
                                             <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
@@ -220,6 +232,19 @@
                                             <input type="text" name="caisse" id="caisse[@a]" value="" /></td>
                                             <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
                                         </tr>
+                                        }
+                                        else
+                                        {
+                                            var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                            <tr class="odd pointer">
+                                                <td class=" ">@nomprod</td>
+                                                <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
+                                                <td class=" ">@ViewBag.produitlist[a].volume ML</td>
+                                                <td class=" "><input type="hidden" name="idP" id="idP[@a]" value="@ViewBag.produitlist[a].id" />
+                                                <input type="text" name="caisse" id="caisse[@a]" value="@ViewBag.temp_caisse[a]" /></td>
+                                                <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="@ViewBag.temp_bout[a]" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
+                                            </tr>
+                                        }
 
 
                                     }

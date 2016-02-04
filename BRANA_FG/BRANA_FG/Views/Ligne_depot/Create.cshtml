@@ -32,7 +32,7 @@
 
                             var id = ViewBag.ligneProduction[a].id;
                             var nom = ViewBag.ligneProduction[a].nom.ToString();
-                            if (ViewBag.tmpLigneP == id)
+                            if (ViewBag.tmpLign_pro == id)
                             {
                                 <option value="@id" selected>@nom</option>
                             }
@@ -78,7 +78,7 @@
 
                             var id = ViewBag.produitlist[a].id;
                             var nom = ViewBag.produitlist[a].nom.ToString();
-                            if (ViewBag.tmpPro == id)
+                            if (ViewBag.tmpProd == id)
                             {
                                 <option value="@id" selected>@nom</option>
                             }

@@ -137,6 +137,12 @@ namespace BRANA_FG.Models
                 }
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var prod = Request["id_produit"];
+                int vaProd = int.Parse(prod.ToString());
+                ViewBag.tmpPro = vaProd;
+            }
 
             return View(laboratoireEchantillon);
         }
@@ -188,6 +194,7 @@ namespace BRANA_FG.Models
             }
                 return RedirectToAction("Index");
             }
+           
             return View(laboratoireEchantillon);
         }
 

@@ -26,7 +26,7 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.id_loading, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                <input type="hidden" name="numTrans" id="numTrans" class="form-control" value="@ViewBag.idtrans" />
+                <input type="hidden" name="numTrans" id="numTrans" class="form-control" value="@Session["abolocho"]" />
                 @*@Html.ValidationMessageFor(model => model.id_loading, "", new { @class = "text-danger" })*@
             </div>
         </div>
@@ -165,9 +165,11 @@
                                     {
                                         for (var b = 0; b < (int)ViewBag.sizeRetour; b++)
                                         {
-                                            if (ViewBag.produitlist[a].id == ViewBag.listretour[b].id_produit)
+                                            if (ViewBag.messagealerte == null)
                                             {
-                                                var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                                if (ViewBag.produitlist[a].id == ViewBag.listretour[b].id_produit)
+                                                {
+                                                    var nomprod = ViewBag.produitlist[a].nom.ToString();
                                         <tr class="odd pointer">
                                             <td class=" ">@nomprod</td>
                                             <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
@@ -178,9 +180,28 @@
                                         </tr>
                                                 }
                                             }
+                                            else
+                                            {
+                                                
 
+                                                if (ViewBag.produitlist[a].id == ViewBag.listretour[b].id_produit)
+                                                {
+                                                    var nomprod = ViewBag.produitlist[a].nom.ToString();
+                                                    <tr class="odd pointer">
+                                                        <td class=" ">@nomprod</td>
+                                                        <td class=" ">@ViewBag.produitlist[a].emballage.ToString()</td>
+                                                        <td class=" ">@ViewBag.produitlist[a].volume ML</td>
+                                                        <td class=" "><input type="hidden" name="idP" id="idP[@a]" value="@ViewBag.produitlist[a].id" />
+                                                        <input type="text" name="caisse" id="caisse[@a]" value="@ViewBag.temp_caisse[a]" /></td>
+                                                        <td class=" "><input type="text" name="bouteille" id="bouteille[@a]" value="@ViewBag.temp_bout[a]" />/ @ViewBag.produitlist[a].qte_par_caisse</td>
+                                                    </tr>
+                                                }
 
+                                            }
                                         }
+
+
+                                    }
 
                                 </tbody>
 

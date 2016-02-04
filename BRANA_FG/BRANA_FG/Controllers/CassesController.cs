@@ -98,9 +98,6 @@ namespace BRANA_FG.Models
         {
             if (ModelState.IsValid)
             {
-
-
-
                 var i = Request.Form.GetValues("idP");
                 var c = Request.Form.GetValues("caisse");
                 var bo = Request.Form.GetValues("bouteille");
@@ -111,12 +108,6 @@ namespace BRANA_FG.Models
                 string[] caisse = c.ToArray();
                 string[] bouteille = bo.ToArray();
 
-
-                
-
-
-
-               
 
                 ViewBag.produitlist = Fonct.listproduit();
                 ViewBag.sizeP = Fonct.listproduit().Count();
@@ -173,6 +164,9 @@ namespace BRANA_FG.Models
                                     if (lo.qtite_produit_dispo <= int.Parse(caisse[a].ToString()) || lo.qtite_bouteille <= int.Parse(bouteille[a].ToString()))
                                     {
                                         ViewBag.inferieur = "La quantite de " + ViewBag.produitlist[a].nom.ToString() + " est superieure aux quantites disponibles!";
+                                        ViewBag.verification = "Non enregistre";
+                                        ViewBag.temp_caisse = caisse;
+                                        ViewBag.temp_bout = bouteille;
                                         return View();
 
                                         
@@ -246,13 +240,35 @@ namespace BRANA_FG.Models
                 {
                 ViewBag.produitlist = Fonct.listproduit();
                 ViewBag.sizeP = Fonct.listproduit().Count();
+
+
+                var c = Request.Form.GetValues("caisse");
+                var bo = Request.Form.GetValues("bouteille");
+
+
+
+
+                string[] caisse = c.ToArray();
+                string[] bouteille = bo.ToArray();
+
+
+                ViewBag.verification = "Non enregistre";
+                ViewBag.temp_caisse = caisse;
+                ViewBag.temp_bout = bouteille;
+
+
+                var emb = Request["type"];
+
+                ViewBag.tmptype = emb;
+
+
                 //        var sup = Request["id_superviseur"];
                 //        int va = int.Parse(sup.ToString());
                 //        ViewBag.tmpSup = va;
             }
 
 
-                return View(casse);
+            return View(casse);
         }
 
         // GET: Casses/Edit/5

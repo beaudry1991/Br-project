@@ -218,6 +218,18 @@ namespace BRANA_FG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var lign_pro = Request["id_ligne_production"];
+                int va = int.Parse(lign_pro.ToString());
+                ViewBag.tmpLign_pro = va;
+
+                var prod = Request["id_produit"];
+                int vaP = int.Parse(prod.ToString());
+                ViewBag.tmpProd = vaP;
+
+
+            }
 
             return View(ligne_depot);
         }

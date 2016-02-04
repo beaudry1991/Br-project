@@ -263,6 +263,23 @@ namespace BRANA_FG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                
+                var c = Request.Form.GetValues("caisse");
+                var bo = Request.Form.GetValues("bouteille");
+
+
+
+               
+                string[] caisse = c.ToArray();
+                string[] bouteille = bo.ToArray();
+
+
+                ViewBag.verification = "Non enregistre";
+                ViewBag.temp_caisse = caisse;
+                ViewBag.temp_bout = bouteille;
+            }
 
             return View(unloading);
         }

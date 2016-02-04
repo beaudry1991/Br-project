@@ -105,57 +105,6 @@ namespace BRANA_FG.Controllers
 
         public ActionResult Reception(string num_transfert)
         {
-
-            var num_trans_verify = db.Transferts.Where(a => a.num_transfert.Equals(num_transfert)).FirstOrDefault();
-
-            Utilisateur infosup = db.Utilisateurs.Find(Session["idUser"]);
-
-            var infdepot = db.Depots.Where(b => b.nom.Equals(infosup.depot)).FirstOrDefault();
-
-
-            //var depot_verify = db.Transferts.Where(b => b.id_depot_source.Equals(infdepot.id)).FirstOrDefault();
-
-            //int ii = num_trans_verify.id_depot_dest;
-
-            if (num_trans_verify == null)
-            {
-                TempData["msg1"] = 1;
-                return RedirectToAction("NumTransfert");
-            }
-            else if (!(infdepot.id.Equals(num_trans_verify.id_depot_dest)))
-            {
-                TempData["msg2"] = 1;
-                return RedirectToAction("NumTransfert");
-
-            }
-            else if(num_trans_verify.process != 0)
-            {
-                TempData["msg3"] = 1;
-                return RedirectToAction("NumTransfert");
-            }
-
-
-
-            ViewBag.size = Fonct.ListSuperviseurs().Count();
-            ViewBag.superviseur = Fonct.ListSuperviseurs();
-
-            ViewBag.produitlist = Fonct.listproduit();
-            ViewBag.sizeP = Fonct.listproduit().Count();
-
-            var st = num_transfert;
-            int id_transfert = Fonct.idtransfert_numTrans(st.ToString());
-
-            ViewBag.sizeRetour = Fonct.ListRetour(id_transfert).Count();
-            ViewBag.listretour = Fonct.ListRetour(id_transfert);
-
-
-            
-
-          
-                ViewBag.idtrans = id_transfert;
-                
-              
-     
             if (Session.Keys.Count == 0)
             {
                 //    /*No connection*/
@@ -163,10 +112,60 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "super_FG"; 
+                var fonction = "super_FG";
 
                 if (Session["fonction"].ToString().Equals(fonction) && Session["verify_Inv"] != null)
                 {
+                    var num_trans_verify = db.Transferts.Where(a => a.num_transfert.Equals(num_transfert)).FirstOrDefault();
+
+                    Utilisateur infosup = db.Utilisateurs.Find(Session["idUser"]);
+
+                    var infdepot = db.Depots.Where(b => b.nom.Equals(infosup.depot)).FirstOrDefault();
+
+
+                    //var depot_verify = db.Transferts.Where(b => b.id_depot_source.Equals(infdepot.id)).FirstOrDefault();
+
+                    //int ii = num_trans_verify.id_depot_dest;
+
+                    if (num_trans_verify == null)
+                    {
+                        TempData["msg1"] = 1;
+                        return RedirectToAction("NumTransfert");
+                    }
+                    else if (!(infdepot.id.Equals(num_trans_verify.id_depot_dest)))
+                    {
+                        TempData["msg2"] = 1;
+                        return RedirectToAction("NumTransfert");
+
+                    }
+                    else if (num_trans_verify.process != 0)
+                    {
+                        TempData["msg3"] = 1;
+                        return RedirectToAction("NumTransfert");
+                    }
+
+
+
+                    ViewBag.size = Fonct.ListSuperviseurs().Count();
+                    ViewBag.superviseur = Fonct.ListSuperviseurs();
+
+                    ViewBag.produitlist = Fonct.listproduit();
+                    ViewBag.sizeP = Fonct.listproduit().Count();
+
+                    var st = num_transfert;
+                    int id_transfert = Fonct.idtransfert_numTrans(st.ToString());
+
+                    ViewBag.sizeRetour = Fonct.ListRetour(id_transfert).Count();
+                    ViewBag.listretour = Fonct.ListRetour(id_transfert);
+
+
+
+
+
+                    ViewBag.idtrans = id_transfert;
+                    Session["abolocho"] = id_transfert;
+
+
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
                 }
@@ -177,6 +176,9 @@ namespace BRANA_FG.Controllers
                 }
 
             }
+
+            
+           
         }
 
         // GET: Transferts/Create
@@ -237,6 +239,10 @@ namespace BRANA_FG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Reception([Bind(Include = "numTrans,quantite_palette,idP,caisse,bouteille")]Transfert transfert)
         {
+
+
+
+
             var i = Request.Form.GetValues("idP");
             var c = Request.Form.GetValues("caisse");
             var bo = Request.Form.GetValues("bouteille");
@@ -247,9 +253,11 @@ namespace BRANA_FG.Controllers
             string[] caisse = c.ToArray();
             string[] bouteille = bo.ToArray();
 
-            var num = Request["numTrans"];
-            int va = int.Parse(num.ToString());
-
+           
+                var num= Request["numTrans"];
+                int va = int.Parse(num.ToString());
+          
+   
 
             ViewBag.size = Fonct.ListSuperviseurs().Count();
             ViewBag.superviseur = Fonct.ListSuperviseurs();
@@ -269,10 +277,24 @@ namespace BRANA_FG.Controllers
             for (int a = 0; a < ViewBag.sizeRetour; a++)
             {
                 for (int b = 0; b < ViewBag.sizeRetour; b++)
-                if (ViewBag.listretour[a].id_produit == int.Parse(idProduit[b].ToString()) && ViewBag.listretour[a].qtite_caisse == int.Parse(caisse[b].ToString()) && ViewBag.listretour[a].qtite_bout == int.Parse(bouteille[b].ToString()))
-                {
-                        compteur++;
-                }
+                    if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
+                    {
+                        if (caisse[a].Equals("") && !bouteille[a].Equals(""))
+                        {
+                            caisse[a] = "0";
+                        }
+
+                        if (!caisse[a].Equals("") && bouteille[a].Equals(""))
+                        {
+                            bouteille[a] = "0";
+                        }
+
+
+                        if (ViewBag.listretour[a].id_produit == int.Parse(idProduit[b].ToString()) && ViewBag.listretour[a].qtite_caisse == int.Parse(caisse[b].ToString()) && ViewBag.listretour[a].qtite_bout == int.Parse(bouteille[b].ToString()))
+                        {
+                            compteur++;
+                        }
+                    }
 
             }
 
@@ -318,7 +340,14 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                ViewBag.messagealerte = "VERIFIEZ VOS INFORMATOINS";
+                ViewBag.messagealerte = "VERIFIEZ VOS INFORMATIONS";
+
+               
+
+                ViewBag.temp_caisse = caisse;
+                ViewBag.temp_bout = bouteille;
+
+
             }
 
 
@@ -430,6 +459,9 @@ namespace BRANA_FG.Controllers
                                 if (lo.qtite_produit_dispo <= int.Parse(caisse[a].ToString()) || lo.qtite_bouteille <= int.Parse(bouteille[a].ToString()))
                                 {
                                     ViewBag.inferieurT = "La quantite de " + ViewBag.produitlist[a].nom.ToString() + " est superieure aux quantites disponibles!";
+                                    ViewBag.verification = "Non enregistre";
+                                    ViewBag.temp_caisse = caisse;
+                                    ViewBag.temp_bout = bouteille;
                                     return View();
 
 
@@ -492,6 +524,38 @@ namespace BRANA_FG.Controllers
 
 
                 return RedirectToAction("Index");
+            }
+            else
+            {
+
+                var i = Request.Form.GetValues("idP");
+                var c = Request.Form.GetValues("caisse");
+                var bo = Request.Form.GetValues("bouteille");
+
+
+
+                string[] idProduit = i.ToArray();
+                string[] caisse = c.ToArray();
+                string[] bouteille = bo.ToArray();
+
+
+                ViewBag.verification = "Non enregistre";
+                ViewBag.temp_caisse = caisse;
+                ViewBag.temp_bout = bouteille;
+
+
+                var chauf = Request["id_chauffeur"];
+                int vaC = int.Parse(chauf.ToString());
+                ViewBag.tmpChauf = vaC;
+
+
+                var veh = Request["id_vehicule"];
+                int vaV = int.Parse(veh.ToString());
+                ViewBag.tmpVeh = vaV;
+
+                var depD = Request["id_depot_dest"];
+                int vadepD = int.Parse(depD.ToString());
+                ViewBag.tmpdepot = vadepD;
             }
 
             return View(transfert);
