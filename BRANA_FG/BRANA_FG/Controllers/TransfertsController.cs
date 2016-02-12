@@ -26,9 +26,9 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "admin_FG"; var fonction1 = "super_FG";
+                var fonction1 = "super_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                if (Session["fonction"].ToString().Equals(fonction1))
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View(db.Transferts.ToList());

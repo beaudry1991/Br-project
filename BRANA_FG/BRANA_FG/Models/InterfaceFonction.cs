@@ -24,7 +24,7 @@ namespace BRANA_FG.Models
         int qtite_dispo_ligne_depot(int produit, int depot);
         List<ListSomme> ListTotal(int id, DateTime date, int superv);
         List<ListSommeTransf> ListTotalTransf(int id, DateTime date, int superv);
-        List<ListCasses> listCaPeSh(int id, DateTime date, int superv);
+      //  List<ListCasses> listCaPeSh(int id, DateTime date, int superv);
         List<Produit_dispo> ProduitDispos();
         List<Produit_dispo> Stock_dispos(string iddep, int idprod);
         List<Emballage> listEmballage();

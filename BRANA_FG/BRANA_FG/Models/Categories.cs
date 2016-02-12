@@ -13,6 +13,7 @@ namespace BRANA_FG.Models
         public int id { get; set; }
 
         [Display(Name = "Nom Categorie")]
+        [Required(AllowEmptyStrings = false)]
         public string nom { get; set; }
     }
 }

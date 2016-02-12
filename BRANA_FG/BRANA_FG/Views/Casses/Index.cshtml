@@ -9,347 +9,79 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_superviseur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_casse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.motif)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endroit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.injured_person)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.chauffeur_forklift)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.safety_material)
+        </th>
+        <th></th>
+    </tr>
 
-@*<table class="table" id="example">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id_superviseur)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.date_casse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.id_produit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.qtite_casse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.id_depot)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.motif)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.qtite_bout)
-            </th>
-            <th></th>
-        </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_superviseur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_casse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_depot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.motif)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endroit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.injured_person)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chauffeur_forklift)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.safety_material)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_superviseur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.date_casse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_produit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.qtite_casse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_depot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.motif)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.qtite_bout)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
-            </td>
-        </tr>
-    }
-
-    </table>*@
-<div id="Bottle" class="tab-pane fade in active">
-    <h3>Rapport d'irrégularité- Casse - Short fill - Perte</h3>
-
-
-    <div class="tab-content">
-        <div id="table" class="tab-pane fade in active">
-            <div class="x_panel">
-                <div class="x_title">
-                    <div class="col-md-12 col-md-offset-2">
-                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
-
-                            <input type="date" name="daterange" value="" placeholder="01/01/2015" class="form-control" />
-                        </div>
-
-                        <div class="form-group col-md-3 col-sm-4 col-xs-6">
-
-                            <input type="date" name="daterange" value="" class="form-control" placeholder="01/31/2015" />
-                        </div>
-                        <div class="form-group col-md-4 col-sm-4 col-xs-6">
-                            <button class="btn btn-danger col-md-3 ">Recherche</button>
-                        </div>
-                        </div>
-                    <div class="form-group col-md-10 col-sm-4 col-xs-6">
-
-                        <input autocomplete='off' class='filter form-control' name='SKU' placeholder='SKU' data-col='SKU' />
-                        <input autocomplete='off' class='filter form-control' name='Date' placeholder='Date' data-col='Date' />
-
-                    </div>
-                    <div class="btn-group navbar-right">
-                        <button type="button" class="btn btn-danger">Export</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <!-- <li><a href="#" onClick ="$('#example').tableExport({type:'json',escape:'false'});">JSON</a>
-            </li> -->
-                            <li>
-                                <a href="#" onClick="$('#example').tableExport({type:'excel',escape:'false'});">Excel</a>
-                            </li>
-                            <li>
-                                <a href="#" onClick="$('#example').tableExport({type:'doc',escape:'false'});">Word</a>
-                            </li>
-
-                            <li>
-                                <a href="#" onClick="$('#example').tableExport({type:'pdf',escape:'false'});">PDF</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-
-
-                <div class="row">
-
-
-                    <div class="col-md-12">
-                        <!-- bar chart -->
-                        <div class="col-md-12 col-sm-6 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2></h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li>
-                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="#">Settings 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="x_content">
-                                    
-
-                                    <div class="col-md-8 col-md-offset-2">
-                                        <table id="example" class="table table-striped responsive-utilities jambo_table">
-                                            <thead>
-                                                <tr class="headings">
-                                                    <th>Date</th>
-                                                    <th>SKU</th>
-                                                    <th>Casse</th>
-                                                    <th>Perte</th>
-                                                    <th>Short fill</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="even pointer">
-                                                    <td class="btn-danger ">12-12-2015</td>
-                                                    <td class=" "><a href="rapp-repport-irreg-specif.html?produit=prestige"> Prestige</a></td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">4</td>
-                                                    <td class=" ">0</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-danger ">12-12-2015</td>
-                                                    <td class=" "><a href="">Malta</a></td>
-                                                    <td class=" ">2</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">1</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-danger ">12-12-2015</td>
-                                                    <td class=" "><a href="">Kinanm</a></td>
-                                                    <td class=" ">1</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">0</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-danger ">12-12-2015</td>
-                                                    <td class=" "><a href="">7up</a></td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">0</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-danger">12-12-2015</td>
-                                                    <td class=" ">KC</td>
-                                                    <td class=" ">1</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">5</td>
-                                                </tr>
-
-
-                                                <tr class="even pointer">
-                                                    <td class="btn-primary">13-12-2015</td>
-                                                    <td class=" ">Prestige</td>
-                                                    <td class=" ">6</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">0</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-primary">13-12-2015</td>
-                                                    <td class=" ">Malta</td>
-                                                    <td class=" ">1</td>
-                                                    <td class=" ">3</td>
-                                                    <td class=" ">0</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-primary">13-12-2015</td>
-                                                    <td class=" ">Kinanm</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">1</td>
-                                                    <td class=" ">3</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-primary">13-12-2015</td>
-                                                    <td class=" ">7up</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">3</td>
-                                                </tr>
-                                                <tr class="even pointer">
-                                                    <td class="btn-primary">13-12-2015</td>
-                                                    <td class=" ">KC</td>
-                                                    <td class=" ">0</td>
-                                                    <td class=" ">3</td>
-                                                    <td class=" ">6</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-3">
-                                <input class="form-control" placeholder="Date debut" type="date" />
-                                
-                            </div>
-                            <div class="col-md-3">
-                                <input class="form-control" placeholder="Date fin" type="date" />
-                                
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="select2_single form-control" tabindex="-1" name="id_chauffeur" id="id_chauffeur">
-                                           
-                                                    <option value="jjjj" selected>Prestige</option>
-                                                    <option value="rrr" selected>Malta</option>
-                                                    <option value="lll" selected>All</option>
-                                              
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                         </div>
-                        <!-- /bar charts -->
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
-</div>
-
-<script type="text/javascript">
-$(function () {
-    $('#container').highcharts({
-        title: {
-            text: 'Casse, perte et short fill groupé par jour'
-        },
-        xAxis: {
-            categories: ['24-01-2016', '24-01-2016', '24-01-2016', '24-01-2016', '24-01-2016']
-        },
-        labels: {
-            items: [{
-                html: 'Total casse, perte et short fill',
-                style: {
-                    left: '50px',
-                    top: '18px',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                }
-            }]
-        },
-        series: [{
-            type: 'column',
-            name: 'Casse',
-            data: [3, 2, 1, 3, 4]
-        }, {
-            type: 'column',
-            name: 'Perte',
-            data: [2, 3, 5, 7, 6]
-        }, {
-            type: 'column',
-            name: 'Short fill',
-            data: [4, 3, 3, 9, 7]
-        }, {
-            type: 'spline',
-            name: 'Average',
-            data: [3, 2.67, 3, 6.33, 5.90]
-           
-        }, {
-            type: 'pie',
-            name: 'Nombre de caisse',
-            data: [{
-                name: 'Casse',
-                y: 13,
-                color: Highcharts.getOptions().colors[0] // Jane's color
-            }, {
-                name: 'Perte',
-                y: 23,
-                color: Highcharts.getOptions().colors[1] // John's color
-            }, {
-                name: 'Short fill',
-                y: 19,
-                color: Highcharts.getOptions().colors[2] // Joe's color
-            }],
-            center: [100, 80],
-            size: 100,
-            showInLegend: false,
-            dataLabels: {
-                enabled: false
-            }
-        }]
-    });
-});
-
-
-</script>
+</table>

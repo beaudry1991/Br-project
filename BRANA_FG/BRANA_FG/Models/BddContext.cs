@@ -50,5 +50,13 @@ namespace BRANA_FG.Models
         public System.Data.Entity.DbSet<BRANA_FG.Models.Depot_Produit> Depot_Produit { get; set; }
 
         public System.Data.Entity.DbSet<BRANA_FG.Models.Transfert_Produit> Transfert_Produit { get; set; }
+
+        public System.Data.Entity.DbSet<BRANA_FG.Models.Casse_Produit> Casse_Produit { get; set; }
+
+        public System.Data.Entity.DbSet<BRANA_FG.Models.Produit_Bloque> Produit_Bloque { get; set; }
+
+        public System.Data.Entity.DbSet<BRANA_FG.Models.Produit_manquant> Produit_manquant { get; set; }
+
+        public System.Data.Entity.DbSet<BRANA_FG.Models.Prod_manq_relation> Prod_manq_relation { get; set; }
     }
 }

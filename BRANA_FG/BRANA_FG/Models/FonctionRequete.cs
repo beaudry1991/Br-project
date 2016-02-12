@@ -391,39 +391,39 @@ namespace BRANA_FG.Models
             return PC;
         }
 
-        public List<ListCasses> listCaPeSh(int id, DateTime date, int superv)
-        {
-            List<ListCasses> PC = new List<ListCasses>();
+        //public List<ListCasses> listCaPeSh(int id, DateTime date, int superv)
+        //{
+        //    List<ListCasses> PC = new List<ListCasses>();
 
-            var list = from value in bdd.Casses
-                       where value.id_produit == id && (value.date_casse.Year == date.Year && value.date_casse.Month == date.Month && value.date_casse.Day == date.Day) && value.id_superviseur == superv
-                       group value by new { value.type , value.id_produit}  into kiko
-                       select new
-                       {
+        //    var list = from value in bdd.Casses
+        //                where value.id_produit == id && (value.date_casse.Year == date.Year && value.date_casse.Month == date.Month && value.date_casse.Day == date.Day) && value.id_superviseur == superv
+        //               group value by new { value.type , value.id_produit}  into kiko
+        //               select new
+        //               {
                            
-                           short_f = kiko.Sum(x => x.qtite_shortfill),
-                           casse = kiko.Sum(x => x.qtite_casse),
-                           bouteille = kiko.Sum(x => x.qtite_bout),
-                           perte = kiko.Sum(x => x.qtite_perte)
-                       };
+        //                   short_f = kiko.Sum(x => x.qtite_shortfill),
+        //                   casse = kiko.Sum(x => x.qtite_casse),
+        //                   bouteille = kiko.Sum(x => x.qtite_bout),
+        //                   perte = kiko.Sum(x => x.qtite_perte)
+        //               };
 
 
-            if (list.Count() == 0)
-            {
-                PC.Add(new ListCasses() {  casse = 0, perte = 0, bouteille = 0, short_fill = 0 });
+        //    if (list.Count() == 0)
+        //    {
+        //        PC.Add(new ListCasses() {  casse = 0, perte = 0, bouteille = 0, short_fill = 0 });
 
-            }
-            else {
-                foreach (var a in list)
-                {
+        //    }
+        //    else {
+        //        foreach (var a in list)
+        //        {
 
-                    PC.Add(new ListCasses() {   perte = a.perte, casse = a.casse, bouteille = a.bouteille, short_fill = a.short_f });
-                }
-            }
+        //            PC.Add(new ListCasses() {   perte = a.perte, casse = a.casse, bouteille = a.bouteille, short_fill = a.short_f });
+        //        }
+        //    }
 
 
-            return PC;
-        }
+        //    return PC;
+        //}
 
         public List<Produit_dispo> ProduitDispos()
         {

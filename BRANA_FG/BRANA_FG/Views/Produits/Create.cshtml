@@ -27,7 +27,7 @@
             @Html.LabelFor(model => model.id_emballage, htmlAttributes: new { @class = "control-label col-md-2" })
             @*<div class="col-md-10">
                 @Html.DropDownList("id_emballage", (SelectList)ViewBag.emballage, "--Select One--", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.id_emballage, "", new { @class = "text-danger" })
+                
             </div>*@
 
             <div class="col-md-10 col-sm-9 col-xs-12">
@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-
+            @Html.ValidationMessageFor(model => model.id_emballage, "", new { @class = "text-danger" })
 
 
 

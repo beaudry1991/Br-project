@@ -1,0 +1,112 @@
+﻿@model BRANA_FG.Models.Produit_Bloque
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Produit_Bloque</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_produit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_depot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.raison)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.raison)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_caisse_donnee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_caisse_donnee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_caisse_retour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_caisse_retour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.etat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.etat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_donnee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_donnee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_retour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_retour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_bout_donnee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_bout_donnee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_bout_retour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_bout_retour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_admin)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

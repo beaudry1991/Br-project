@@ -1,0 +1,56 @@
+﻿@model BRANA_FG.Models.Prod_manq_relation
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Prod_manq_relation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_produit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_prod_manq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_prod_manq)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_caisse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_caisse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtite_bout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtite_bout)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

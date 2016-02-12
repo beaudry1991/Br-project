@@ -15,7 +15,7 @@ namespace BRANA_FG.Controllers
         private BddContext db = new BddContext();
             private BddContext ddd = new BddContext();
         public FonctionRequete Fonct = new FonctionRequete();
-        private int test = 0;
+       
         // GET: Unloadings
         
         public ActionResult Index()
@@ -218,7 +218,6 @@ namespace BRANA_FG.Controllers
                         
 
                         var query = from load_pro in db.Loading_produit
-                                    //where load_pro.id_produit == id_p && load_pro.id_loading == mimi.numero_emb
                                     select load_pro;
 
                         foreach (Loading_produit lo in query)
@@ -236,8 +235,7 @@ namespace BRANA_FG.Controllers
 
 
 
-                        var query1 = from lign_depot in db.Depot_Produit
-                                    // where lign_depot.id_produit == id_p && lign_depot.id_depot == mimi.id_depot
+                        var query1 = from lign_depot in db.Depot_Produit                             
                                      select lign_depot;
 
                         foreach (Depot_Produit lo in query1)

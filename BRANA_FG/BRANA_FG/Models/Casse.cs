@@ -11,19 +11,11 @@ namespace BRANA_FG.Models
     public class Casse
     {
         public int id { get; set; }
-
-       
+ 
         public int id_superviseur { get; set; }
 
         public System.DateTime date_casse { get; set; }
-
-        
-        public int id_produit { get; set; }
-        
-       
-        
-        public int qtite_casse { get; set; }
-        
+  
         public int id_depot { get; set; }
 
         [Display(Name = "Motif")]
@@ -34,10 +26,26 @@ namespace BRANA_FG.Models
         [Required(AllowEmptyStrings = false)]
         public string type { get; set; }
 
-        public int qtite_bout { get; set; }
+        [Display(Name = "Endroit")]
+        //[Required(AllowEmptyStrings = false)]
+        public string endroit { get; set; }
 
-        public int qtite_shortfill { get; set; }
-        public int qtite_perte { get; set; }
+        [Display(Name = "Personnes Blesseés")]
+      //  [Required(AllowEmptyStrings = false)]
+        public string injured_person { get; set; }
+
+
+        [Display(Name = "Chauffeur Fork Lift")]
+      //  [Required(AllowEmptyStrings = false)]
+        public string chauffeur_forklift { get; set; }
+
+        [Display(Name = "Description")]
+     //   [Required(AllowEmptyStrings = false)]
+        public string description { get; set; }
+
+        [Display(Name = "PPE utilisé")]
+       // [Required(AllowEmptyStrings = false)]
+        public string safety_material { get; set; }
 
     }
 }

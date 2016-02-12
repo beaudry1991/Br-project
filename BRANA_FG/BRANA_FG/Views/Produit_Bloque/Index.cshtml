@@ -1,0 +1,103 @@
+﻿@model IEnumerable<BRANA_FG.Models.Produit_Bloque>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_produit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_depot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.raison)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtite_caisse_donnee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtite_caisse_retour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.etat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_donnee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_retour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtite_bout_donnee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtite_bout_retour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_admin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_produit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_depot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.raison)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtite_caisse_donnee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtite_caisse_retour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.etat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_donnee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_retour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtite_bout_donnee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtite_bout_retour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_admin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })  |
+            @if (item.etat == 1)
+            {
+            @Html.ActionLink("Bloquer", "Bloque", new { id = item.id })
+            }
+
+            @if (item.etat == 0)
+            {
+                @Html.ActionLink("Debloquer", "Debloque", new { id = item.id })
+            }
+
+        </td>
+    </tr>
+}
+
+</table>
