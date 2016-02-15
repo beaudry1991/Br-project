@@ -369,10 +369,26 @@ namespace BRANA_FG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Loading loading = db.Loadings.Find(id);
+            ///////////////////////
             TempData["datetempon"] = loading.date_loading;
             ViewBag.superviseuredit = new SelectList(db.Utilisateurs, "id", "nom");
             ViewBag.chauffeuredit = new SelectList(db.Chauffeurs, "id", "nom");
             ViewBag.vehiculeedit = new SelectList(db.Vehicules, "id", "plaque");
+
+
+            ViewBag.size = Fonct.ListSuperviseurs().Count();
+            ViewBag.userNomPre = Fonct.ListSuperviseurs();
+
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizeP = Fonct.listproduit().Count();
+
+            ViewBag.chauffeurlist = Fonct.ListChauffeur();
+            ViewBag.sizeC = Fonct.ListChauffeur().Count();
+
+            ViewBag.vehiculelist = Fonct.ListVehicule();
+            ViewBag.sizeV = Fonct.ListVehicule().Count();
+
+            /////////////////////////////////////////
             if (loading == null)
             {
                 return HttpNotFound();

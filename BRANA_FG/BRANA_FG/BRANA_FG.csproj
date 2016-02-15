@@ -436,11 +436,6 @@
     <Content Include="Views\Produit_manquant\Edit.cshtml" />
     <Content Include="Views\Produit_manquant\Index.cshtml" />
     <Content Include="Views\Produit_manquant\NumEmb.cshtml" />
-    <Content Include="Views\Prod_manq_relation\Create.cshtml" />
-    <Content Include="Views\Prod_manq_relation\Delete.cshtml" />
-    <Content Include="Views\Prod_manq_relation\Details.cshtml" />
-    <Content Include="Views\Prod_manq_relation\Edit.cshtml" />
-    <Content Include="Views\Prod_manq_relation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,55 +38,23 @@ namespace BRANA_FG.Controllers
             return View(produit_manquant);
         }
         //
-        public ActionResult NumEmb()
-        {
-            if (TempData["msg1"] != null)
-            {
-                ViewBag.emb_alerte = "Numero d'Embarquement non existant.";
-            }
-            
-            if (Session.Keys.Count == 0)
-            {
-                //    /*No connection*/
-                return Redirect("~/Logins/Index");
-            }
-            else
-            {
-                var fonction = "admin_FG"; var fonction1 = "data_FG";
-
-                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
-                {
-                    // Session["iddataclock"] = Session["IdUser"];
-
-                    return View();
-                }
-                else
-                {
-                    /*No ADMIN connection*/
-                    return Redirect("~/Logins/Index");
-                }
-
-            }
-
-        }
+       
 
         // GET: Produit_manquant/Create
         public ActionResult Create(string num_emb)
         {
+            
             var num_emb_verify = db.Loadings.Where(b => b.numero_emb.Equals(num_emb)).FirstOrDefault();
 
 
             if (num_emb_verify == null)
             {
-                TempData["msg1"] = 1;
+                TempData["msg99"] = 1 ;
                 return RedirectToAction("NumEmb");
 
             }
             else
             {
-
-
-
 
                 var st = num_emb;
                 string eo = num_emb;
@@ -128,6 +96,42 @@ namespace BRANA_FG.Controllers
             ///  return View();
         }
 
+
+        public ActionResult NumEmb()
+        {
+            
+            if (TempData["msg99"] != null)
+            {
+                ViewBag.emb_alerte20 = "Numero d'Embarquement non existant.";
+            }
+
+           
+
+            if (Session.Keys.Count == 0)
+            {
+                //    /*No connection*/
+                return Redirect("~/Logins/Index");
+            }
+            else
+            {
+                var fonction = "admin_FG"; var fonction1 = "data_FG";
+
+                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
+                {
+                    // Session["iddataclock"] = Session["IdUser"];
+
+                    return View();
+                }
+                else
+                {
+                    /*No ADMIN connection*/
+                    return Redirect("~/Logins/Index");
+                }
+
+            }
+
+        }
+
         // POST: Produit_manquant/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -157,22 +161,8 @@ namespace BRANA_FG.Controllers
 
                 var infoload = db.Loadings.Where(l => l.numero_emb.Equals(produit_manquant.num_emb)).FirstOrDefault();
 
-                var query = from load_pro in ddd.Prod_manq_relation
-                            select load_pro;
-
-                foreach (Prod_manq_relation lo in query)
-                {
-                    for (int d = 0; d < ViewBag.sizeUnload; d++)
-                    {
-                        lo.id_produit = int.Parse(idProduit[d].ToString());
-                        lo.qtite_caisse = int.Parse(caisse[d].ToString());
-                        lo.qtite_bout = int.Parse(bouteille[d].ToString());
-                        lo.id_prod_manq = produit_manquant.id;
-                      //  ddd.SaveChanges();
 
 
-                    }
-                }
 
 
                 produit_manquant.id_depot = infoload.id_depot;
@@ -182,10 +172,27 @@ namespace BRANA_FG.Controllers
                 db.Produit_manquant.Add(produit_manquant);
                 db.SaveChanges();
 
+                //var search = from push in ddd.Prod_manq_relation
+                //             select push;
 
-               
+                Prod_manq_relation party = new Prod_manq_relation();
+                {
+                    for (int d = 0; d < ViewBag.sizeUnload; d++)
+                    {
+                        party.id_produit = int.Parse(idProduit[d].ToString());
+                        party.qtite_caisse = int.Parse(caisse[d].ToString());
+                        party.qtite_bout = int.Parse(bouteille[d].ToString());
+                        party.id_prod_manq = produit_manquant.id; ;
+                      ddd.Prod_manq_relation.Add(party);
 
-                
+                    }
+
+                }
+
+
+                ddd.SaveChanges();
+
+
                 return RedirectToAction("Index");
             }
 
