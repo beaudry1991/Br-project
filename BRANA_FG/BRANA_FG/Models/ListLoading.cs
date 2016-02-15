@@ -13,8 +13,6 @@ namespace BRANA_FG.Models
       
         public string chauffeur { get; set; }
 
-       
-
         public string vehicule { get; set; }
         public string numero_sp { get; set; }
        

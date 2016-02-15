@@ -72,9 +72,9 @@ namespace BRANA_FG.Models
             }
             else
             {
-                var fonction = "super_FG";
+                var fonction = "super_FG"; var fonction1 = "admin_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) && Session["verify_Inv"] != null)
+                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -137,12 +137,6 @@ namespace BRANA_FG.Models
                 }
                 return RedirectToAction("Index");
             }
-            else
-            {
-                var prod = Request["id_produit"];
-                int vaProd = int.Parse(prod.ToString());
-                ViewBag.tmpPro = vaProd;
-            }
 
             return View(laboratoireEchantillon);
         }
@@ -194,7 +188,6 @@ namespace BRANA_FG.Models
             }
                 return RedirectToAction("Index");
             }
-           
             return View(laboratoireEchantillon);
         }
 
