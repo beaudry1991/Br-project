@@ -129,9 +129,6 @@ namespace BRANA_FG.Controllers
                 return RedirectToAction("Index");
 
             }
-
-            ViewBag.sizeDP = Fonct.ListDepot().Count();
-            ViewBag.listdep = Fonct.ListDepot();
             ViewBag.depot = new SelectList(db.Depots, "nom", "nom", " ");
             return View(utilisateur);
             //if (ModelState.IsValid)

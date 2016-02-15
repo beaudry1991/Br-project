@@ -19,7 +19,7 @@ namespace BRANA_FG.Controllers
         public ActionResult Index()
         {
             return View();
-           // return View(db.Logins.ToList());
+            // return View(db.Logins.ToList());
         }
 
 
@@ -49,7 +49,7 @@ namespace BRANA_FG.Controllers
                         Session["fonction"] = user.fonction.ToString();
 
                         //Session["Depot"] = user.depot.ToString();
-                        
+
                         /*Admin Loggin test*/
                         var ad = "admin_FG";
                         var sup = "super_FG";
@@ -162,7 +162,7 @@ namespace BRANA_FG.Controllers
             //{
 
             //}
-            
+
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();
             ViewBag.listproddispo = Fonct.ProduitDispos();
@@ -171,21 +171,21 @@ namespace BRANA_FG.Controllers
 
             if (Session.Keys.Count == 0)
             {
-            //    /*No connection*/
+                //    /*No connection*/
                 return Redirect("~/Logins/Index");
             }
             else
             {
                 var fonction = "admin_FG";
-              
-                if (Session["fonction"].ToString().Equals(fonction) )
+
+                if (Session["fonction"].ToString().Equals(fonction))
                 {
                     //var i = Request.Form.GetValues("idP");
                     // string[] idProduit = i.ToArray();
                     // for (int a = 0; a < ViewBag.sizeP; a++)
                     // {
                     //  int w;
-                    
+
                     // }
 
                     return View();
@@ -193,13 +193,13 @@ namespace BRANA_FG.Controllers
                 }
                 else
                 {
-                   /*No ADMIN connection*/
-                   return Redirect("~/Logins/Index");
+                    /*No ADMIN connection*/
+                    return Redirect("~/Logins/Index");
                 }
 
-           }
+            }
         }
-        
+
         public ActionResult AcceuilDataC()
         {   /*Connection and Authorization required*/
             //gestion des messages
@@ -215,7 +215,7 @@ namespace BRANA_FG.Controllers
 
                 if (Session["fonction"].ToString().Equals(fonction))
                 {
-                   
+
                     return View();
                 }
                 else
@@ -243,11 +243,12 @@ namespace BRANA_FG.Controllers
 
                 if (Session["fonction"].ToString().Equals(fonction))
                 {
-                    int id_user =(int) Session["idUser"];
-                   
-                    Debut_Inventaire debut = db.Debut_Inventaire.Where(v => ( v.date_debut_inventaire.Year.Equals(DateTime.Now.Year)&&  v.date_debut_inventaire.Month.Equals(DateTime.Now.Month)&& v.date_debut_inventaire.Day.Equals(DateTime.Now.Day)) && v.id_superviseur.Equals(id_user) ).FirstOrDefault();
+                    int id_user = (int)Session["idUser"];
 
-                    if ( debut != null ) {
+                    Debut_Inventaire debut = db.Debut_Inventaire.Where(v => (v.date_debut_inventaire.Year.Equals(DateTime.Now.Year) && v.date_debut_inventaire.Month.Equals(DateTime.Now.Month) && v.date_debut_inventaire.Day.Equals(DateTime.Now.Day)) && v.id_superviseur.Equals(id_user)).FirstOrDefault();
+
+                    if (debut != null)
+                    {
                         ViewBag.produitlist = Fonct.listproduit();
                         ViewBag.sizeP = Fonct.listproduit().Count();
                         ViewBag.listproddispo = Fonct.ProduitDispos();
@@ -259,8 +260,8 @@ namespace BRANA_FG.Controllers
                         return Redirect("~/Debut_Inventaire/Create");
 
                     }
-                   
-                    
+
+
                 }
                 else
                 {
@@ -289,7 +290,7 @@ namespace BRANA_FG.Controllers
 
                 if (Session["fonction"].ToString().Equals(fonction))
                 {
-                   
+
                     return View();
                 }
                 else

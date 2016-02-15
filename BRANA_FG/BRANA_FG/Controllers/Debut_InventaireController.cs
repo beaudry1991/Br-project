@@ -64,8 +64,8 @@ namespace BRANA_FG.Controllers
         // GET: Debut_Inventaire/Create
         public ActionResult Create()
         {
-            //ViewBag.superviseur = new SelectList(db.Utilisateurs, "id", "nom");
-            //ViewBag.produit = new SelectList(db.Produits, "id", "nom");
+            ViewBag.superviseur = new SelectList(db.Utilisateurs, "id", "nom");
+            ViewBag.produit = new SelectList(db.Produits, "id", "nom");
             ViewBag.produitlist = Fonct.listproduit();
             ViewBag.sizeP = Fonct.listproduit().Count();
             ViewBag.tmpPro = 0;
@@ -208,12 +208,9 @@ namespace BRANA_FG.Controllers
 
                             db.SaveChanges();
 
-                            
-
                         }
                     }
 
-                    Session["verify_Inv"] = "Valider";
 
                 }
 

@@ -18,7 +18,9 @@ namespace BRANA_FG.Controllers
         // GET: Loadings
         public ActionResult Index()
         {
-
+            ViewBag.produitlist = Fonct.listproduit();
+            ViewBag.sizePro = Fonct.listproduit().Count();
+            ViewBag.tmpPro = 0;
 
 
             if (Request["date1"] != null || Request["date1"] == "")
@@ -199,9 +201,7 @@ namespace BRANA_FG.Controllers
                 int va = int.Parse(sup.ToString());
                 loading.id_superviseur = va;
                 ViewBag.tmpSup = va;
-                ViewBag.produitlist = Fonct.listproduit();
-
-
+                
                 Utilisateur info_superv = db.Utilisateurs.Find(loading.id_superviseur);
 
                 var info_depot = db.Depots.Where(b => b.nom.Equals(info_superv.depot)).FirstOrDefault();
@@ -211,106 +211,47 @@ namespace BRANA_FG.Controllers
                     id_depot = info_depot.id;
                 }
 
+                for (int a = 0; a < caisse.Count(); a++)
+                {
+                    Loading_produit load_p = new Loading_produit();
+                    if (!caisse[a].Equals(""))
+                    {
+                        load_p.id_produit = int.Parse(idProduit[a].ToString());
+                        load_p.id_loading = loading.numero_emb;
+                        load_p.qte_caisse_delivre = int.Parse(caisse[a].ToString());
+                        load_p.qte_bouteille_delivre = int.Parse(bouteille[a].ToString()); ;
+                        load_p.qte_caisse_retourne = 0;
+                        load_p.qte_bout_retourne = 0;
+
+                        db.Loading_produit.Add(load_p);
+
+                        var reket = from lign_depot in db.Depot_Produit
+                                    select lign_depot;
+
+                        foreach (Depot_Produit lo in reket)
+                        {
+
+                            if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
+                            {
+                                lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
+                                lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
+
+                            }
+
+                        }
+                    }
+
+                }
+
 
                 if (id_depot != 0)
                 {
-
-                    for (int a = 0; a < caisse.Count(); a++)
-                    {
-
-                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
-                        {
-
-                            if (caisse[a].Equals("") && !bouteille[a].Equals(""))
-                            {
-                                caisse[a] = "0";
-                            }
-
-                            if (!caisse[a].Equals("") && bouteille[a].Equals(""))
-                            {
-                                bouteille[a] = "0";
-                            }
-
-
-
-                            var reket = from lign_depot in db.Depot_Produit
-                                        select lign_depot;
-
-                            foreach (Depot_Produit lo in reket)
-                            {
-
-                                if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
-                                {
-                                    if (lo.qtite_produit_dispo <= int.Parse(caisse[a].ToString()) || lo.qtite_bouteille <= int.Parse(bouteille[a].ToString()))
-                                    {
-                                        ViewBag.inferieur1 = "La quantite de " + ViewBag.produitlist[a].nom.ToString() + " est superieure aux quantites disponibles!";
-                                       
-                                        ViewBag.verification = "Non enregistre";
-                                        ViewBag.temp_caisse = caisse;
-                                        ViewBag.temp_bout = bouteille;
-                                        return View();
-
-
-                                    }
-
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                    //
-                    //
-
-                    //
-                    for (int a = 0; a < caisse.Count(); a++)
-                    {
-                        Loading_produit load_p = new Loading_produit();
-                        if ((!caisse[a].Equals("") && bouteille[a].Equals("")) || (caisse[a].Equals("") && !bouteille[a].Equals("")) || (!caisse[a].Equals("") && !bouteille[a].Equals("")))
-                        {
-
-                            if (caisse[a].Equals("") && !bouteille[a].Equals(""))
-                            {
-                                caisse[a] = "0";
-                            }
-
-                            if (!caisse[a].Equals("") && bouteille[a].Equals(""))
-                            {
-                                bouteille[a] = "0";
-                            }
-
-
-                            load_p.id_produit = int.Parse(idProduit[a].ToString());
-                            load_p.id_loading = loading.numero_emb;
-                            load_p.qte_caisse_delivre = int.Parse(caisse[a].ToString());
-                            load_p.qte_bouteille_delivre = int.Parse(bouteille[a].ToString()); ;
-                            load_p.qte_caisse_retourne = 0;
-                            load_p.qte_bout_retourne = 0;
-
-                            db.Loading_produit.Add(load_p);
-
-                            var reket = from lign_depot in db.Depot_Produit
-                                        select lign_depot;
-
-                            foreach (Depot_Produit lo in reket)
-                            {
-
-                                if (lo.id_produit == int.Parse(idProduit[a].ToString()) && lo.id_depot == info_depot.id)
-                                {
-                                    lo.qtite_produit_dispo -= int.Parse(caisse[a].ToString());
-                                    lo.qtite_bouteille -= int.Parse(bouteille[a].ToString());
-
-                                }
-
-                            }
-                            loading.id_depot = id_depot;
-                            db.Loadings.Add(loading);
-                        }
-                        db.SaveChanges();
-                    }
+                    
+                    loading.id_depot = id_depot;
+                    db.Loadings.Add(loading);
+                    
+                    db.SaveChanges();
+                   
 
 
                 }
@@ -320,26 +261,6 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-
-
-               
-                var c = Request.Form.GetValues("caisse");
-                var bo = Request.Form.GetValues("bouteille");
-
-
-
-                
-                string[] caisse = c.ToArray();
-                string[] bouteille = bo.ToArray();
-
-
-                ViewBag.verification= "Non enregistre";
-                ViewBag.temp_caisse = caisse;
-                ViewBag.temp_bout = bouteille;
-
-
-
-
                 var sup = Request["id_superviseur"];
                 int va = int.Parse(sup.ToString());
                 ViewBag.tmpSup = va;
@@ -349,13 +270,9 @@ namespace BRANA_FG.Controllers
                 ViewBag.tmpChauf = vaC;
 
 
-                var veh = Request["id_vehicule"];
+                var veh = Request["id_chauffeur"];
                 int vaV = int.Parse(veh.ToString());
                 ViewBag.tmpVeh = vaV;
-
-                var emb = Request["type_emb"];
-               
-                ViewBag.tmpEmb = emb;
             }
 
             return View(loading);
@@ -458,7 +375,7 @@ namespace BRANA_FG.Controllers
             DateTime date2 = Convert.ToDateTime(b);
 
             var load = from ld in db.Loadings
-                            where (ld.heure_debut.Day >= date1.Day && ld.heure_debut.Day <= date2.Day)
+                            where (ld.heure_debut.Day >= date1.Day && ld.heure_debut.Month >= date1.Month && ld.heure_debut.Year >= date1.Year && ld.heure_debut.Day <= date2.Day && ld.heure_debut.Month <= date2.Month && ld.heure_debut.Year <= date2.Year)
                                join chauff in db.Chauffeurs on ld.id_chauffeur equals chauff.id
                                join dep in db.Depots on ld.id_depot equals dep.id
                                join veh in db.Vehicules on ld.id_vehicule equals veh.id

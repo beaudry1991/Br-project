@@ -137,14 +137,6 @@ namespace BRANA_FG.Controllers
 
                 return RedirectToAction("Index");
             }
-            else
-            {
-                ViewBag.emballage = Fonct.listEmballage();
-                ViewBag.sizeEmballage = Fonct.listEmballage().Count();
-
-                ViewBag.categorie = Fonct.listCategorie();
-                ViewBag.sizeCategorie = Fonct.listCategorie().Count();
-            }
 
             return View(produits);
         }

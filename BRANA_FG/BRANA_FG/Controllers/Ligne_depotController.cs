@@ -142,9 +142,9 @@ namespace BRANA_FG.Controllers
             }
             else
             {
-                var fonction = "super_FG"; 
+                var fonction = "super_FG"; var fonction1 = "admin_FG";
 
-                if (Session["fonction"].ToString().Equals(fonction) && Session["verify_Inv"] != null)
+                if (Session["fonction"].ToString().Equals(fonction) || Session["fonction"].ToString().Equals(fonction1))
                 {
                     Session["iddataclock"] = Session["IdUser"];
                     return View();
@@ -163,7 +163,7 @@ namespace BRANA_FG.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,id_ligne_production,qtite_caisse,id_produit")] Ligne_depot ligne_depot)
+        public ActionResult Create([Bind(Include = "id,id_ligne_production,id_depot,qtite_caisse,id_produit")] Ligne_depot ligne_depot)
         {
             ViewBag.sizeLP = Fonct.ListLigneProduction().Count();
             ViewBag.ligneProduction = Fonct.ListLigneProduction();
@@ -184,20 +184,12 @@ namespace BRANA_FG.Controllers
 
             if (ModelState.IsValid)
             {
-                var sup = (int)Session["iddataclock"];
-                int va = int.Parse(sup.ToString());
-
-                Utilisateur info_superv = db.Utilisateurs.Find(va);
-
-                var info_depot = db.Depots.Where(b => b.nom.Equals(info_superv.depot)).FirstOrDefault();
-
-
                 Depot_Produit dep_pro = new Depot_Produit();
                 var Idp1 = Request["id_produit"];
                 int valID1 = int.Parse(Idp1.ToString());
 
-                
-               int valDep = info_depot.id;
+                var Iddep = Request["id_depot"];
+               int valDep = int.Parse(Iddep.ToString());
 
                 var query = from lign_depot in db.Depot_Produit
                             where lign_depot.id_produit == valID1  && lign_depot.id_depot== valDep
@@ -211,24 +203,12 @@ namespace BRANA_FG.Controllers
                 db.SaveChanges();
 
 
-                ligne_depot.id_depot = info_depot.id;
+
                 ligne_depot.id_superviseur = int.Parse(Session["iddataclock"].ToString());
                 ligne_depot.date_ligne_depot = DateTime.Now;
                 db.Ligne_depot.Add(ligne_depot);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                var lign_pro = Request["id_ligne_production"];
-                int va = int.Parse(lign_pro.ToString());
-                ViewBag.tmpLign_pro = va;
-
-                var prod = Request["id_produit"];
-                int vaP = int.Parse(prod.ToString());
-                ViewBag.tmpProd = vaP;
-
-
             }
 
             return View(ligne_depot);
