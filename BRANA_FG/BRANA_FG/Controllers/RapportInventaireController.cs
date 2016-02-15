@@ -116,7 +116,7 @@ namespace BRANA_FG.Controllers
 
                 List<ListSomme> listSomme = Fonct.ListTotal(a.id_pro, a.date, a.id_sup);
                 List<ListSommeTransf> listSomme_tra = Fonct.ListTotalTransf(a.id_pro, a.date, a.id_sup);
-              //  List<ListCasses> listSommeCasse = Fonct.listCaPeSh(a.id_pro, a.date, a.id_sup);
+                List<ListCasses> listSommeCasse = Fonct.listCaPeSh(a.id_pro, a.date, a.id_sup);
                 List<FinInventaire_qtite> list_inventaire = Fonct.Fin_inv_produit(a.id_sup, a.id_pro, a.date);
 
 
@@ -158,12 +158,12 @@ namespace BRANA_FG.Controllers
 
 
 
-                    //perte = (listSommeCasse.Count() > 1) ? listSommeCasse[1].perte : 0,
-                    //shortf = (listSommeCasse.Count() > 1) ? listSommeCasse[2].short_fill : 0,
-                    //bouteille1 = (listSommeCasse.Count() > 1) ? listSommeCasse[0].bouteille : 0,
-                    //bouteille2 = (listSommeCasse.Count() > 1) ? listSommeCasse[1].bouteille : 0,
-                    //bouteille3 = (listSommeCasse.Count() > 1) ? listSommeCasse[2].bouteille : 0,
-                    //casse = (listSommeCasse.Count() > 1) ? listSommeCasse[0].casse : 0,
+                    perte = (listSommeCasse.Count() > 1) ? listSommeCasse[1].perte : 0,
+                    shortf = (listSommeCasse.Count() > 1) ? listSommeCasse[2].short_fill : 0,
+                    bouteille1 = (listSommeCasse.Count() > 1) ? listSommeCasse[0].bouteille : 0,
+                    bouteille2 = (listSommeCasse.Count() > 1) ? listSommeCasse[1].bouteille : 0,
+                    bouteille3 = (listSommeCasse.Count() > 1) ? listSommeCasse[2].bouteille : 0,
+                    casse = (listSommeCasse.Count() > 1) ? listSommeCasse[0].casse : 0,
 
                     clo_stck_caisse_ph = list_inventaire[0].caisse_ph,
                     clo_stck_bout_ph = list_inventaire[0].bouteille_ph,
@@ -190,10 +190,6 @@ namespace BRANA_FG.Controllers
         }
 
 
-
-
-
-
         public ActionResult rapportUtilisateur()
         {
             ViewBag.size = Fonct.ListSuperviseurs().Count();
@@ -216,6 +212,23 @@ namespace BRANA_FG.Controllers
             return View();
         }
 
+
+        public ActionResult TimeSheet()
+        {
+
+            return View();
+        }
+
+
+        public List<Tuple<string, Array>> TimeLoading(int b)
+        {
+            List<Tuple<string, Array>> PC = new List<Tuple<string, Array>>();
+
+            return PC;
+        }
+
+
+
         public List<Tuple<string, string, string>> afficheLoading(int b)
         {
             List<Tuple<string, string, string>> PC = new List<Tuple<string, string, string>>();
@@ -237,10 +250,10 @@ namespace BRANA_FG.Controllers
                 foreach (var a in vehiculo)
                     {
                 
-                       PC.Add(Tuple.Create(a.date_loading.ToString(), a.numero_sp, a.numero_emb));
+                       PC.Add(Tuple.Create(a.date_loading.ToString("dd-MM-yy"), a.numero_sp, a.numero_emb));
                 
                     }
-            return PC;
+                    return PC;
         }
 
         public List<Tuple<string, string, int>> afficheTransfert(int b)
@@ -264,7 +277,7 @@ namespace BRANA_FG.Controllers
             foreach (var a in vehiculo)
             {
 
-                PC.Add(Tuple.Create(a.date_transfert.ToString(), a.num_transfert.ToString(), a.id_chauffeur));
+                PC.Add(Tuple.Create(a.date_transfert.ToString("dd-MM-yyyy"), a.num_transfert.ToString(), a.id_chauffeur));
 
             }
             return PC;
@@ -294,7 +307,7 @@ namespace BRANA_FG.Controllers
             foreach (var a in vehiculo)
             {
 
-                PC.Add(Tuple.Create(a.date.ToString(), a.lign.ToString(), a.produit.ToString()));
+                PC.Add(Tuple.Create(a.date.ToString("dd-MM-yyyy"), a.lign.ToString(), a.produit.ToString()));
 
             }
             return PC;
