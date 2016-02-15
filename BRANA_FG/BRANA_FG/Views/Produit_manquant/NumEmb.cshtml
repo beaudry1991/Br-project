@@ -1,4 +1,4 @@
-﻿@model BRANA_FG.Models.Unloading
+﻿@model BRANA_FG.Models.Produit_manquant
 @{
     ViewBag.Title = "NumEmb";
 }
@@ -19,20 +19,20 @@
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            @*<div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
-            </div>
+            </div>*@
 
             <div class="modal-body">
                 @using (Html.BeginForm())
             {
                     @Html.AntiForgeryToken()
 
-                    if (@ViewBag.emb_alerte != null)
+                    if (@ViewBag.emb_alerte20 != null)
                     {
                         <div class="alert alert-danger">
-                            @ViewBag.emb_alerte
+                            @ViewBag.emb_alerte20
                         </div>
                     }
                 }

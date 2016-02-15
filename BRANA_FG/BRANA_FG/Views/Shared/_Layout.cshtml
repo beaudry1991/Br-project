@@ -134,9 +134,16 @@
 
 
 
-                                @if (Session["fonction"].ToString().Equals("data_FG") || Session["fonction"].ToString().Equals("super_FG")) { 
+                                @if (Session["fonction"].ToString().Equals("data_FG") || Session["fonction"].ToString().Equals("super_FG") || Session["fonction"].ToString().Equals("admin_FG")) {
                                 <li><a><i class="fa fa-edit"></i> Operations <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
+                                         @if (Session["fonction"].ToString().Equals("admin_FG"))
+                                         {
+                                            <li>
+                                                <a href="~/Produit_Bloque/Create">Bloquer Produit</a>
+                                            </li>
+                                         }
+
                                         @if (Session["fonction"].ToString().Equals("data_FG") )
                                         {
                                         <li>
@@ -144,7 +151,10 @@
                                         </li>
                                         <li>
                                             <a href="~/Unloadings/NumEmb">Déchargement</a>
-                                        </li> 
+                                        </li>
+                                        <li>
+                                            <a href="~/Produit_manquant/NumEmb">Produit Manquant</a>
+                                        </li>
                                         }
 
                                         @if (Session["fonction"].ToString().Equals("super_FG") )
@@ -194,6 +204,12 @@
                                                 <a href="~/Loadings/Index">Chargement</a>
                                             </li>
                                             <li>
+                                                <a href="~/Produit_Bloque/Index">Produits Bloqués</a>
+                                            </li>
+                                            <li>
+                                                <a href="~/Produit_manquant/Index">Produits Manquants</a>
+                                            </li>
+                                            <li>
                                                 <a href="~/Unloadings/Index">Déchargement</a>
                                             </li>
                                             <li>
@@ -205,6 +221,7 @@
                                             <li>
                                                 <a href="~/LaboratoireEchantillons/Index">Echantillon (lab)</a>
                                             </li>
+
 
                                         </ul>
                                     </li>
